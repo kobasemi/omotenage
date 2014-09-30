@@ -1,0 +1,16 @@
+#container {
+  overflow:hidden;
+  position:relative;
+  zoom:1;
+}
+#image {
+  float:left;
+}
+
+#date { 
+  float:left;
+}
+
+#temperature {
+  float:left;
+}

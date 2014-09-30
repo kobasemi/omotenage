@@ -1,0 +1,15 @@
+document.open();
+document.write('<div id="container">');
+document.write('<div id="image">');
+document.write("<img src='https://s.imwx.com/v.20131006.214956/img/wxicon/120/26.png'><br/>");
+document.write('</div>');
+document.write('<div id="date">');
+document.write("<br/>Date : September 30, 2014<br/><br/><br/>");
+document.write("Location : Boston, MA");
+document.write('</div>');
+document.write('<div id="temperature">');
+document.write("<br/>&nbsp;&nbsp;&nbsp;High&nbsp;|&nbsp;17&#8451;<br/><br/><br/>");
+document.write("&nbsp;&nbsp;&nbsp;Low&nbsp;&nbsp;|&nbsp;13&#8451;");
+document.write('</div>');
+document.write('</div>');
+document.close();

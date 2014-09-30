@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" /> 
+<meta name="viewport" content="width=device-width, initial-scale=1" /> 
+<title>WebRTC × おもてなし</title>
+<link rel="shortcut icon" href="img/logo.png">
+<link rel="stylesheet" type="text/css" href="css/flags.css" />
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.css" />
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script>
+</head>
+<body>
+<div data-role="page" data-title="WebRTC × おもてなし" data-theme="b" id="home">
+    <div data-role="header">
+        <h1><strong>Select Your Country...</strong></h1>
+    </div>
+
+    <div role="main" class="ui-content">
+        <ul data-role="listview" data-filter="true" data-filter-placeholder="Search countries..." data-inset="true">
+            <li id="us"><a href="#">
+                <img src="img/blank.gif" class="flag flag-us ui-li-icon" alt="United States" />
+                United States</a></li>
+            <li id="fr"><a href="#">
+                <img src="img/blank.gif" class="flag flag-fr ui-li-icon" alt="France" />
+                France</a></li>
+            <li id="de"><a href="#">
+                <img src="img/blank.gif" class="flag flag-de ui-li-icon" alt="France" />
+                Germany</a></li>
+            <li id="kr"><a href="#">
+                <img src="img/blank.gif" class="flag flag-kr ui-li-icon" alt="France" />
+                South Korea</a></li>
+            <li id="it"><a href="#">
+                <img src="img/blank.gif" class="flag flag-it ui-li-icon" alt="France" />
+                Italy</a></li>
+            <li id="cn"><a href="#">
+                <img src="img/blank.gif" class="flag flag-cn ui-li-icon" alt="France" />
+                China</a></li>
+            <li id="es"><a href="#">
+                <img src="img/blank.gif" class="flag flag-es ui-li-icon" alt="France" />
+                Spain</a></li>
+            <li id="eg"><a href="#">
+                <img src="img/blank.gif" class="flag flag-eg ui-li-icon" alt="France" />
+                Egypt</a></li>
+            <li id="za"><a href="#">
+                <img src="img/blank.gif" class="flag flag-za ui-li-icon" alt="France" />
+                South Africa</a></li>
+        </ul>
+    </div>
+    <div data-role="footer">
+        <h3>Copryright &copy; 2014, Kobayashi Seminar</h3>
+    </div>
+</div>
+
+<div data-role="page" data-title="WebRTC × おもてなし" data-theme="b" id="nav">
+    <div data-role="header" data-add-back-btn="true">
+        <h1><strong>Welcome to Japan</strong></h1>
+    </div>
+    <div data-role="contents" id="nav-main">
+        <p style="text-align:center;">
+        In order to do the best "OMOTENASHI",
+        expert guide will show you around the street of Tokyo.
+        </p>
+        <p style="text-align:center;">
+        Pushing the button below, you just call a guide.
+        </p>
+        <p style="text-align:center;">
+        <strong>NOTE:</strong> Next Page needs to allow you to get Camera and Mic, GPS.
+        </p>
+        <a id="call" href="connection/client.html" data-role="button" rel="external">O.K.</a>
+    </div>
+    <div data-role="footer">
+        <h3>Copryright &copy; 2014, Kobayashi Seminar</h3>
+    </div>
+    <script>
+$(function(){
+        $("#nav-main > p").css("margin-left", "5px", "margin-right", "5px");
+        });
+$("li").click(function(){
+        // get Country Code that is clicked.
+        var code = $(this).attr('id');
+        // TODO:
+        // 将来的に翻訳APIと連携し、
+        // 国ごとに動的に文章を生成する
+
+        // Callボタンのリンクに国コードパラメータを追加
+        $("#call").attr('href', 'connection/client.html?cc=' + code);
+        $.mobile.changePage("#nav");
+        });
+    </script>
+    </body>
+    </html>
