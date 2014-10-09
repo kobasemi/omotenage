@@ -11,7 +11,7 @@
 <script type="text/javascript" src="https://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script>
 </head>
 <body>
-<div data-role="page" data-title="WebRTC × おもてなし" data-theme="b" id="home">
+<div data-role="page" data-title="WebRTC × おもてなし" data-theme="a" id="home">
     <div data-role="header">
         <h1><strong>Select Your Country...</strong></h1>
     </div>
@@ -25,25 +25,25 @@
                 <img src="img/blank.gif" class="flag flag-fr ui-li-icon" alt="France" />
                 France</a></li>
             <li id="de"><a href="#">
-                <img src="img/blank.gif" class="flag flag-de ui-li-icon" alt="France" />
+                <img src="img/blank.gif" class="flag flag-de ui-li-icon" alt="Germany" />
                 Germany</a></li>
             <li id="kr"><a href="#">
-                <img src="img/blank.gif" class="flag flag-kr ui-li-icon" alt="France" />
+                <img src="img/blank.gif" class="flag flag-kr ui-li-icon" alt="South Korea" />
                 South Korea</a></li>
             <li id="it"><a href="#">
-                <img src="img/blank.gif" class="flag flag-it ui-li-icon" alt="France" />
+                <img src="img/blank.gif" class="flag flag-it ui-li-icon" alt="Italy" />
                 Italy</a></li>
             <li id="cn"><a href="#">
-                <img src="img/blank.gif" class="flag flag-cn ui-li-icon" alt="France" />
+                <img src="img/blank.gif" class="flag flag-cn ui-li-icon" alt="China" />
                 China</a></li>
             <li id="es"><a href="#">
-                <img src="img/blank.gif" class="flag flag-es ui-li-icon" alt="France" />
+                <img src="img/blank.gif" class="flag flag-es ui-li-icon" alt="Spain" />
                 Spain</a></li>
             <li id="eg"><a href="#">
-                <img src="img/blank.gif" class="flag flag-eg ui-li-icon" alt="France" />
+                <img src="img/blank.gif" class="flag flag-eg ui-li-icon" alt="Egypt" />
                 Egypt</a></li>
             <li id="za"><a href="#">
-                <img src="img/blank.gif" class="flag flag-za ui-li-icon" alt="France" />
+                <img src="img/blank.gif" class="flag flag-za ui-li-icon" alt="South Africa" />
                 South Africa</a></li>
         </ul>
     </div>
@@ -52,9 +52,15 @@
     </div>
 </div>
 
-<div data-role="page" data-title="WebRTC × おもてなし" data-theme="b" id="nav">
+<div data-role="page" data-title="WebRTC × おもてなし" data-theme="a" id="nav">
     <div data-role="header" data-add-back-btn="true">
+        <a href="#home" data-role="button" data-icon="home" data-corners="true" data-inline="true">Home</a>
         <h1><strong>Welcome to Japan</strong></h1>
+        <!--
+        <a href="#" style="background: transparent !important;">
+            <img src="img/blank.gif" class="flag flag-eg ui-btn-icon" alt="Egypt" />
+        </a>
+        -->
     </div>
     <div data-role="contents" id="nav-main">
         <p style="text-align:center;">
@@ -67,7 +73,7 @@
         <p style="text-align:center;">
         <strong>NOTE:</strong> Next Page needs to allow you to get Camera and Mic, GPS.
         </p>
-        <a id="call" href="connection/client.html" data-role="button" rel="external">O.K.</a>
+        <a id="call" href="connection/client.html" data-role="button" rel="external" data-icon="check" style="background: #11d528; color: white;">O.K.</a>
     </div>
     <div data-role="footer">
         <h3>Copryright &copy; 2014, Kobayashi Seminar</h3>
