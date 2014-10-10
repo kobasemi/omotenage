@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8" /> 
 <meta name="viewport" content="width=device-width, initial-scale=1" /> 
-<title>WebRTC × おもてなし</title>
 <link rel="shortcut icon" href="img/logo.png">
 <link rel="stylesheet" type="text/css" href="css/flags.css" />
 <link rel="stylesheet" type="text/css" href="https://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.css" />
@@ -13,7 +12,7 @@
 <body>
 <div data-role="page" data-title="WebRTC × おもてなし" data-theme="a" id="home">
     <div data-role="header">
-        <h1><strong>Select Your Country...</strong></h1>
+        <h1><strong>Your Country is ...</strong></h1>
     </div>
 
     <div role="main" class="ui-content">
@@ -58,22 +57,30 @@
         <h1><strong>Welcome to Japan</strong></h1>
         <!--
         <a href="#" style="background: transparent !important;">
-            <img src="img/blank.gif" class="flag flag-eg ui-btn-icon" alt="Egypt" />
+            <img src="img/blank.gif" class="flag flag-eg" alt="Egypt" />
         </a>
         -->
     </div>
     <div data-role="contents" id="nav-main">
-        <p style="text-align:center;">
-        In order to do the best "OMOTENASHI",
-        expert guide will show you around the street of Tokyo.
-        </p>
-        <p style="text-align:center;">
-        Pushing the button below, you just call a guide.
-        </p>
-        <p style="text-align:center;">
-        <strong>NOTE:</strong> Next Page needs to allow you to get Camera and Mic, GPS.
-        </p>
-        <a id="call" href="connection/client.html" data-role="button" rel="external" data-icon="check" style="background: #11d528; color: white;">O.K.</a>
+        <div class="ui-bar-c ui-corner-all ui-shadow" style="margin: 0.5em; padding: 0.5em; text-align:center;">
+            <p>
+                In order to do the best "OMOTENASHI",
+                expert guide will show you around the street of Tokyo.
+            </p>
+            <p>
+                Pushing the button below, you just call a guide.
+            </p>
+            <p>
+                <strong>NOTE:</strong> Next Page needs to allow you to get Camera and Mic, GPS.
+            </p>
+            <div class="ui-grid-b">
+                <div class="ui-block-a"></div>
+                <div class="ui-block-b">
+                <a id="call" href="connection/client.html" data-role="button" rel="external" data-icon="check" style="background: #11d528; color: white;">O.K.</a>
+                </div>
+                <div class="ui-block-c"></div>
+            </div>
+        </div>
     </div>
     <div data-role="footer">
         <h3>Copryright &copy; 2014, Kobayashi Seminar</h3>
