@@ -78,7 +78,7 @@ navigator.getUserMedia({audio: true, video: true}, function(stream){
 // PeerJS
 var peer = new Peer({key: APIKEY, debug:3});
 peer.on('open', function(id) {
-        $.get('https://skyway.io/v2/active/list/' + APIKEY, function(list){
+        peer.listAllPeers(function(list){
                 //TODO: 複数人未対応
                 opeId = list.filter(function(v){return v.substring(0,2) == cc})[0];
                 });
