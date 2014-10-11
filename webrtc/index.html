@@ -76,7 +76,7 @@
             <div class="ui-grid-b">
                 <div class="ui-block-a"></div>
                 <div class="ui-block-b">
-                <a id="call" href="connection/client.html" data-role="button" rel="external" data-icon="check" style="background: #11d528; color: white;">O.K.</a>
+                <a id="call" href="client.html" data-role="button" rel="external" data-icon="check" style="background: #11d528; color: white;">O.K.</a>
                 </div>
                 <div class="ui-block-c"></div>
             </div>
@@ -86,9 +86,6 @@
         <h3>Copryright &copy; 2014, Kobayashi Seminar</h3>
     </div>
     <script>
-$(function(){
-        $("#nav-main > p").css("margin-left", "5px", "margin-right", "5px");
-        });
 $("li").click(function(){
         // get Country Code that is clicked.
         var code = $(this).attr('id');
@@ -97,7 +94,7 @@ $("li").click(function(){
         // 国ごとに動的に文章を生成する
 
         // Callボタンのリンクに国コードパラメータを追加
-        $("#call").attr('href', 'connection/client.html?cc=' + code);
+        $("#call").attr('href', 'client.html?cc=' + code);
         $.mobile.changePage("#nav");
         });
     </script>

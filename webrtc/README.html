@@ -162,7 +162,7 @@ sup {
 
 <h2>オペレータページ</h2>
 
-<p>オペレータページ(<a href="https://www.scwttn-117.nttw-w-con.jp/webrtc/connection/operator.html">operator.html</a>)では，下の手順で受付を行います．</p>
+<p>オペレータページ(<a href="operator.html">operator.html</a>)では，下の手順で受付を行います．</p>
 
 <ul>
 <li>担当する国(CC)をセレクトボックスの中から選択する</li>
@@ -187,17 +187,17 @@ sup {
 </ol>
 <h2>クライアントページ</h2>
 
-<p>クライアントページは2つのhtmlファイル(<a href="https://www.scwttn-117.nttw-w-con.jp/webrtc/index.html">index.html</a>, <a href="https://www.scwttn-117.nttw-w-con.jp/webrtc/connection/client.html">client.html</a>)に分かれます．
-1つ目はユーザの出身地の情報を取得するためのページ(<a href="https://www.scwttn-117.nttw-w-con.jp/webrtc/index.html">index.html</a>)で，2つ目はオペレータと通信するためのページ(<a href="https://www.scwttn-117.nttw-w-con.jp/webrtc/connection/client.html">client.html</a>)となります．
-クライアントの入口となるページは，<a href="https://www.scwttn-117.nttw-w-con.jp/webrtc/index.html">index.html</a>です．</p>
+<p>クライアントページは2つのhtmlファイル(<a href="index.html">index.html</a>, <a href="client.html">client.html</a>)に分かれます．
+1つ目はユーザの出身地の情報を取得するためのページ(<a href="index.html">index.html</a>)で，2つ目はオペレータと通信するためのページ(<a href="client.html">client.html</a>)となります．
+クライアントの入口となるページは，<a href="index.html">index.html</a>です．</p>
 
 <p>クライアント側のページでは，下の手順を踏みます．</p>
 
 <ul>
-<li><a href="https://www.scwttn-117.nttw-w-con.jp/webrtc/index.html">index.html</a>の中から，自分の国を選択する</li>
+<li><a href="index.html">index.html</a>の中から，自分の国を選択する</li>
 <li>ページ遷移後の文章を読み，O.K.ボタンをクリックする</li>
 <li>この時，選んだ国のカントリーコードがURLのパラメータとして追加される（例: United Statesを選択 > 「?cc=us」が追加される）</li>
-<li><a href="https://www.scwttn-117.nttw-w-con.jp/webrtc/connection/client.html">client.html</a>に遷移後，Callボタンをクリックする</li>
+<li><a href="client.html">client.html</a>に遷移後，Callボタンをクリックする</li>
 <li>その国の担当のオペレータが存在すれば，そのオペレータと繋がる</li>
 </ul>
 
@@ -209,7 +209,7 @@ sup {
 
 <ol>
 <li>オペレータを選択し接続するという処理は未実装です．現状はskyway REST APIから取得した，peer idのリストのなかから，オペレータのIDを検索し，その一番始めに見つかったものにしか接続できません．将来的には，複数のオペレータがいれば選択できるようにする予定です</li>
-<li><a href="https://www.scwttn-117.nttw-w-con.jp/webrtc/connection/client.html">client.html</a>のURLにccパラメータがついていない場合，正常に接続できません．</li>
+<li><a href="client.html">client.html</a>のURLにccパラメータがついていない場合，正常に接続できません．</li>
 <li>各国向けの言語を用意できず，英語のみとなっています．</li>
 </ol>
 
