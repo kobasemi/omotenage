@@ -1,9 +1,19 @@
 $(function(){
-        $("#map_canvas").css("height", $(window).height());
-        $("#accept").click(function(){
-                ready();
-                });
+    $("#map_canvas").css("height", $(window).height());
+    $("#accept").click(function(){
+        ready();
+    });
+    // Create supported country selectmenu
+    $.getJSON("SupportCountry.json", function(data){
+        // Read supported country in JSON file
+        $.each(data.support, function(idx, json){
+            // Create the country option
+            var cc = $('<option value="'+json.cc+'">'+json.jname+'</option>');
+            $("#select_cc").append(cc);
+            $("#select_cc").selectmenu("refresh");
         });
+    });
+});
 
 /* WEBRTC */
 // ビデオ通信のためのストリームを取得
@@ -31,47 +41,47 @@ function ready(){
 
         // Open Media(Camera and Mic)
         navigator.getUserMedia({audio: true, video: true}, function(stream){
-                window.localStream = stream;
-                }, function(){
-                alert("You should enable the permit of Camera and Mic.");
-                });
+            window.localStream = stream;
+        }, function(){
+            alert("You should enable the permit of Camera and Mic.");
+        });
 
         // Open Peer
         peer = new Peer(myId, {key: APIKEY, debug:3}); 
         peer.on('open', function(){
-                console.log('Peer ID is: ' + myId);
-                });
+            console.log('Peer ID is: ' + myId);
+        });
         peer.on('call', function(call){
-                remoteId = call.peer;
-                call.answer(window.localStream);
-                call.on('stream', function(stream){
-                        $("#pertner-video").prop("src", URL.createObjectURL(stream));
-                        });
-                });
+            remoteId = call.peer;
+            call.answer(window.localStream);
+            call.on('stream', function(stream){
+                $("#pertner-video").prop("src", URL.createObjectURL(stream));
+            });
+        });
         peer.on('connection', function(conn){
-                conn.on('data', function(data){
-                        // 送られてきた経緯度情報取得
-                        var pos = $.parseJSON(data);
-                        updateMap(new google.maps.LatLng(pos.lat, pos.lng));
-                        });
-                });
+            conn.on('data', function(data){
+                // 送られてきた経緯度情報取得
+                var pos = $.parseJSON(data);
+                updateMap(new google.maps.LatLng(pos.lat, pos.lng));
+            });
+        });
         peer.on('close', function(){
-                $("#pertner-video").prop("src", "");
-                alert("Closed...");
-                });
+            $("#pertner-video").prop("src", "");
+            alert("Closed...");
+        });
     }else{
         // if id is invalid... 
         alert("名前を入力してください(半角英数字)．");
     }
     $("#gene").click(function(){
-            // TODO: ページ生成CGIの作成
-            });
+        // TODO: ページ生成CGIの作成
+    });
     $("#send").click(function(){
-            var pageUrl = '/omotenashi/give.html';
-            // 生成したページを送信
-            var conn = peer.connect(remoteId);
-            conn.send(pageUrl);
-            });
+        var pageUrl = '/omotenashi/give.html';
+        // 生成したページを送信
+        var conn = peer.connect(remoteId);
+        conn.send(pageUrl);
+    });
 }
 
 // 有効なIDかをチェックする
@@ -79,16 +89,16 @@ function isValidId(ope_id){
     if($.inArray('', ope_id.split('-')) !== -1)
         // Array elements contain ''
         return false;
-    else
-        return true;
+        else
+            return true;
 }
 
 /* Google Maps API */
 // 東京駅を中心にマップを生成
 $('#map_canvas').gmap().bind('init', function(evt, map) {
-        map.setOptions({
-                'center': new google.maps.LatLng(35.681382,139.766084),
-                'zoom':15});
+    map.setOptions({
+        'center': new google.maps.LatLng(35.681382,139.766084),
+        'zoom':15});
 });
 
 // 通信相手の通過経路
@@ -97,7 +107,7 @@ var path= [];
 // 通信相手の位置情報を更新する
 // latlng: 通信相手の現在地の経緯度
 function updateMap(latlng){
-    
+
     // 前回位置のマーカを削除し、
     // 現在位置のマーカを追加する
     $('#map_canvas').gmap('clear', 'markers');
@@ -106,11 +116,11 @@ function updateMap(latlng){
     // 通過した経路を作成する
     path.push(latlng);
     $('#map_canvas').gmap('addShape', 'Polyline', {
-            'strokeWeight': 10,
-            'strokeColor': '#FF0000',
-            'strokeOpacity': 0.8,
-            'path': path,
-            });
+        'strokeWeight': 10,
+        'strokeColor': '#FF0000',
+        'strokeOpacity': 0.8,
+        'path': path,
+    });
     // マップの中心を現在地に移動する
     $('#map_canvas').gmap('get', 'map').panTo(latlng);
 }

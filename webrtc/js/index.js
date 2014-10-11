@@ -1,5 +1,5 @@
 $(function(){
-    // Create rupported country listview
+    // Create supported country listview
     $.getJSON("SupportCountry.json", function(data){
         // Read supported country in JSON file
         $.each(data.support, function(idx, json){
