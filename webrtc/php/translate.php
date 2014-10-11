@@ -10,7 +10,7 @@ $data = array(
 );
 
 // Read Microsoft Translator API Key
-require "apikey.php"; // $APPID 
+require "apikey.php"; // APPID
 // Original Text Language: English
 $from = 'en';
 // Translation Target

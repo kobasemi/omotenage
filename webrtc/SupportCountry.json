@@ -1,0 +1,20 @@
+{
+    "support": [{
+        "cc": "Country Code",
+        "lc": "Language Code For Microsoft Translator API",
+        "name": "Country Name"
+    }],
+
+    "support": [
+        {"cc":"us", "lc":"en", "name":"United States"},
+        {"cc":"fr", "lc":"fr", "name":"France"},
+        {"cc":"cn", "lc":"zh-CHS", "name":"China"},
+        {"cc":"kr", "lc":"ko", "name":"South Korea"},
+        {"cc":"de", "lc":"de", "name":"Germany"},
+        {"cc":"it", "lc":"it", "name":"Italy"},
+        {"cc":"es", "lc":"es", "name":"Spain"},
+        {"cc":"eg", "lc":"ar", "name":"Egypt"},
+        {"cc":"za", "lc":"pt", "name":"Brazil"},
+        {"cc":"jp", "lc":"ja", "name":"Japan"}
+    ]
+}
