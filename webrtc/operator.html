@@ -1,84 +1,201 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" /> 
-        <meta name="viewport" content="width=device-width, initial-scale=1" /> 
-        <link rel="shortcut icon" href="img/logo.png">
-        <link rel="stylesheet" type="text/css" href="./css/flags.css" />
-        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
-        <script type="text/javascript" src="https://skyway.io/dist/v2/0.3/peer.min.js"></script>
-        <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
-        <script type="text/javascript" src="./js/jquery.ui.map.js"></script>
-        <script type="text/javascript" src="./js/jquery.ui.map.extensions.js"></script>
-        <script type="text/javascript" src="./js/jquery.ui.map.overlays.js"></script>
-    </head>
-    <body>
-        <div id="ope-window" data-role="page" data-title="Only For Operater">
-            <div data-role="content" class="ui-grid-a ui-responsive">
-                <div id="operator" class="ui-block-a">
-                    <div data-role="fieldcontain" class="ui-grid-b ui-responsive">
-                        <div class="ui-block-a">
-                            <select id="select_cc" data-mini="true">
-                                <option value="us">アメリカ</option>
-                                <option value="fr">フランス</option>
-                                <option value="de">ドイツ</option>
-                                <option value="kr">韓国</option>
-                                <option value="it">イタリア</option>
-                                <option value="cn">中国</option>
-                                <option value="es">スペイン</option>
-                                <option value="eg">エジプト</option>
-                                <option value="za">南アフリカ</option>
-                            </select>
-                        </div>
-                        <div class="ui-block-b">
-                            <input type="text" id="input_name" maxlength="10" placeholder="名前を入力(半角英数字)" data-mini="true" class="ui-bar-c ui-corner-all ui-shadow">
-                        </div>
-                        <div class="ui-block-c">
-                            <a id="accept" href="#" data-role="button" data-mini="true" data-shadow="false" style="background: #11d528; color: white;">受付</a>
-                        </div>
+<head>
+<meta charset="UTF-8" /> 
+<meta name="viewport" content="width=device-width, initial-scale=1" /> 
+<link rel="shortcut icon" href="img/logo.png">
+<link rel="stylesheet" type="text/css" href="./css/flags.css" />
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
+<script type="text/javascript" src="https://skyway.io/dist/v2/0.3/peer.min.js"></script>
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript" src="./js/jquery.ui.map.js"></script>
+<script type="text/javascript" src="./js/jquery.ui.map.extensions.js"></script>
+<script type="text/javascript" src="./js/jquery.ui.map.overlays.js"></script>
+</head>
+<body>
+    <div id="ope-window" data-role="page" data-title="Only For Operater">
+        <div data-role="content" class="ui-grid-a ui-responsive">
+            <div id="operator" class="ui-block-a">
+                <div data-role="fieldcontain" class="ui-grid-b ui-responsive">
+                    <div class="ui-block-a">
+                        <select id="select_cc" data-mini="true">
+                            <option value="us">アメリカ</option>
+                            <option value="fr">フランス</option>
+                            <option value="de">ドイツ</option>
+                            <option value="kr">韓国</option>
+                            <option value="it">イタリア</option>
+                            <option value="cn">中国</option>
+                            <option value="es">スペイン</option>
+                            <option value="eg">エジプト</option>
+                            <option value="za">南アフリカ</option>
+                        </select>
                     </div>
-
-                    <div id="webrtc" class="ui-bar-c ui-corner-all ui-shadow" style="padding:0.5em;">
-                        <video id="pertner-video" width="100%" height="100%" autoplay></video>
+                    <div class="ui-block-b">
+                        <input type="text" id="input_name" maxlength="10" placeholder="名前を入力(半角英数字)" data-mini="true" class="ui-bar-c ui-corner-all ui-shadow">
                     </div>
-                    <div id="profile" class="ui-bar-c ui-corner-all ui-shadow" style="padding:0.5em;">
-                        <h3>相手の情報</h3>
-                        <div style="padding:0.5em">
-                            <input type="text" name="input_location" id="input_location" placeholder="Location" style="padding:0.5em">
-                        </div>
-                        <div class="ui-grid-a ui-responsive">
-                            <div class="ui-block-a" style="padding:0.5em;">
-                                <input type="text" name="input_from" id="input_from" placeholder="From">
-                            </div>
-                            <div class="ui-block-b" style="padding:0.5em;">
-                                <input type="text" name="input_to" id="input_to" placeholder="To">
-                            </div>
-                        </div>
-                        <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="padding:0.5em;">
-                            <label><input type="radio" name="tmode" id="mode_drive" value="DRIVING" checked="checked">Drive</label>
-                            <label><input type="radio" name="tmode" id="mode_walk" value="WALKING">Walk</label>
-                        </fieldset>
-                        <div class="ui-grid-a ui-responsive">
-                            <div class="ui-block-a" style="padding:0.5em;">
-                                <a href="#sorry" data-rel="popup" id="gene" class="ui-btn ui-shadow ui-corner-all">ページ生成</a>
-                                <div data-role="popup" id="sorry" class="ui-content">
-                                    <p>ページ生成CGIは未実装です。</p>
-                                </div>
-                            </div>
-                            <div class="ui-block-b" style="padding:0.5em;">
-                                <a href="#" id="send" class="ui-btn ui-shadow ui-corner-all">ページ送信</a>
-                            </div>
-                        </div>
+                    <div class="ui-block-c">
+                        <a id="accept" href="#" data-role="button" data-mini="true" data-shadow="false" style="background: #11d528; color: white;">受付</a>
                     </div>
                 </div>
-                <div id="gmap" class="ui-block-b ui-bar-c ui-corner-all ui-shadow" style="padding:0.5em;">
-                    <div id="map_canvas"></div>
+
+                <div id="webrtc" class="ui-bar-c ui-corner-all ui-shadow" style="padding:0.5em;">
+                    <video id="pertner-video" width="100%" height="100%" autoplay></video>
+                </div>
+                <div id="profile" class="ui-bar-c ui-corner-all ui-shadow" style="padding:0.5em;">
+                    <h3>相手の情報</h3>
+                    <div style="padding:0.5em">
+                        <input type="text" name="input_location" id="input_location" placeholder="Location" style="padding:0.5em">
+                    </div>
+                    <div class="ui-grid-a ui-responsive">
+                        <div class="ui-block-a" style="padding:0.5em;">
+                            <input type="text" name="input_from" id="input_from" placeholder="From">
+                        </div>
+                        <div class="ui-block-b" style="padding:0.5em;">
+                            <input type="text" name="input_to" id="input_to" placeholder="To">
+                        </div>
+                    </div>
+                    <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="padding:0.5em;">
+                        <label><input type="radio" name="tmode" id="mode_drive" value="DRIVING" checked="checked">Drive</label>
+                        <label><input type="radio" name="tmode" id="mode_walk" value="WALKING">Walk</label>
+                    </fieldset>
+                    <div class="ui-grid-a ui-responsive">
+                        <div class="ui-block-a" style="padding:0.5em;">
+                            <a href="#sorry" data-rel="popup" id="gene" class="ui-btn ui-shadow ui-corner-all">ページ生成</a>
+                            <div data-role="popup" id="sorry" class="ui-content">
+                                <p>ページ生成CGIは未実装です。</p>
+                            </div>
+                        </div>
+                        <div class="ui-block-b" style="padding:0.5em;">
+                            <a href="#" id="send" class="ui-btn ui-shadow ui-corner-all">ページ送信</a>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div id="gmap" class="ui-block-b ui-bar-c ui-corner-all ui-shadow" style="padding:0.5em;">
+                <div id="map_canvas"></div>
+            </div>
         </div>
+    </div>
 
-        <script type="text/javascript" src="./js/operator.js"></script>
+    <script>
+$(function(){
+        $("#webrtc").css("height", $(window).height()/2);
+        $("#map_canvas").css("height", $(window).height());
+        $("#accept").click(function(){
+                ready();
+                });
+        });
+/* WEBRTC */
+// ビデオ通信のためのストリームを取得
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+// Skyway API key for the domain: www.firefly.kutc.kansai-u.ac.jp
+var APIKEY = "79e1e834-4935-11e4-878c-e1a8ecd1a309";
+var peer = null;
+
+function ready(){
+    // Country Code
+    var cc = $('#select_cc').val();
+    // Operater Name
+    var name = $('#input_name').val();
+    // My ID
+    var myId = cc + "-ope-" + name;
+    var remoteId = "";
+    if(isValidId(myId)){
+        // if id is valid
+
+        $("#accept").text("受付中");
+        $("#accept").addClass("ui-state-disabled");
+        $("#select_cc").addClass("ui-state-disabled");
+        $("#input_name").addClass("ui-state-disabled");
+
+        // Open Media(Camera and Mic)
+        navigator.getUserMedia({audio: true, video: true}, function(stream){
+                window.localStream = stream;
+                }, function(){
+                alert("You should enable the permit of Camera and Mic.");
+                });
+
+        // Open Peer
+        peer = new Peer(myId, {key: APIKEY, debug:3}); 
+        peer.on('open', function(){
+                console.log('Peer ID is: ' + myId);
+                });
+        peer.on('call', function(call){
+                remoteId = call.peer;
+                call.answer(window.localStream);
+                call.on('stream', function(stream){
+                        $("#pertner-video").prop("src", URL.createObjectURL(stream));
+                        });
+                });
+        peer.on('connection', function(conn){
+                conn.on('data', function(data){
+                        // 送られてきた経緯度情報取得
+                        var pos = $.parseJSON(data);
+                        updateMap(new google.maps.LatLng(pos.lat, pos.lng));
+                        });
+                });
+        peer.on('close', function(){
+                $("#pertner-video").prop("src", "");
+                alert("Closed...");
+                });
+    }else{
+        // if id is invalid... 
+        alert("名前を入力してください(半角英数字)．");
+    }
+    $("#gene").click(function(){
+            // TODO: ページ生成CGIの作成
+            });
+    $("#send").click(function(){
+            var pageUrl = '/omotenashi/give.html';
+            // 生成したページを送信
+            var conn = peer.connect(remoteId);
+            conn.send(pageUrl);
+            });
+}
+
+// 有効なIDかをチェックする
+function isValidId(ope_id){
+    if($.inArray('', ope_id.split('-')) !== -1)
+        // Array elements contain ''
+        return false;
+    else
+        return true;
+}
+
+/* Google Maps API */
+// 東京駅を中心にマップを生成
+$('#map_canvas').gmap().bind('init', function(evt, map) {
+        map.setOptions({
+                'center': new google.maps.LatLng(35.681382,139.766084),
+                'zoom':15});
+});
+
+// 通信相手の通過経路
+var path= [];
+
+// 通信相手の位置情報を更新する
+// latlng: 通信相手の現在地の経緯度
+function updateMap(latlng){
+    
+    // 前回位置のマーカを削除し、
+    // 現在位置のマーカを追加する
+    $('#map_canvas').gmap('clear', 'markers');
+    $('#map_canvas').gmap('addMarker', {'position': latlng});
+
+    // 通過した経路を作成する
+    path.push(latlng);
+    $('#map_canvas').gmap('addShape', 'Polyline', {
+            'strokeWeight': 10,
+            'strokeColor': '#FF0000',
+            'strokeOpacity': 0.8,
+            'path': path,
+            });
+    // マップの中心を現在地に移動する
+    $('#map_canvas').gmap('get', 'map').panTo(latlng);
+}
+    </script>
     </body>
 </html>
