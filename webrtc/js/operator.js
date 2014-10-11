@@ -1,10 +1,10 @@
 $(function(){
-        $("#webrtc").css("height", $(window).height()/2);
         $("#map_canvas").css("height", $(window).height());
         $("#accept").click(function(){
                 ready();
                 });
         });
+
 /* WEBRTC */
 // ビデオ通信のためのストリームを取得
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
