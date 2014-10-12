@@ -75,7 +75,7 @@ $(document).on('pageinit', '#call-wind', function(e, data){
 
 $(document).on('pageshow', '#call-wind', function(e, data){
     /* Google Maps API */
-    var path= []; // some user positions
+    var path= []; // For move route of remote user
     // Generate a map and mark the map with user current position
     $('#map_canvas').gmap('watchPosition', function(position, status){
         if(status === 'OK'){
@@ -83,8 +83,8 @@ $(document).on('pageshow', '#call-wind', function(e, data){
             var clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
             // Clear marker of previous position
-            // Add marker of current position
             $('#map_canvas').gmap('clear', 'markers');
+            // Add marker of current position
             $('#map_canvas').gmap('addMarker', {'position': clientPosition, 'bounds': true});
             // Push current position to path array
             path.push(clientPosition);
