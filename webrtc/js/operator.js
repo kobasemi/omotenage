@@ -34,10 +34,11 @@ function ready(){
     if(isValidId(myId)){
         // if id is valid
 
+        // Change to disable this elements
         $("#accept").text("受付中");
         $("#accept").addClass("ui-state-disabled");
-        $("#select_cc").addClass("ui-state-disabled");
-        $("#input_name").addClass("ui-state-disabled");
+        $("#select_cc").selectmenu("disable");
+        $("#input_name").textinput("disable");
 
         // Open Media(Camera and Mic)
         navigator.getUserMedia({audio: true, video: true}, function(stream){
