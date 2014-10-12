@@ -13,60 +13,64 @@
         <script type="text/javascript" src="./js/jquery.ui.map.js"></script>
         <script type="text/javascript" src="./js/jquery.ui.map.extensions.js"></script>
         <script type="text/javascript" src="./js/jquery.ui.map.overlays.js"></script>
+        <style>
+            #accept{
+                background: #11d528;
+                color: white;
+            }
+            .ui-contents-pain{
+                padding:0.5em;
+            }
+        </style>
     </head>
     <body>
-        <div id="ope-window" data-role="page" data-title="Only For Operater">
+        <div id="ope-wind" data-role="page" data-title="オペレータ専用ページ">
             <div data-role="content" class="ui-grid-a ui-responsive">
-                <div class="ui-block-a">
+
+                <!-- Pain 1 -->
+                <div id="lpain" class="ui-block-a">
                     <div class="ui-grid-a">
+
+                        <!-- Pain 1-1-->
                         <div class="ui-block-a">
-                            <div id="opeinfo" class="ui-bar-c ui-corner-all ui-shadow" style="padding:0.5em; margin: 0.5em;">
+                            <!-- Operator Information -->
+                            <div id="opeinfo" class="ui-contents-pain">
                                 <select id="select_cc"></select>
                                 <input type="text" id="input_name" maxlength="10" placeholder="名前を入力(半角英数字)">
-                                <a id="accept" href="#" data-role="button" data-shadow="false" style="background: #11d528; color: white;">受付</a>
+                                <a id="accept" href="#" data-role="button" data-shadow="false">受付</a>
                             </div>
-                        </div>
-                        <div class="ui-block-b">
-                            <div class="ui-bar-c ui-corner-all ui-shadow" style="padding:0.5em; margin: 0.5em;">
+                            <!-- WebRTC -->
+                            <div id="webrtc" class="ui-bar-c ui-corner-all ui-shadow ui-contents-pain">
                                 <video id="pertner-video" width="100%" autoplay></video>
                             </div>
                         </div>
-                    </div>
 
-                    <div id="profile" class="ui-bar-c ui-corner-all ui-shadow" style="padding:0.5em; margin: 0.5em;">
-                        <h3>相手の情報</h3>
-                        <div style="padding:0.5em">
-                            <input type="text" name="input_location" id="input_location" placeholder="Location" style="padding:0.5em">
-                        </div>
-                        <div class="ui-grid-a ui-responsive">
-                            <div class="ui-block-a" style="padding:0.5em;">
+                        <!-- Pain 1-2-->
+                        <!-- Profile Information-->
+                        <div id="profile" class="ui-block-b ui-contents-pain">
+                            <h3>相手の情報</h3>
+                            <label>名前:<input type="text" name="remote_name" placeholder="Name"></label>
+                            <label>天気:<input type="text" name="location" placeholder="Location"></label>
+                            <label>行き先:
                                 <input type="text" name="input_from" id="input_from" placeholder="From">
-                            </div>
-                            <div class="ui-block-b" style="padding:0.5em;">
                                 <input type="text" name="input_to" id="input_to" placeholder="To">
-                            </div>
-                        </div>
-                        <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="padding:0.5em;">
-                            <label><input type="radio" name="tmode" id="mode_drive" value="DRIVING" checked="checked">Drive</label>
-                            <label><input type="radio" name="tmode" id="mode_walk" value="WALKING">Walk</label>
-                        </fieldset>
-                        <div class="ui-grid-a ui-responsive">
-                            <div class="ui-block-a" style="padding:0.5em;">
-                                <a href="#sorry" data-rel="popup" id="gene" class="ui-btn ui-shadow ui-corner-all">ページ生成</a>
-                                <div data-role="popup" id="sorry" class="ui-content">
-                                    <p>ページ生成CGIは未実装です。</p>
-                                </div>
-                            </div>
-                            <div class="ui-block-b" style="padding:0.5em;">
-                                <a href="#" id="send" class="ui-btn ui-shadow ui-corner-all">ページ送信</a>
-                            </div>
+                            </label>
+                            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                                <legend>手段:</legend>
+                                <label><input type="radio" name="tmode" id="mode_walk" value="WALKING" checked="checked">徒歩</label>
+                                <label><input type="radio" name="tmode" id="mode_drive" value="DRIVING">自動車</label>
+                            </fieldset>
+                            <a href="#sorry" data-rel="popup" id="gene" class="ui-btn ui-corner-all">ページ生成</a>
+                            <div data-role="popup" id="sorry" class="ui-content"><p>ページ生成CGIは未実装です。</p></div>
+                            <a href="#" id="send" class="ui-btn ui-corner-all">ページ送信</a>
                         </div>
                     </div>
                 </div>
-                <div class="ui-block-b">
-                    <div class="ui-block-b ui-bar-c ui-corner-all ui-shadow" style="padding:0.5em; margin: 0.5em; width: 100%;">
-                        <div id="map_canvas"></div>
-                    </div>
+
+                <!-- Pain 2 -->
+                <!-- Google Maps -->
+                <div id="rpain" class="ui-block-b ui-bar-c ui-corner-all ui-shadow ui-contents-pain">
+                    <div id="map_canvas"></div>
                 </div>
             </div>
         </div>
