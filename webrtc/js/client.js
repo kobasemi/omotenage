@@ -47,7 +47,7 @@ $(document).on('pageinit', '#pick-wind', function(e, data){
     peer.on('open', function(id) {
         peer.listAllPeers(function(list){
             //TODO: 複数人未対応
-            opeId = list.filter(function(v){return v.substring(0,2) == cc})[0];
+            opeId = list.filter(function(v){return v.substring(0,2) == cc;})[0];
         });
     });
 

@@ -1,4 +1,4 @@
-$(function(){
+$(document).on('pageinit', '#home', function(e, data){
     // Create supported country listview
     $.getJSON("SupportCountry.json", function(data){
         // Read supported country in JSON file
@@ -11,9 +11,25 @@ $(function(){
             $("#pick").listview().listview("refresh");
         });
     });
+});
 
-    // Get and Set Original Text
-    $.post("./php/navpage.php", function(data){$("#body_txt").html(data);});
+$(document).on('pageinit', '#nav', function(e, data){
+    // Initialize body text in english
+    update_navpage('us', 'en');
+});
+
+$(document).on('pageshow', '#nav', function(e, data){
+    $("#call").click(function(){
+        // Extract a country code from the class values of #flag
+        var cc = $("#flag").
+            attr("class").
+            split(" ").
+            filter(function(v){return v.substring(0,5) == 'flag-';})[0].
+            split("-")[1];
+
+        // Set the link with GET parameter(cc: country code)
+        $("#call").attr('href', './client.html?cc=' + cc);
+    });
 });
 
 // Move #nav page
@@ -25,8 +41,6 @@ function move_navpage(){
 
     update_navpage(cc, lc);
 
-    // Callボタンのリンクに国コードパラメータを追加
-    //$("#call").attr('href', 'client.html?cc=' + code);
     $.mobile.changePage("#nav");
 }
 
@@ -34,10 +48,16 @@ function move_navpage(){
 // cc: country code, lc: language code
 function update_navpage(cc, lc){
     // Update the flag and the location in header of #nav page
-    $("#flglc").text('(' + lc + ')');
-    $("#flg").removeClass().addClass('flag flag-' + cc);
-    // Update hidden input parameter
-    $('input[name="cntrycode"]', "#nav-main").val(cc);
+    $("#flaglc").text('(' + lc + ')');
+    $("#flag").removeClass().addClass('flag flag-' + cc);
+
+    // Get and Set Original Text
+    $.post("./php/navpage.php", function(data){
+        $("#body_txt").html(data);
+    });
+
+    // If country code is "us", don't need to translate
+    if(cc === "us") return;
 
     // Execute Translation
     $.post("./php/translate.php",
@@ -52,6 +72,5 @@ function update_navpage(cc, lc){
                $.each(data.body, function(idx){
                    $("#body_txt").append("<p>"+data.body[idx]+"</p>");
                });
-           },
-           "json");
+           }, "json");
 }

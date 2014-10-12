@@ -8,8 +8,24 @@
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
+        <style>
+            #flag{
+                margin: 10px;
+                vertical-align: middle;
+            }
+            #nav-main > div{
+                margin: 0.5em;
+                padding: 0.5em;
+                text-align:center;
+            }
+            #call{
+                background: #11d528;
+                color: white;
+            }
+        </style>
     </head>
     <body>
+
         <!-- PAGE: home -->
         <div data-role="page" data-title="WebRTC × おもてなし" data-theme="a" id="home">
             <div data-role="header">
@@ -29,17 +45,17 @@
                 <a href="#home" data-role="button" data-icon="back" data-iconpos="notext" id="back_btn" class="ui-btn-left"></a>
                 <h1 id="header_title"><strong>Welcome to Japan</strong></h1>
                 <div class="ui-btn-right">
-                    <img src="img/blank.gif" class="flag flag-us" style="margin: 10px; vertical-align: middle;" id="flg" /><span id="flglc">(en)</span>
+                    <img src="img/blank.gif" class="flag flag-us" id="flag" /><span id="flaglc">(en)</span>
                 </div>
             </div>
             <div data-role="contents" id="nav-main">
-                <input type="hidden" name="cntrycode" value="us" />
-                <div class="ui-bar-c ui-corner-all ui-shadow" style="margin: 0.5em; padding: 0.5em; text-align:center;">
-                    <div id="body_txt"></div>
+                <div class="ui-bar-c ui-corner-all ui-shadow">
+                    <div id="body_txt">
+                    </div>
                     <div class="ui-grid-b">
                         <div class="ui-block-a"></div>
                         <div class="ui-block-b">
-                            <a id="call" href="client.html" data-role="button" rel="external" data-icon="check" style="background: #11d528; color: white;">O.K.</a>
+                            <a id="call" href="#" data-role="button" rel="external" data-icon="check">O.K.</a>
                         </div>
                         <div class="ui-block-c"></div>
                     </div>
