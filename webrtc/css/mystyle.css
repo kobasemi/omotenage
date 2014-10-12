@@ -1,0 +1,44 @@
+/* custom icon */
+.ui-icon-endcall:after {
+    background-image: url("http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/images/icons-png/phone-white.png");
+    background-size: 14px 14px;
+    transform: rotate(135deg);
+}
+
+/* Positive Contents */
+.pos-contents{
+    background: #11d528 !important;
+    color: white !important;
+}
+/* Negative Contents */
+.neg-contents{
+    background: #f80e0e !important;
+    color: white !important;
+}
+.ui-contents-padding{
+    padding:0.5em;
+}
+.text-center{
+    text-align: center;
+}
+
+/* index.html style */
+/* style of location in header of #nav page*/
+div[data-role=header] #location{
+    margin: 10px;
+    vertical-align: middle;
+}
+
+/* client.html style */
+/* for operator icon */
+#ope-ico{
+    text-align: center;
+}
+#ope-ico figure {
+    display: inline-block;
+}
+#ope-ico figure figcaption{
+    margin: 5px 0 0 0;
+    font-size: large;
+    font-weight: bold;
+}

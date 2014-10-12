@@ -13,24 +13,7 @@
         <script type="text/javascript" src="./js/jquery.ui.map.js"></script>
         <script type="text/javascript" src="./js/jquery.ui.map.extensions.js"></script>
         <script type="text/javascript" src="./js/jquery.ui.map.overlays.js"></script>
-        <style>
-            .ui-icon-endcall:after {
-                background-image: url("http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/images/icons-png/phone-white.png");
-                background-size: 14px 14px;
-                transform: rotate(135deg);
-            }
-            #ope-ico{
-                text-align: center;
-            }
-            #ope-ico figure {
-                display: inline-block;
-            }
-            #ope-ico figure figcaption{
-                margin: 5px 0 0 0;
-                font-size: large;
-                font-weight: bold;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="./css/mystyle.css" />
     </head>
     <body>
 
@@ -46,7 +29,7 @@
             </div>
             <div data-role="footer" data-theme="a" data-position="fixed">
                 <nav data-role="navbar"><ul><li>
-                            <a href="#call-wind" data-role="button" data-icon="phone" data-transition="slideup" id="call" style="background: #11d528;"></a>
+                            <a href="#call-wind" data-role="button" data-icon="phone" data-transition="slideup" id="call" class="pos-contents"></a>
                 </li></ul></nav>
             </div>
         </div>
@@ -54,7 +37,7 @@
         <div id="call-wind" data-role="page" data-title="WebRTC × おもてなし">
             <div data-role="header" data-theme="a" data-position="fixed">
                 <nav data-role="navbar"><ul><li>
-                            <a href="#pick-wind" data-role="button" data-icon="endcall" data-transition="slidedown" id="endcall" style="background: #f80e0e;"></a>
+                            <a href="#pick-wind" data-role="button" data-icon="endcall" data-transition="slidedown" id="endcall" class="neg-contents"></a>
                 </li></ul></nav>
             </div>
             <div data-role="content">

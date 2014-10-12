@@ -8,21 +8,7 @@
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
-        <style>
-            #flag{
-                margin: 10px;
-                vertical-align: middle;
-            }
-            #nav-main > div{
-                margin: 0.5em;
-                padding: 0.5em;
-                text-align:center;
-            }
-            #call{
-                background: #11d528;
-                color: white;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="./css/mystyle.css" />
     </head>
     <body>
 
@@ -45,17 +31,18 @@
                 <a href="#home" data-role="button" data-icon="back" data-iconpos="notext" id="back_btn" class="ui-btn-left"></a>
                 <h1 id="header_title"><strong>Welcome to Japan</strong></h1>
                 <div class="ui-btn-right">
-                    <img src="img/blank.gif" class="flag flag-us" id="flag" /><span id="flaglc">(en)</span>
+                    <img src="img/blank.gif" class="flag flag-us" id="location" />
+                    <span id="localecode">(en)</span>
                 </div>
             </div>
             <div data-role="contents" id="nav-main">
-                <div class="ui-bar-c ui-corner-all ui-shadow">
+                <div class="ui-contents-padding text-center">
                     <div id="body_txt">
                     </div>
                     <div class="ui-grid-b">
                         <div class="ui-block-a"></div>
                         <div class="ui-block-b">
-                            <a id="call" href="#" data-role="button" rel="external" data-icon="check">O.K.</a>
+                            <a id="call" href="#" data-role="button" rel="external" data-icon="check" class="pos-contents">O.K.</a>
                         </div>
                         <div class="ui-block-c"></div>
                     </div>

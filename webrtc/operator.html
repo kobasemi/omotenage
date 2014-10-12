@@ -13,15 +13,7 @@
         <script type="text/javascript" src="./js/jquery.ui.map.js"></script>
         <script type="text/javascript" src="./js/jquery.ui.map.extensions.js"></script>
         <script type="text/javascript" src="./js/jquery.ui.map.overlays.js"></script>
-        <style>
-            #accept{
-                background: #11d528;
-                color: white;
-            }
-            .ui-contents-pain{
-                padding:0.5em;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="./css/mystyle.css" />
     </head>
     <body>
         <div id="ope-wind" data-role="page" data-title="オペレータ専用ページ">
@@ -34,20 +26,20 @@
                         <!-- Pain 1-1-->
                         <div class="ui-block-a">
                             <!-- Operator Information -->
-                            <div id="opeinfo" class="ui-contents-pain">
+                            <div id="opeinfo" class="ui-contents-padding">
                                 <select id="select_cc"></select>
                                 <input type="text" id="input_name" maxlength="10" placeholder="名前を入力(半角英数字)">
-                                <a id="accept" href="#" data-role="button" data-shadow="false">受付</a>
+                                <a id="accept" href="#" data-role="button" data-shadow="false" class="pos-contents">受付</a>
                             </div>
                             <!-- WebRTC -->
-                            <div id="webrtc" class="ui-bar-c ui-corner-all ui-shadow ui-contents-pain">
+                            <div id="webrtc" class="ui-bar-c ui-corner-all ui-shadow ui-contents-padding">
                                 <video id="pertner-video" width="100%" autoplay></video>
                             </div>
                         </div>
 
                         <!-- Pain 1-2-->
                         <!-- Profile Information-->
-                        <div id="profile" class="ui-block-b ui-contents-pain">
+                        <div id="profile" class="ui-block-b ui-contents-padding">
                             <h3>相手の情報</h3>
                             <label>名前:<input type="text" name="remote_name" placeholder="Name"></label>
                             <label>天気:<input type="text" name="location" placeholder="Location"></label>
@@ -69,7 +61,7 @@
 
                 <!-- Pain 2 -->
                 <!-- Google Maps -->
-                <div id="rpain" class="ui-block-b ui-bar-c ui-corner-all ui-shadow ui-contents-pain">
+                <div id="rpain" class="ui-block-b ui-bar-c ui-corner-all ui-shadow ui-contents-padding">
                     <div id="map_canvas"></div>
                 </div>
             </div>

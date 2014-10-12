@@ -22,8 +22,8 @@ $(document).on('pageinit', '#nav', function(e, data){
 
 $(document).on('pageshow', '#nav', function(e, data){
     $("#call").click(function(){
-        // Extract a country code from the class values of #flag
-        var cc = $("#flag").
+        // Extract a country code from the class values of #location
+        var cc = $("#location").
             attr("class").
             split(" ").
             filter(function(v){return v.substring(0,5) == 'flag-';})[0].
@@ -49,8 +49,8 @@ function move_navpage(){
 // cc: country code, lc: language code
 function update_navpage(cc, lc){
     // Update the flag and the location in header of #nav page
-    $("#flaglc").text('(' + lc + ')');
-    $("#flag").removeClass().addClass('flag flag-' + cc);
+    $("#localecode").text('(' + lc + ')');
+    $("#location").removeClass().addClass('flag flag-' + cc);
 
     // Execute Translation
     $.post("./php/translate.php",
