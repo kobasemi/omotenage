@@ -19,17 +19,34 @@
                 background-size: 14px 14px;
                 transform: rotate(135deg);
             }
+            #ope-ico{
+                text-align: center;
+            }
+            #ope-ico figure {
+                display: inline-block;
+            }
+            #ope-ico figure figcaption{
+                margin: 5px 0 0 0;
+                font-size: large;
+                font-weight: bold;
+            }
         </style>
     </head>
     <body>
 
         <div id="pick-wind" data-role="page" data-title="WebRTC × おもてなし">
             <div data-role="content">
-
+                <div id="ope-ico">
+                    <figure><figcaption>temp1</figcaption></figure>
+                    <figure><figcaption>temp2</figcaption></figure>
+                    <figure><figcaption>temp3</figcaption></figure>
+                    <figure><figcaption>temp4</figcaption></figure>
+                    <figure><figcaption>temp5</figcaption></figure>
+                </div>
             </div>
             <div data-role="footer" data-theme="a" data-position="fixed">
                 <nav data-role="navbar"><ul><li>
-                            <a href="#call-wind" data-role="button" data-icon="phone" data-iconpos="notext" data-shadow="false" data-transition="slideup" id="call" style="background: #11d528;"></a>
+                            <a href="#call-wind" data-role="button" data-icon="phone" data-transition="slideup" id="call" style="background: #11d528;"></a>
                 </li></ul></nav>
             </div>
         </div>
@@ -37,7 +54,7 @@
         <div id="call-wind" data-role="page" data-title="WebRTC × おもてなし">
             <div data-role="header" data-theme="a" data-position="fixed">
                 <nav data-role="navbar"><ul><li>
-                            <a href="#pick-wind" data-role="button" data-icon="endcall" data-iconpos="notext" data-shadow="false" data-transition="slidedown" id="endcall" style="background: #f80e0e;"></a>
+                            <a href="#pick-wind" data-role="button" data-icon="endcall" data-transition="slidedown" id="endcall" style="background: #f80e0e;"></a>
                 </li></ul></nav>
             </div>
             <div data-role="content">

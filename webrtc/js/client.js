@@ -35,6 +35,13 @@ $(document).on('pageinit', '#pick-wind', function(e, data){
     $("#map_canvas").css("height", $(window).height()/2);
     $("#my_page").hide();
 
+    $.get('./img/person.svg', function(svg){
+        $("figure", "#ope-ico").prepend(svg);
+        $("figure > svg > g").click(function(){
+            $(this).find("#tie").attr("fill", "#FF0000");
+        });
+    }, 'text');
+
     // PeerJS
     peer = new Peer({key: APIKEY, debug:3});
     peer.on('open', function(id) {
