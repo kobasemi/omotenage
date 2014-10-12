@@ -14,8 +14,10 @@ $(document).on('pageinit', '#home', function(e, data){
 });
 
 $(document).on('pageinit', '#nav', function(e, data){
-    // Initialize body text in english
-    update_navpage('us', 'en');
+    // Get and Set Original Text
+    $.post("./php/navpage.php", function(data){
+        $("#body_txt").html(data);
+    });
 });
 
 $(document).on('pageshow', '#nav', function(e, data){
@@ -40,7 +42,6 @@ function move_navpage(){
     var lc = $('input[name="langcode"]', this).val();
 
     update_navpage(cc, lc);
-
     $.mobile.changePage("#nav");
 }
 
@@ -50,14 +51,6 @@ function update_navpage(cc, lc){
     // Update the flag and the location in header of #nav page
     $("#flaglc").text('(' + lc + ')');
     $("#flag").removeClass().addClass('flag flag-' + cc);
-
-    // Get and Set Original Text
-    $.post("./php/navpage.php", function(data){
-        $("#body_txt").html(data);
-    });
-
-    // If country code is "us", don't need to translate
-    if(cc === "us") return;
 
     // Execute Translation
     $.post("./php/translate.php",
