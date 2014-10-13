@@ -27,15 +27,13 @@ navigator.getUserMedia =
 var APIKEY = "79e1e834-4935-11e4-878c-e1a8ecd1a309";
 // Operator Peer ID
 var ope_id = "";
+var ope_ico = "";
 // conn: DataConnection, call: MediaConnection
 var peer = conn = call = null;
 
 $(document).on('pageinit', '#pick-wind', function(e, data){
-        $("figure", "#ope-ico").prepend(svg);
-        $("figure > svg > g").click(function(){
-            $(this).find("#tie").attr("fill", "#FF0000");
-        });
     $.get('./img/operator.svg', function(svg){
+        ope_ico = svg;
     }, 'text');
 
     navigator.getUserMedia({audio: true, video: true}, function(stream){
@@ -101,6 +99,7 @@ $(document).on('pageshow', '#call-wind', function(e, data){
             // TODO:
             // Geolocation APIの現在地取得タイミングによっては，
             // 最初のPositionが送信されない
+            // 例えば，connを開くまえに取得した場合
             if(conn !== null)
                 conn.send(JSON.stringify({
                     "lat": position.coords.latitude,
@@ -110,6 +109,49 @@ $(document).on('pageshow', '#call-wind', function(e, data){
     });
 });
 
+// Some operators in connection is displayed
+function disp_opes(opes){
+    // If nobody is in connection
+    if($.isEmptyObject(opes)){
+        // Append figure tag template
+        $("#opelist").append("<figure><figcaption></figcaption></figure>");
+        $("figure figcaption", "#opelist").
+            text("Sorry... Nobody is in connection.");
+        // Add svg tag of ope_ico to after figure tag
+        $("figure", "#opelist").prepend(ope_ico);
+        // Change ope_ico color to negative color
+        $("#nottie").attr("fill", "#F80E0E");
+        return;
+    }
+
+    $.each(opes, function(idx, id){
+        // Get the operator name
+        var name = id.split('-')[1];
+        // Create the tag for the operator of id
+        $("#opelist").append("<figure id="+name+"></figure>");
+        $("#"+name).
+            // Setting operator icon written in svg
+            append(ope_ico).
+            append("<figcaption>"+name+"</figcaption>");
+
+        // Setting the color of tie to a random color
+        var tie_color = Math.floor(Math.random()*16777215).toString(16);
+        $("#tie", "#"+name).attr("fill", "#"+tie_color);
+
+        $("#"+name).find("#ope_ico").click(function(){
+            // All ID(#nottie) color is set to #26453D
+            $("figure > svg", "#opelist").find("#nottie").attr("fill", "#26453D");
+
+            // THIS icon color is set to positive color
+            $(this).find("#tie").attr("fill", "white");
+            $(this).find("#nottie").attr("fill", "#11D528");
+
+            // Update operator ID
+            ope_id = id;
+        });
+    });
+
+}
 // Initializing the peer,
 // and then setting some callbacks
 function initpeer(){
@@ -117,8 +159,7 @@ function initpeer(){
 
     peer.on('open', function(id) {
         peer.listAllPeers(function(list){
-            //TODO: 複数人未対応
-            ope_id = list.filter(function(v){return v.substring(0,2) == cc;})[0];
+            disp_opes(list.filter(function(v){return v.substring(0,2) == cc;}));
         });
 
         peer.on('call', function(call){
