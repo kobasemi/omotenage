@@ -15,6 +15,11 @@
     background: #f80e0e !important;
     color: white !important;
 }
+/* Accent Contents */
+.acc-contents{
+    background: #FFB11B !important;
+    color: white !important;
+}
 .ui-contents-padding{
     padding:0.5em;
 }

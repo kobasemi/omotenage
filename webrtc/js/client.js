@@ -31,10 +31,6 @@ var conn = null;
 var call = null;
 
 $(document).on('pageinit', '#pick-wind', function(e, data){
-    $("#partner-video").css("height", $(window).height()/2-50);
-    $("#map_canvas").css("height", $(window).height()/2);
-    $("#my_page").hide();
-
     $.get('./img/person.svg', function(svg){
         $("figure", "#ope-ico").prepend(svg);
         $("figure > svg > g").click(function(){
@@ -60,6 +56,9 @@ $(document).on('pageinit', '#pick-wind', function(e, data){
     $('#call').click(function(){
         ready();
     });
+    $("#partner-video").css("height", $(window).height()/2-50);
+    $("#map_canvas").css("height", $(window).height()/2);
+    $("#nicenav").hide();
 
     $('#endcall').click(function(){
         call.close();
@@ -123,9 +122,8 @@ function ready(){
     peer.on('connection', function(conn){
         conn.on('data', function(data){
             // TODO: オペレータから固有のページURLを受信
-            console.log(data);
-            $("#my_page").attr("href", data);
-            $("#my_page").show();
+            $("#nicenav").show();
+            $("#nicenav > a").attr("href", data);
         });
     });
 
