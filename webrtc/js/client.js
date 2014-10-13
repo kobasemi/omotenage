@@ -31,11 +31,11 @@ var ope_id = "";
 var peer = conn = call = null;
 
 $(document).on('pageinit', '#pick-wind', function(e, data){
-    $.get('./img/person.svg', function(svg){
         $("figure", "#ope-ico").prepend(svg);
         $("figure > svg > g").click(function(){
             $(this).find("#tie").attr("fill", "#FF0000");
         });
+    $.get('./img/operator.svg', function(svg){
     }, 'text');
 
     navigator.getUserMedia({audio: true, video: true}, function(stream){

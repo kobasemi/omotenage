@@ -105,12 +105,11 @@ function initpeer(){
 
 // Initializing MediaConnection callbacks
 function initcall(call){
-    conn.on('open', function(){
+    // NOTE: MediaConnection object does not have 'open' callback function...
+    call.on('stream', function(stream){
         // Receive remote localStream
-        call.on('stream', function(stream){
-            // Setting the stream into video tag
-            $("#pertner-video").prop("src", URL.createObjectURL(stream));
-        });
+        // Setting the stream into video tag
+        $("#pertner-video").prop("src", URL.createObjectURL(stream));
     });
 }
 
