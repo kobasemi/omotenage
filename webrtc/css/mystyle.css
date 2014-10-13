@@ -36,13 +36,13 @@ div[data-role=header] #location{
 
 /* client.html style */
 /* for operator icon */
-#ope-ico{
+#opelist{
     text-align: center;
 }
-#ope-ico figure {
+#opelist figure {
     display: inline-block;
 }
-#ope-ico figure figcaption{
+#opelist figure figcaption{
     margin: 5px 0 0 0;
     font-size: large;
     font-weight: bold;
