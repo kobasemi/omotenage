@@ -14,21 +14,21 @@ $.extend({
         return $.getUrlVars()[name];
     }
 });
-
 // country code
 var cc = $.getUrlVar('cc');
 
-/* WEBRTC */
 // Get a stream for video and audio connection
-navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-// Skyway API key for the domain: www.firefly.kutc.kansai-u.ac.jp
-var APIKEY = "79e1e834-4935-11e4-878c-e1a8ecd1a309";
-// Operator ID
-var opeId = "";
+navigator.getUserMedia =
+    navigator.getUserMedia ||
+    navigator.webkitGetUserMedia ||
+    navigator.mozGetUserMedia;
 
-var peer = null;
-var conn = null;
-var call = null;
+// Skyway API Key for The Domain: www.firefly.kutc.kansai-u.ac.jp
+var APIKEY = "79e1e834-4935-11e4-878c-e1a8ecd1a309";
+// Operator Peer ID
+var ope_id = "";
+// conn: DataConnection, call: MediaConnection
+var peer = conn = call = null;
 
 $(document).on('pageinit', '#pick-wind', function(e, data){
     $.get('./img/person.svg', function(svg){
@@ -38,24 +38,24 @@ $(document).on('pageinit', '#pick-wind', function(e, data){
         });
     }, 'text');
 
-    // PeerJS
-    peer = new Peer({key: APIKEY, debug:3});
-    peer.on('open', function(id) {
-        peer.listAllPeers(function(list){
-            //TODO: 複数人未対応
-            opeId = list.filter(function(v){return v.substring(0,2) == cc;})[0];
-        });
-    });
-
     navigator.getUserMedia({audio: true, video: true}, function(stream){
         window.localStream = stream;
     }, function(){
-        alert("You should enable the permit of Camera and Mic.");
+        alert("You should enable the permit of Camera and Mic.\n" +
+              "Please reload this page.\n");
     });
 
-    $('#call').click(function(){
-        ready();
-    });
+    initpeer();
+
+    $('#call').click(makecall);
+});
+
+$(document).on('pageinit', '#call-wind', function(e, data){
+    /*
+    if(peer === null)
+        $.mobile.changePage("#pick-wind");
+        */
+
     $("#partner-video").css("height", $(window).height()/2-50);
     $("#map_canvas").css("height", $(window).height()/2);
     $("#nicenav").hide();
@@ -65,16 +65,14 @@ $(document).on('pageinit', '#pick-wind', function(e, data){
         conn.close();
         peer.disconnect();
         peer.destroy();
+        peer = call = conn = null;
     });
-});
 
-$(document).on('pageinit', '#call-wind', function(e, data){
-    callTo(call);
+    makeconn();
 });
 
 $(document).on('pageshow', '#call-wind', function(e, data){
-    /* Google Maps API */
-    var path= []; // For move route of remote user
+    var path= []; // For the move route of remote user
     // Generate a map and mark the map with user current position
     $('#map_canvas').gmap('watchPosition', function(position, status){
         if(status === 'OK'){
@@ -93,13 +91,16 @@ $(document).on('pageshow', '#call-wind', function(e, data){
                 'strokeWeight': 10,
                 'strokeColor': '#FF0000',
                 'strokeOpacity': 0.8,
-                'path': path,
+                'path': path
             });
 
             // Make a center of current position in map
             $('#map_canvas').gmap('get', 'map').panTo(clientPosition);
 
             // Send current position to operator
+            // TODO:
+            // Geolocation APIの現在地取得タイミングによっては，
+            // 最初のPositionが送信されない
             if(conn !== null)
                 conn.send(JSON.stringify({
                     "lat": position.coords.latitude,
@@ -109,31 +110,51 @@ $(document).on('pageshow', '#call-wind', function(e, data){
     });
 });
 
-function ready(){
-    // Receiving a call
-    peer.on('call', function(call){
-        // It's impossible that something could recieve in this system.
-    });
+// Initializing the peer,
+// and then setting some callbacks
+function initpeer(){
+    peer = new Peer({key: APIKEY, debug:3});
 
-    peer.on('error', function(err){
-        alert(err.message);
-    });
+    peer.on('open', function(id) {
+        peer.listAllPeers(function(list){
+            //TODO: 複数人未対応
+            ope_id = list.filter(function(v){return v.substring(0,2) == cc;})[0];
+        });
 
-    peer.on('connection', function(conn){
+        peer.on('call', function(call){
+            // Receiving a call
+            // It's impossible that something could recieve in this system
+        }).on('connection', function(conn){
+        }).on('close', function(){
+        }).on('error', function(err){
+            alert(err.message);
+        });
+    });
+}
+
+// Connecting with a remote user,
+// and then setting some callbacks
+function makeconn(){
+    // Data connections
+    conn = peer.connect(ope_id);
+
+    conn.on('open', function(){
         conn.on('data', function(data){
             // TODO: オペレータから固有のページURLを受信
             $("#nicenav").show();
             $("#nicenav > a").attr("href", data);
+        }).on('error', function(err){
+            alert(err.message);
         });
     });
-
-    // Video/audio calls
-    call = peer.call(opeId, window.localStream);
-    // Data connections
-    conn = peer.connect(opeId);
 }
 
-function callTo(call){
+// Making a call to a remote user,
+// and then setting some callbacks
+function makecall(){
+    // Video/audio calls
+    call = peer.call(ope_id, window.localStream);
+
     if(window.existingCall)
         window.existingCall.close();
 
@@ -142,6 +163,5 @@ function callTo(call){
         $("#partner-video").prop('src', URL.createObjectURL(stream));
     });
 
-    // UI stuff
     window.existingCall = call;
 }

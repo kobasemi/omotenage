@@ -1,7 +1,16 @@
+
 $(document).on('pageinit', '#ope-wind', function(e, data){
     // Setting the css parameter(height) for Google Maps canvas
     // If it's not setting, the canvas does not fully work
     $("#map_canvas").css("height", $(window).height());
+    // Initialize the map
+    $('#map_canvas').gmap().bind('init', function(evt, map) {
+        map.setOptions({
+            // Center of Tokyo Station
+            'center': new google.maps.LatLng(35.681382,139.766084),
+            'zoom':15});
+    });
+
     $("#accept").click(ready);
 
     // Create supported country selectmenu
@@ -16,21 +25,22 @@ $(document).on('pageinit', '#ope-wind', function(e, data){
     });
 });
 
-/* WEBRTC */
 // Get a stream for video and audio connection
-navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-// Skyway API key for the domain: www.firefly.kutc.kansai-u.ac.jp
+navigator.getUserMedia =
+    navigator.getUserMedia ||
+    navigator.webkitGetUserMedia ||
+    navigator.mozGetUserMedia;
+
+// Skyway API Key for The Domain: www.firefly.kutc.kansai-u.ac.jp
 var APIKEY = "79e1e834-4935-11e4-878c-e1a8ecd1a309";
 var peer = null;
+// Remote User Peer ID
+var usr_id = "";
 
 function ready(){
-    // Country Code
-    var cc = $('#select_cc').val();
-    // Operater Name
-    var name = $('#input_name').val();
-
-    // If name is empty, alert the dialog and exit this function
-    if(name === ''){
+    // If a operator name is empty,
+    // alert the dialog and exit this function
+    if($('#input_name').val() === ''){
         alert("名前を入力してください(半角英数字)．");
         return;
     }
@@ -43,71 +53,82 @@ function ready(){
               "Please reload this page.\n");
     });
 
-    // My ID: country code + operator name
-    var myId = cc + "-" + name;
-    var remote_id = "";
-
     // Change to disable this elements
     $("#accept").text("受付中");
     $("#accept").addClass("ui-state-disabled");
     $("#select_cc").selectmenu("disable");
     $("#input_name").textinput("disable");
 
-    // Open Peer
-    peer = new Peer(myId, {key: APIKEY, debug:3});
+    initpeer();
+
+    $("#gene").click(function(){
+        // TODO: ページ生成CGIの作成
+        var page_url = "nav/" + usr_id + ".html";
+    });
+
+    $("#send").click(function(){
+        // Send generated page to remote user
+        //var conn = peer.connect(usr_id);
+        //conn.send(page_url);
+        console.log('send');
+    });
+}
+
+// Initializing the peer,
+// and then setting some callbacks
+function initpeer(){
+    // My Peer ID: {COUNTRY CODE}-{OPERATOR NAME}
+    // e.g. us-mizho
+    var my_id = $('#select_cc').val() + "-" + $('#input_name').val();
+
+    // Open Peer with My Peer ID
+    peer = new Peer(my_id, {key: APIKEY, debug:3});
 
     peer.on('open', function(){
-        console.log('Peer ID is: ' + myId);
-    });
-    peer.on('call', function(call){
-        // Get remote id
-        remote_id = call.peer;
+        peer.on('call', function(call){
+            // Get remote user id
+            usr_id = call.peer;
+            // Send my localStream
+            call.answer(window.localStream);
 
-        // Send my localStream
-        call.answer(window.localStream);
+            initcall(call);
+        }).on('connection', function(conn){
+            initconn(conn);
+        }).on('close', function(){
+            $("#pertner-video").prop("src", "");
+            alert("Closed...");
+        }).on('error', function(err){
+            alert(err.message);
+        });
+    });
+}
+
+// Initializing MediaConnection callbacks
+function initcall(call){
+    conn.on('open', function(){
         // Receive remote localStream
         call.on('stream', function(stream){
             // Setting the stream into video tag
             $("#pertner-video").prop("src", URL.createObjectURL(stream));
         });
     });
-    peer.on('connection', function(conn){
+}
+
+// Initializing DataConnection callbacks
+function initconn(conn){
+    conn.on('open', function(){
         conn.on('data', function(data){
             // Get a longitude and latitude that sent from remode user
             var pos = $.parseJSON(data);
             // Update the canvas with a new latlng
             updateMap(new google.maps.LatLng(pos.lat, pos.lng));
-        });
-    });
-    peer.on('close', function(){
-        $("#pertner-video").prop("src", "");
-        alert("Closed...");
-    });
-
-    $("#gene").click(function(){
-        // TODO: ページ生成CGIの作成
-        var page_url = "nav/" + remote_id + ".html";
-
-        $("#send").click(function(){
-            // Send generated page to remote user
-            //var conn = peer.connect(remote_id);
-            //conn.send(page_url);
-            console.log('send');
+        }).on('error', function(err){
+            alert(err.message);
         });
     });
 }
 
-/* Google Maps API */
-// Initialize the map
-$('#map_canvas').gmap().bind('init', function(evt, map) {
-    map.setOptions({
-        // Center of Tokyo Station
-        'center': new google.maps.LatLng(35.681382,139.766084),
-        'zoom':15});
-});
-
 var path= []; // For move route of remote user
-
 // Update the map from a remote user's position of current
 // latlng: latitude and longitude of the current position
 function updateMap(latlng){
