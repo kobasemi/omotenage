@@ -36,25 +36,14 @@ $(document).on('pageinit', '#pick-wind', function(e, data){
         ope_ico = svg;
     }, 'text');
 
-    navigator.getUserMedia({audio: true, video: true}, function(stream){
-        window.localStream = stream;
-    }, function(){
-        console.log("You should enable the permit of Camera and Mic.\n" +
-              "Please reload this page.\n");
-    });
 
     initpeer();
 
     $('#call').click(function(){
         if(ope_id === ""){
-            // If nobody is a selected operator
-            $("#popup").popup();
-            $("#popup").
-                html("<p style='padding: 1em;'>Pick a operator from the list</p>").
-                popup('open');
-
+            popup_err('NOPICK');
             return;
-       }
+        }
 
         makecall();
         $.mobile.changePage("#call-wind");
@@ -144,10 +133,11 @@ function popup_err(EDESC){
 function disp_opes(opes){
     // If nobody is in connection
     if($.isEmptyObject(opes)){
+        popup_err('NOOPE');
         // Append figure tag template
         $("#opelist").append("<figure><figcaption></figcaption></figure>");
         $("figure figcaption", "#opelist").
-            text("Sorry... Nobody is in connection.");
+            text("Sorry... Nobody of operator is in connection.");
         // Add svg tag of ope_ico to after figure tag
         $("figure", "#opelist").prepend(ope_ico);
         // Change ope_ico color to negative color
@@ -179,6 +169,12 @@ function disp_opes(opes){
 
             // Update operator ID
             ope_id = id;
+
+            navigator.getUserMedia({audio: true, video: true}, function(stream){
+                window.localStream = stream;
+            }, function(){
+                popup_err('OFFMEDIA');
+            });
         });
     });
 
