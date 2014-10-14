@@ -122,6 +122,24 @@ $(document).on('pageshow', '#call-wind', function(e, data){
     });
 });
 
+// Popup a error page
+function popup_err(EDESC){
+    // EDESC: ERROR DESCRIPTION
+    switch(EDESC){
+        case 'NOOPE': // Some operators doesn't exist
+            break;
+        case 'NOPICK': // Nobody is a selected operator
+            break;
+        case 'OFFMEDIA': // The media(camera, mic) are off
+            break;
+        default: // Other case
+            break;
+    }
+
+    $("#popup").popup();
+    $("#popup")/*.html(popbody)*/.popup('open');
+}
+
 // Some operators in connection is displayed
 function disp_opes(opes){
     // If nobody is in connection
