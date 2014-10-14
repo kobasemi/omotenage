@@ -39,13 +39,26 @@ $(document).on('pageinit', '#pick-wind', function(e, data){
     navigator.getUserMedia({audio: true, video: true}, function(stream){
         window.localStream = stream;
     }, function(){
-        alert("You should enable the permit of Camera and Mic.\n" +
+        console.log("You should enable the permit of Camera and Mic.\n" +
               "Please reload this page.\n");
     });
 
     initpeer();
 
-    $('#call').click(makecall);
+    $('#call').click(function(){
+        if(ope_id === ""){
+            // If nobody is a selected operator
+            $("#popup").popup();
+            $("#popup").
+                html("<p style='padding: 1em;'>Pick a operator from the list</p>").
+                popup('open');
+
+            return;
+       }
+
+        makecall();
+        $.mobile.changePage("#call-wind");
+    });
 });
 
 $(document).on('pageinit', '#call-wind', function(e, data){

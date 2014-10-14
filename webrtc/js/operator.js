@@ -49,7 +49,7 @@ function ready(){
     navigator.getUserMedia({audio: true, video: true}, function(stream){
         window.localStream = stream;
     }, function(){
-        alert("You should enable the permit of Camera and Mic.\n" +
+        console.log("You should enable the permit of Camera and Mic.\n" +
               "Please reload this page.\n");
     });
 
