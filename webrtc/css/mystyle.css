@@ -34,6 +34,13 @@ div[data-role=header] #location{
     vertical-align: middle;
 }
 
+#getinfo,
+#getinfo:hover,
+#getinfo:active{
+    background: none;
+    border: 0;
+}
+
 /* client.html style */
 /* for operator icon */
 #opelist{

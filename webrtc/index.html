@@ -19,9 +19,14 @@
             </div>
             <div role="main" class="ui-content">
                 <ul data-role="listview" data-filter="true" data-filter-placeholder="Search countries..." data-inset="true" id="pick"></ul>
+                <div data-role="popup" id="popinfo" data-theme="a" data-overlay-theme="b" class="ui-content">
+                    <iframe src="" width="512" seamless=""></iframe>
+                </div>
             </div>
             <div data-role="footer">
-                <h3>Copryright &copy; 2014, Kobayashi Seminar</h3>
+                <h3>Copryright &copy; 2014, Kobayashi Seminar
+                    <a id="getinfo" href="#popinfo" data-rel="popup" data-transition="pop" data-position-to="window" class="ui-btn ui-icon-info ui-alt-icon ui-nodisc-icon ui-btn-inline ui-btn-icon-notext" title="Get info">Get info</a>
+                </h3>
             </div>
         </div>
 
@@ -47,9 +52,6 @@
                         <div class="ui-block-c"></div>
                     </div>
                 </div>
-            </div>
-            <div data-role="footer">
-                <h3>Copryright &copy; 2014, Kobayashi Seminar</h3>
             </div>
         </div>
 
