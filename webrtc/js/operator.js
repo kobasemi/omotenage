@@ -12,6 +12,7 @@ $(document).on('pageinit', '#ope-wind', function(e, data){
     });
 
     $("#accept").click(ready);
+    $("#gene").click(generate);
 
     // Create supported country selectmenu
     $.getJSON("SupportCountry.json", function(data){
@@ -150,4 +151,30 @@ function updateMap(latlng){
 
     // Make a center of current position in map
     $('#map_canvas').gmap('get', 'map').panTo(latlng);
+}
+
+function generate(){
+    // Generate page
+    //var page_url = "nav/" + remote_id + ".html";
+
+    var remote_id = "test1";
+
+    // Get value from input form using jQuery
+    var name = $(':text[name="remote_name"]').val();
+    var location = $(':text[name="location"]').val();
+    var from = $(':text[name="input_from"]').val();
+    var to = $(':text[name="input_to"]').val();
+    var tmode = $(':radio[name="tmode"]:checked').val();
+
+    var s = document.createElement('script');
+    var param = "?name=" + name + "&location=" + location + "&from=" + from + "&to=" + to + "&tmode=" + tmode + "&remote_id=" + remote_id;
+    s.src = 'cgi-bin/generate.cgi' + param;
+    document.body.appendChild(s);
+    return false;
+}
+
+// Callback from python script which generate a page
+function callback(json) {
+    url = json.url;
+    alert(url);
 }
