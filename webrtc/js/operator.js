@@ -33,9 +33,7 @@ navigator.getUserMedia =
 
 // Skyway API Key for The Domain: www.firefly.kutc.kansai-u.ac.jp
 var APIKEY = "79e1e834-4935-11e4-878c-e1a8ecd1a309";
-var peer = null;
-// Remote User Peer ID
-var usr_id = "";
+var peer = conn = null;
 
 function ready(){
     // If a operator name is empty,
@@ -45,12 +43,14 @@ function ready(){
         return;
     }
 
+    initpeer();
+
     // Open Media(Camera and Mic)
     navigator.getUserMedia({audio: true, video: true}, function(stream){
         window.localStream = stream;
     }, function(){
         console.log("You should enable the permit of Camera and Mic.\n" +
-              "Please reload this page.\n");
+                    "Please reload this page.\n");
     });
 
     // Change to disable this elements
@@ -59,13 +59,11 @@ function ready(){
     $("#select_cc").selectmenu("disable");
     $("#input_name").textinput("disable");
 
-    initpeer();
-
     $("#send").click(function(){
-        // Send generated page to remote user
-        //var conn = peer.connect(usr_id);
-        //conn.send(page_url);
-        console.log('send');
+        // Send the path of CGI program to remote user
+        var cgi_path = "cgi-bin/generate.cgi" + getparam();
+        conn.send(cgi_path);
+        console.log('sent cgi_path to ' + conn.peer);
     });
 }
 
@@ -78,44 +76,31 @@ function initpeer(){
 
     // Open Peer with My Peer ID
     peer = new Peer(my_id, {key: APIKEY, debug:3});
-
     peer.on('open', function(){
         peer.on('call', function(call){
-            // Get remote user id
-            usr_id = call.peer;
             // Send my localStream
             call.answer(window.localStream);
 
-            initcall(call);
-        }).on('connection', function(conn){
-            initconn(conn);
+            // Receive remote localStream
+            call.on('stream', function(stream){
+                // Setting the stream into video tag
+                $("#pertner-video").prop("src", URL.createObjectURL(stream));
+            });
+        }).on('connection', function(connect){
+            conn = connect;
+            conn.on('open', function(){
+                conn.on('data', function(data){
+                    // Get a longitude and latitude that sent from remode user
+                    var pos = $.parseJSON(data);
+                    // Update the canvas with a new latlng
+                    updateMap(new google.maps.LatLng(pos.lat, pos.lng));
+                }).on('error', function(err){
+                    alert(err.message);
+                });
+            });
         }).on('close', function(){
             $("#pertner-video").prop("src", "");
             alert("Closed...");
-        }).on('error', function(err){
-            alert(err.message);
-        });
-    });
-}
-
-// Initializing MediaConnection callbacks
-function initcall(call){
-    // NOTE: MediaConnection object does not have 'open' callback function...
-    call.on('stream', function(stream){
-        // Receive remote localStream
-        // Setting the stream into video tag
-        $("#pertner-video").prop("src", URL.createObjectURL(stream));
-    });
-}
-
-// Initializing DataConnection callbacks
-function initconn(conn){
-    conn.on('open', function(){
-        conn.on('data', function(data){
-            // Get a longitude and latitude that sent from remode user
-            var pos = $.parseJSON(data);
-            // Update the canvas with a new latlng
-            updateMap(new google.maps.LatLng(pos.lat, pos.lng));
         }).on('error', function(err){
             alert(err.message);
         });
@@ -147,28 +132,14 @@ function updateMap(latlng){
     $('#map_canvas').gmap('get', 'map').panTo(latlng);
 }
 
-function generate(){
-    // Generate page
-    //var page_url = "nav/" + remote_id + ".html";
-
-    var remote_id = "test1";
-
-    // Get value from input form using jQuery
+// Get the value from the form
+function getparam(){
     var name = $(':text[name="remote_name"]').val();
     var location = $(':text[name="location"]').val();
     var from = $(':text[name="input_from"]').val();
     var to = $(':text[name="input_to"]').val();
     var tmode = $(':radio[name="tmode"]:checked').val();
 
-    var s = document.createElement('script');
-    var param = "?name=" + name + "&location=" + location + "&from=" + from + "&to=" + to + "&tmode=" + tmode + "&remote_id=" + remote_id;
-    s.src = 'cgi-bin/generate.cgi' + param;
-    document.body.appendChild(s);
-    return false;
-}
-
-// Callback from python script which generate a page
-function callback(json) {
-    url = json.url;
-    alert(url);
+    // parameter as encoded URL
+    return "?name=" + name + "&location=" + location + "&from=" + from + "&to=" + to + "&tmode=" + tmode;
 }
