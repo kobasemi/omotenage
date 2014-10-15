@@ -26,13 +26,15 @@ navigator.getUserMedia =
 // Skyway API Key for The Domain: www.firefly.kutc.kansai-u.ac.jp
 var APIKEY = "79e1e834-4935-11e4-878c-e1a8ecd1a309";
 // Operator Peer ID
-var ope_id =  ope_ico = "";
+var ope_id = "";
 // conn: DataConnection, call: MediaConnection
 var peer = conn = call = null;
+// Image for Operator Body and Tie
+var ope_svg = tie_svg =  "";
 
 $(document).on('pageinit', '#pick-wind', function(e, data){
-    $.get('./img/operator.svg', function(svg){
-        ope_ico = svg;
+    $.get('./img/body.svg', function(svg){
+        ope_svg = svg;
     }, 'text');
 
     initpeer();
@@ -135,34 +137,35 @@ function disp_opes(opes){
         $("#opelist").append("<figure><figcaption></figcaption></figure>");
         $("figure figcaption", "#opelist").
             text("Sorry... Nobody of operator is in connection.");
-        // Add svg tag of ope_ico to after figure tag
-        $("figure", "#opelist").prepend(ope_ico);
-        // Change ope_ico color to negative color
-        $("#nottie").attr("fill", "#F80E0E");
+        // Add svg tag of ope_svg to after figure tag
+        $("figure", "#opelist").prepend(ope_svg);
+        // Change ope_svg color to negative color
+        $("#body path").attr("fill", "#F80E0E");
         return;
     }
 
     $.each(opes, function(idx, id){
+        // Get the country code of the operator
+        var cc = id.split('-')[0];
         // Get the operator name
         var name = id.split('-')[1];
         // Create the tag for the operator of id
         $("#opelist").append("<figure id="+name+"></figure>");
         $("#"+name).
             // Setting operator icon written in svg
-            append(ope_ico).
+            append(ope_svg).
             append("<figcaption>"+name+"</figcaption>");
 
-        // Setting the color of tie to a random color
-        var tie_color = Math.floor(Math.random()*16777215).toString(16);
-        $("#tie", "#"+name).attr("fill", "#"+tie_color);
+        // Overrige the tie with a country tie
+        $.get('./img/cc_tie/' + cc + '.svg', function(svg){
+            $("#tie", "#"+name).html($(svg).find("#"+cc).html());
+        }, 'text');
 
-        $("#"+name).find("#ope_ico").click(function(){
-            // All ID(#nottie) color is set to #26453D
-            $("figure > svg", "#opelist").find("#nottie").attr("fill", "#26453D");
-
+        $("#"+name).find("#Body").click(function(){
+            // All ID(#body) color is set to #26453D
+            $("figure > svg", "#opelist").find("#body path").attr("fill", "#26453D");
             // THIS icon color is set to positive color
-            $(this).find("#tie").attr("fill", "white");
-            $(this).find("#nottie").attr("fill", "#11D528");
+            $(this).find("#body path").attr("fill", "#11D528");
 
             // Update operator ID
             ope_id = id;
