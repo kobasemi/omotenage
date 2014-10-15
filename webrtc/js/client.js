@@ -26,8 +26,7 @@ navigator.getUserMedia =
 // Skyway API Key for The Domain: www.firefly.kutc.kansai-u.ac.jp
 var APIKEY = "79e1e834-4935-11e4-878c-e1a8ecd1a309";
 // Operator Peer ID
-var ope_id = "";
-var ope_ico = "";
+var ope_id =  ope_ico = "";
 // conn: DataConnection, call: MediaConnection
 var peer = conn = call = null;
 
@@ -36,7 +35,6 @@ $(document).on('pageinit', '#pick-wind', function(e, data){
         ope_ico = svg;
     }, 'text');
 
-
     initpeer();
 
     $('#call').click(function(){
@@ -44,7 +42,6 @@ $(document).on('pageinit', '#pick-wind', function(e, data){
             popup_err('NOPICK');
             return;
         }
-
         makecall();
         $.mobile.changePage("#call-wind");
     });
@@ -177,23 +174,20 @@ function disp_opes(opes){
             });
         });
     });
-
 }
+
 // Initializing the peer,
 // and then setting some callbacks
 function initpeer(){
     peer = new Peer({key: APIKEY, debug:3});
-
     peer.on('open', function(id) {
         peer.listAllPeers(function(list){
-            disp_opes(list.filter(function(v){return v.substring(0,2) == cc;}));
+            // Get only operator peer list
+            var ope_list = list.filter(function(v){return v.substring(0,2) == cc;});
+            disp_opes(ope_list);
         });
 
-        peer.on('call', function(call){
-            // Receiving a call
-            // It's impossible that something could recieve in this system
-        }).on('connection', function(conn){
-        }).on('close', function(){
+        peer.on('close', function(){
         }).on('error', function(err){
             alert(err.message);
         });
@@ -203,14 +197,14 @@ function initpeer(){
 // Connecting with a remote user,
 // and then setting some callbacks
 function makeconn(){
-    // Data connections
+    // Start DataConnections
     conn = peer.connect(ope_id);
-
     conn.on('open', function(){
         conn.on('data', function(data){
-            // TODO: オペレータから固有のページURLを受信
+            // Receive a data
             $("#nicenav").show();
-            $("#nicenav > a").attr("href", data);
+            // Setting the path of CGI program with some parameters
+            $("#nicepage").attr("href", data);
         }).on('error', function(err){
             alert(err.message);
         });
@@ -220,16 +214,16 @@ function makeconn(){
 // Making a call to a remote user,
 // and then setting some callbacks
 function makecall(){
-    // Video/audio calls
+    // Start MediaConnection
     call = peer.call(ope_id, window.localStream);
+    call.on('open', function(){
+        call.on('stream', function(stream){
+            // Receive a stream
+            $("#partner-video").prop('src', URL.createObjectURL(stream));
+        });
+    });
 
     if(window.existingCall)
         window.existingCall.close();
-
-    // Wait for stream on the call, then set peer video display
-    call.on('stream', function(stream){
-        $("#partner-video").prop('src', URL.createObjectURL(stream));
-    });
-
     window.existingCall = call;
 }
