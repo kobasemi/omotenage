@@ -12,7 +12,6 @@ $(document).on('pageinit', '#ope-wind', function(e, data){
     });
 
     $("#accept").click(ready);
-    $("#gene").click(generate);
 
     // Create supported country selectmenu
     $.getJSON("SupportCountry.json", function(data){
@@ -61,11 +60,6 @@ function ready(){
     $("#input_name").textinput("disable");
 
     initpeer();
-
-    $("#gene").click(function(){
-        // TODO: ページ生成CGIの作成
-        var page_url = "nav/" + usr_id + ".html";
-    });
 
     $("#send").click(function(){
         // Send generated page to remote user
