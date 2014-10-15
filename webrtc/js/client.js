@@ -44,8 +44,14 @@ $(document).on('pageinit', '#pick-wind', function(e, data){
             popup_err('NOPICK');
             return;
         }
-        makecall();
-        $.mobile.changePage("#call-wind");
+
+        navigator.getUserMedia({audio: true, video: true}, function(stream){
+            window.localStream = stream;
+            makecall();
+            $.mobile.changePage("#call-wind");
+        }, function(){
+            popup_err('OFFMEDIA');
+        });
     });
 });
 
@@ -125,7 +131,7 @@ function popup_err(EDESC){
     }
 
     $("#popup").popup();
-    $("#popup")/*.html(popbody)*/.popup('open');
+    //$("#popup")/*.html(popbody)*/.popup('open');
 }
 
 // Some operators in connection is displayed
@@ -169,12 +175,6 @@ function disp_opes(opes){
 
             // Update operator ID
             ope_id = id;
-
-            navigator.getUserMedia({audio: true, video: true}, function(stream){
-                window.localStream = stream;
-            }, function(){
-                popup_err('OFFMEDIA');
-            });
         });
     });
 }
@@ -219,11 +219,10 @@ function makeconn(){
 function makecall(){
     // Start MediaConnection
     call = peer.call(ope_id, window.localStream);
-    call.on('open', function(){
-        call.on('stream', function(stream){
-            // Receive a stream
-            $("#partner-video").prop('src', URL.createObjectURL(stream));
-        });
+
+    call.on('stream', function(stream){
+        // Receive a stream
+        $("#partner-video").prop('src', URL.createObjectURL(stream));
     });
 
     if(window.existingCall)
