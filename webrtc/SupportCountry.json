@@ -15,7 +15,7 @@
         {"cc":"it", "lc":"it",     "name":"Italy",         "jname":"イタリア"},
         {"cc":"es", "lc":"es",     "name":"Spain",         "jname":"スペイン"},
         {"cc":"eg", "lc":"ar",     "name":"Egypt",         "jname":"エジプト"},
-        {"cc":"za", "lc":"pt",     "name":"Brazil",        "jname":"ブラジル"},
+        {"cc":"br", "lc":"pt",     "name":"Brazil",        "jname":"ブラジル"},
         {"cc":"jp", "lc":"ja",     "name":"Japan",         "jname":"日本"}
     ]
 }
