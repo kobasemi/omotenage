@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
+     </head>
+     <body>
+         <div data-role="page" data-title="Information" data-theme="a" id="info">
+            <div role="main" class="ui-content">
+                <figure>
+                    <figcaption></figcaption>
+                    <object data="../img/logo.svg" type="image/svg+xml" width="150px"></object>
+                </figure>
+                <div id="author" data-role="collapsible" data-iconpos="right">
+                    <h3>team Kobasemi</h3>
+                    <ul data-role="listview">
+                    </ul>
+                </div>
+                <figure>
+                    <a href="https://github.com/kobasemi/WebRTCCon" target="_blank">
+                        <object data="../img/octocat.svg" type="image/svg+xml"></object>
+                    </a>
+                </figure>
+            </div>
+        </div>
+        <style>
+            body{
+                text-align: center;
+            }
+            .ui-content{
+                padding: 5;
+            }
+            figure figcaption{
+                margin: 0 0 15px 0;
+                font-size: x-large;
+                font-weight: bold;
+            }
+            a{
+                display: inline-block;
+            }
+            object{
+                pointer-events: none;
+            }
+            #author li{
+                text-align: center !important;
+            }
+        </style>
+        <script>
+            $(document).on('pageinit', '#info', function(e, data){
+                    $.getJSON("Information.json", function(sys){
+                            $("figcaption").text(sys.Name);
+
+                            $.each(sys.Author.Member, function(idx, user){
+                                    $('<li>' + user.name + '</li>').appendTo("#author ul");
+                                    $("#author ul").listview().listview('refresh');
+                            });
+
+                    });
+            });
+        </script>
+    </body>
+</html>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="shortcut icon" type="image/png" href="fav.ico" />
+        <link rel="shortcut icon" type="image/png" href="img/fav.ico" />
         <link rel="stylesheet" type="text/css" href="./css/flags.css" />
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -20,7 +20,8 @@
             <div role="main" class="ui-content">
                 <ul data-role="listview" data-filter="true" data-filter-placeholder="Search countries..." data-inset="true" id="pick"></ul>
                 <div data-role="popup" id="popinfo" data-theme="a" data-overlay-theme="b" class="ui-content">
-                    <iframe src="" width="512" seamless=""></iframe>
+                    <!-- TODO: resize callback -->
+                    <iframe src="./popup/info.html" width="300" height="300" frameborder="0" seemless=""></iframe>
                 </div>
             </div>
             <div data-role="footer">

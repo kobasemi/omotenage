@@ -1,0 +1,20 @@
+{
+    "Name": "Omotenashi Signage",
+    "Author": {
+        "Univ": "Kansai University",
+        "Semi": "Kobayashi Takashi",
+        "Group": "team Kobasemi",
+        "Member": [
+            {"name":"ITABASHI TAKESHI"   , "grade":"M2" },
+            {"name":"IKEBUCHI RYOMA"     , "grade":"M1" },
+            {"name":"NAKATA KYOHEI"      , "grade":"M1" },
+            {"name":"KOUSAKA KENSUKE"    , "grade":"B4" },
+            {"name":"AKASAKA SHOWTA"     , "grade":"B4" },
+            {"name":"AOTO YUKI"          , "grade":"B3" },
+            {"name":"SAKAI RYOSUKE"      , "grade":"B3" },
+            {"name":"HIRAMATSU YOSHITAKA", "grade":"B3" }
+        ]
+    },
+    "Repository": "https://github.com/kobasemi/WebRTCCon",
+    "License": "MIT License"
+}
