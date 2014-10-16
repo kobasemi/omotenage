@@ -152,9 +152,9 @@ function disp_opes(opes){
 
     $.each(opes, function(idx, id){
         // Get the country code of the operator
-        var cc = id.split('-')[0];
+        var cc = id.split('-')[1];
         // Get the operator name
-        var name = id.split('-')[1];
+        var name = id.split('-')[2];
         // Create the tag for the operator of id
         $("#opelist").append("<figure id="+name+"></figure>");
         $("#"+name).
@@ -186,7 +186,8 @@ function initpeer(){
     peer.on('open', function(id) {
         peer.listAllPeers(function(list){
             // Get only operator peer list
-            var ope_list = list.filter(function(v){return v.substring(0,2) == cc;});
+            var ope_list = list.filter(function(v){return v.match(/^ope-[a-z][a-z]-/);});
+                //function(v){return v.substring(0,3) == "ope-";});
             disp_opes(ope_list);
         });
 
@@ -219,7 +220,6 @@ function makeconn(){
 function makecall(){
     // Start MediaConnection
     call = peer.call(ope_id, window.localStream);
-
     call.on('stream', function(stream){
         // Receive a stream
         $("#partner-video").prop('src', URL.createObjectURL(stream));

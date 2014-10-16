@@ -72,7 +72,7 @@ function ready(){
 function initpeer(){
     // My Peer ID: {COUNTRY CODE}-{OPERATOR NAME}
     // e.g. us-mizho
-    var my_id = $('#select_cc').val() + "-" + $('#input_name').val();
+    var my_id = "ope-" + $('#select_cc').val() + "-" + $('#input_name').val();
 
     // Open Peer with My Peer ID
     peer = new Peer(my_id, {key: APIKEY, debug:3});
