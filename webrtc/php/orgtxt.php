@@ -8,3 +8,9 @@ $orgtxt = array(
     // line 3
     'l3' => 'NOTE: Next Page needs to allow you to get Camera and Mic, GPS.'
 );
+
+// Main Contents
+$contents = array(
+    "header" => 'Welcome to Japan',
+    "body" => $orgtxt
+);

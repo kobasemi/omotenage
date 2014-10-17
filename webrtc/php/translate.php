@@ -1,14 +1,7 @@
 <?php
 
-// Read Original Body Text
+// Read Original Contents
 require "orgtxt.php";
-// Original Text Data
-$data = array(
-    // header title text
-    "header" => 'Welcome to Japan',
-    "body" => $orgtxt
-);
-
 // Read Microsoft Translator API Key
 require "apikey.php"; // APPID
 // Original Text Language: English
@@ -20,15 +13,21 @@ if(isset($_POST['lc']))
 else
     $to = 'en';
 
+if($from === $to){
+    // No Translation
+    echo json_encode($contents);
+    exit();
+}
+
 // BEGIN Translation
-$data['header'] = translate($data['header'], $from, $to);
-foreach($data['body'] as $key => $value){
+$contents['header'] = translate($contents['header'], $from, $to);
+foreach($contents['body'] as $key => $value){
     // Update from original text to translation text.
-    $data['body'][$key] = translate($value, $from, $to);
+    $contents['body'][$key] = translate($value, $from, $to);
 }
 
 // Return JSON Data
-echo json_encode($data);
+echo json_encode($contents);
 
 // Translate $text from $from to $to
 // Return: Translated Text

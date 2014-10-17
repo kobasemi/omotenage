@@ -16,12 +16,7 @@ $(document).on('pageinit', '#home', function(e, data){
 
 $(document).on('pageinit', '#nav', function(e, data){
     // Initialize page for english
-    $("#location").removeClass().addClass('flag flag-us');
-    $("#localecode").text('(en)');
-    $.post("./php/navpage.php", function(data){
-        // Get and Set Original Text
-        $("#body_txt").html(data);
-    });
+    update_navpage('us', 'en');
 });
 
 // Move #nav page
