@@ -17,7 +17,7 @@ $(document).on('pageinit', '#home', function(e, data){
     });
 
     // Initialize page for english
-    update_navpage('us', 'en');
+    translate('us', 'en');
     passhome_flg = true;
 });
 
@@ -42,7 +42,7 @@ function move_navpage(){
     if(lc !== pre_lc){
         // If the translation TARGET doesn't equal to the previous TARGET,
         // translate to the TARGET
-        update_navpage(cc, lc);
+        translate(cc, lc);
         // Previous country language is updated
         pre_lc = lc;
     }
@@ -50,29 +50,54 @@ function move_navpage(){
     $.mobile.changePage("#nav");
 }
 
-// Update #nav page elements
-// cc: country code, lc: language code
-function update_navpage(cc, lc){
-    $("#loading").addClass("loading");
+// Buffered translated data
+var translated = [];
+function translate(cc, lc){
 
+    // If the target data already exist, update #nav page using it
+    var updated = false;
+    $.each(translated, function(i, value){
+        if(value.cc === cc){
+            update_navpage(value);
+            return updated = true;
+        }
+    });
+    if(updated) return;
+
+    // If no budder
+    // Display loading image
+    $("#loading").addClass("loading");
     // Execute Translation
     $.post("./php/translate.php",
            { 'lc': lc }, // POST Parameter
-           function(data){ // success callback func
-               // Update the flag and the location in header of #nav page
-               $("#localecode").text('(' + lc + ')');
-               $("#location").removeClass().addClass('flag flag-' + cc);
+           function(data){
+               // Buffering
+               var buf = {"cc": cc, "lc": lc, "header": data.header, "body": data.body};
+               translated.push(buf);
 
-               // JSON key: header, body
-               // Update Header Title
-               $("#header_title strong").text(data.header);
-               // Clear inside #body_txt
-               $("#body_txt").html('');
-               // Add #body_txt elements
-               $.each(data.body, function(idx){
-                   $("#body_txt").append("<p>"+data.body[idx]+"</p>");
-               });
+               update_navpage(buf);
 
+               // Hide loading image
                $("#loading").removeClass("loading");
            }, "json");
+}
+
+
+// Update #nav page elements
+// data{cc: country code, lc: language code,
+// header: page header text, body: page body text}
+function update_navpage(data){
+    // Update the flag and the location in header of #nav page
+    $("#localecode").text('(' + data.lc + ')');
+    $("#location").removeClass().addClass('flag flag-' + data.cc);
+
+    // JSON key: header, body
+    // Update Header Title
+    $("#header_title strong").text(data.header);
+    // Clear inside #body_txt
+    $("#body_txt").html('');
+    // Add #body_txt elements
+    $.each(data.body, function(idx, value){
+        $("#body_txt").append("<p>"+value+"</p>");
+    });
 }
