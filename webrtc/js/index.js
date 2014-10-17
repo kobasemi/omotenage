@@ -1,3 +1,4 @@
+
 $(document).on('pageinit', '#home', function(e, data){
     // Create supported country listview
     $.getJSON("SupportCountry.json", function(data){
@@ -17,20 +18,6 @@ $(document).on('pageinit', '#nav', function(e, data){
     // Get and Set Original Text
     $.post("./php/navpage.php", function(data){
         $("#body_txt").html(data);
-    });
-});
-
-$(document).on('pageshow', '#nav', function(e, data){
-    $("#call").click(function(){
-        // Extract a country code from the class values of #location
-        var cc = $("#location").
-            attr("class").
-            split(" ").
-            filter(function(v){return v.substring(0,5) == 'flag-';})[0].
-            split("-")[1];
-
-        // Set the link with GET parameter(cc: country code)
-        $("#call").attr('href', './client.html?cc=' + cc);
     });
 });
 
