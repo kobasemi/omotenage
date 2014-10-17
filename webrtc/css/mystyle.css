@@ -54,3 +54,14 @@ div[data-role=header] #location{
     font-size: large;
     font-weight: bold;
 }
+
+.loading {
+    overflow:   hidden;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .7 ) url('../img/loading.gif') 50% 10% no-repeat;
+}

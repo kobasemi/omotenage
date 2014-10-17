@@ -15,8 +15,11 @@ $(document).on('pageinit', '#home', function(e, data){
 });
 
 $(document).on('pageinit', '#nav', function(e, data){
-    // Get and Set Original Text
+    // Initialize page for english
+    $("#location").removeClass().addClass('flag flag-us');
+    $("#localecode").text('(en)');
     $.post("./php/navpage.php", function(data){
+        // Get and Set Original Text
         $("#body_txt").html(data);
     });
 });
@@ -35,14 +38,16 @@ function move_navpage(){
 // Update #nav page elements
 // cc: country code, lc: language code
 function update_navpage(cc, lc){
-    // Update the flag and the location in header of #nav page
-    $("#localecode").text('(' + lc + ')');
-    $("#location").removeClass().addClass('flag flag-' + cc);
+    $("#loading").addClass("loading");
 
     // Execute Translation
     $.post("./php/translate.php",
            { 'lc': lc }, // POST Parameter
            function(data){ // success callback func
+               // Update the flag and the location in header of #nav page
+               $("#localecode").text('(' + lc + ')');
+               $("#location").removeClass().addClass('flag flag-' + cc);
+
                // JSON key: header, body
                // Update Header Title
                $("#header_title strong").text(data.header);
@@ -52,5 +57,7 @@ function update_navpage(cc, lc){
                $.each(data.body, function(idx){
                    $("#body_txt").append("<p>"+data.body[idx]+"</p>");
                });
+
+               $("#loading").removeClass("loading");
            }, "json");
 }
