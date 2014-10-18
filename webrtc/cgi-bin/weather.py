@@ -28,16 +28,17 @@ def getWeatherInfo(LocationId, LocationIds):
 
   # Weather Image
   if isNight is False:
-    output += """<img src="https://s.imwx.com/v.20131006.214956/img/wxicon/120/%s.png"><br/>\n""" % Info['forecasts'][0]['day']['icon']
+    #output += """<img src="https://s.imwx.com/v.20131006.214956/img/wxicon/120/%s.png"><br/>\n""" % Info['forecasts'][0]['day']['icon']
+    output += """<img src="https://s.imwx.com/v.20131006.214956/img/wxicon/70/%s.png">\n""" % Info['forecasts'][0]['day']['icon']
 
   else:
-    output += """<img src="https://s.imwx.com/v.20131006.214956/img/wxicon/120/%s.png"><br/>\n""" % Info['forecasts'][0]['night']['icon']
+    output += """<img src="https://s.imwx.com/v.20131006.214956/img/wxicon/70/%s.png">\n""" % Info['forecasts'][0]['night']['icon']
 
   # Div 1 weather image end
   output += """</div>\n"""
 
-  # Div 2 date and location begin
-  output += """<div id="date">\n"""
+  # Div 2 info begin
+  output += """<div id="info">\n"""
 
   # Date
   #output += '<br/>DATE : %s<br/><br/><br/>\n' % Info['forecasts'][0]['date']
@@ -46,24 +47,21 @@ def getWeatherInfo(LocationId, LocationIds):
   d = datetime.datetime.today()
   today = d.strftime("%B %d, %Y")
 
-  output += '<br/>Date : %s<br/><br/><br/>\n' %  today
+  #output += '<br/>Date : %s<br/><br/><br/>\n' %  today
+  output += 'Date : %s<br/>\n' %  today
 
   # Location Name
-  output += 'Location : %s\n' % Info['location']['name']
-
-  # Div 2 date and location end
-  output += """</div>\n"""
-
-  # Div 3 temperature start
-  output += """<div id="temperature">\n"""
+  output += 'Location : %s<br/>\n' % Info['location']['name']
 
   # High
-  output += '<br/>&nbsp;&nbsp;&nbsp;High&nbsp;|&nbsp;%s%s<br/><br/><br/>\n' % (Info['forecasts'][0]['high'], UnitTemp)
+  #output += '<br/>&nbsp;&nbsp;&nbsp;High&nbsp;|&nbsp;%s%s<br/><br/><br/>\n' % (Info['forecasts'][0]['high'], UnitTemp)
+  output += 'High&nbsp;|&nbsp;%s%s<br/>\n' % (Info['forecasts'][0]['high'], UnitTemp)
 
   # Low
-  output += '&nbsp;&nbsp;&nbsp;Low&nbsp;&nbsp;|&nbsp;%s%s\n' % (Info['forecasts'][0]['low'], UnitTemp)
+  #output += '&nbsp;&nbsp;&nbsp;Low&nbsp;&nbsp;|&nbsp;%s%s\n' % (Info['forecasts'][0]['low'], UnitTemp)
+  output += 'Low&nbsp;&nbsp;|&nbsp;%s%s\n' % (Info['forecasts'][0]['low'], UnitTemp)
 
-  # Div 3 temperature end
+  # Div 2 info end
   output += """</div>\n"""
 
   # Percentage of Chance Precip (Chance of Rain)
