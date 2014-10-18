@@ -47,9 +47,12 @@ $(document).on('pageinit', '#pick-wind', function(e, data){
         call.close();
         conn.close();
         call = conn = null;
+        ope_id = "";
     });
 
     $('#operefresh').click(function(){
+        // Refresh the operator list
+        ope_id = "";
         if(peer !== null)
             peer.listAllPeers(function(list){
                 // Get only operator peer list
