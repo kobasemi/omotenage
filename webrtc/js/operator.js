@@ -102,7 +102,6 @@ function initpeer(){
                 });
             });
         }).on('close', function(){
-            $("#partner-video").prop("src", "");
         }).on('error', function(err){
             alert(err.message);
         });

@@ -13,6 +13,8 @@ var ope_id = "";
 var peer = conn = call = null;
 // Image for Operator Body and Tie
 var ope_svg = tie_svg =  "";
+// Flag to check passed #pick-wind
+var pass_flg = false;
 
 $(document).on('pageinit', '#pick-wind', function(e, data){
     $.get('./img/body.svg', function(svg){
@@ -35,18 +37,9 @@ $(document).on('pageinit', '#pick-wind', function(e, data){
         }, function(){
             alert('The media(camera, mic) are off');
         });
+
+        pass_flg = true;
     });
-});
-
-$(document).on('pageinit', '#call-wind', function(e, data){
-    /*
-    if(peer === null)
-        $.mobile.changePage("#pick-wind");
-        */
-
-    $("#partner-video").css("height", $(window).height()/2-50);
-    $("#map_canvas").css("height", $(window).height()/2);
-    $("#nicenav").hide();
 
     $('#endcall').click(function(){
         window.localStream.stop();
@@ -55,6 +48,15 @@ $(document).on('pageinit', '#call-wind', function(e, data){
         conn.close();
         call = conn = null;
     });
+});
+
+$(document).on('pageinit', '#call-wind', function(e, data){
+    if(pass_flg === false)
+        $.mobile.changePage("#pick-wind");
+
+    $("#partner-video").css("height", $(window).height()/2-50);
+    $("#map_canvas").css("height", $(window).height()/2);
+    $("#nicenav").hide();
 });
 
 $(document).on('pageshow', '#call-wind', function(e, data){
@@ -102,7 +104,7 @@ function disp_opes(opes){
     // If nobody is in connection
     if($.isEmptyObject(opes)){
         // Append figure tag template
-        $("#opelist").append("<figure><figcaption></figcaption></figure>");
+        $("#opelist").html("<figure><figcaption></figcaption></figure>");
         $("figure figcaption", "#opelist").
             text("Sorry... Nobody of operator is in connection.");
         // Add svg tag of ope_svg to after figure tag
@@ -112,6 +114,7 @@ function disp_opes(opes){
         return;
     }
 
+    $("#opelist").html("");
     $.each(opes, function(idx, id){
         // Get the country code of the operator
         var cc = id.split('-')[1];
@@ -149,7 +152,6 @@ function initpeer(){
         peer.listAllPeers(function(list){
             // Get only operator peer list
             var ope_list = list.filter(function(v){return v.match(/^ope-[a-z][a-z]-/);});
-                //function(v){return v.substring(0,3) == "ope-";});
             disp_opes(ope_list);
         });
     }).on('close', function(){
