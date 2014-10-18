@@ -9,20 +9,14 @@ navigator.getUserMedia =
 var APIKEY = "79e1e834-4935-11e4-878c-e1a8ecd1a309";
 // conn: DataConnection
 var peer = conn = null;
+// here: Marker, poly: Polyline
+var map = here = poly = null;
 
 $(document).on('pageinit', '#ope-wind', function(e, data){
     // Setting the css parameter(height) for Google Maps canvas
     // If it's not setting, the canvas does not fully work
     $("#map_canvas").css("height", $(window).height());
-    // Initialize the map
-    $('#map_canvas').gmap().bind('init', function(evt, map) {
-        map.setOptions({
-            // Center of Tokyo Station
-            'center': new google.maps.LatLng(35.681382,139.766084),
-            'zoom':15});
-    });
-
-    $("#accept").click(ready);
+    initmap();
 
     // Create supported country selectmenu
     $.getJSON("SupportCountry.json", function(data){
@@ -34,6 +28,8 @@ $(document).on('pageinit', '#ope-wind', function(e, data){
             $("#select_cc").selectmenu("refresh");
         });
     });
+
+    $("#accept").click(ready);
 });
 
 function ready(){
@@ -96,7 +92,7 @@ function initpeer(){
                     // Get a longitude and latitude that sent from remode user
                     var pos = $.parseJSON(data);
                     // Update the canvas with a new latlng
-                    updateMap(new google.maps.LatLng(pos.lat, pos.lng));
+                    updatemap(new google.maps.LatLng(pos.lat, pos.lng));
                 }).on('error', function(err){
                     alert(err.message);
                 });
@@ -106,31 +102,6 @@ function initpeer(){
             alert(err.message);
         });
     });
-}
-
-var path= []; // For move route of remote user
-// Update the map from a remote user's position of current
-// latlng: latitude and longitude of the current position
-function updateMap(latlng){
-
-    // Clear marker of previous position
-    $('#map_canvas').gmap('clear', 'markers');
-    // Add marker of current position
-    $('#map_canvas').gmap('addMarker', {'position': latlng});
-
-    // Push current position to path array
-    path.push(latlng);
-
-    // Shape path array into polyline
-    $('#map_canvas').gmap('addShape', 'Polyline', {
-        'strokeWeight': 10,
-        'strokeColor': '#FF0000',
-        'strokeOpacity': 0.8,
-        'path': path,
-    });
-
-    // Make a center of current position in map
-    $('#map_canvas').gmap('get', 'map').panTo(latlng);
 }
 
 // Get the value from the form
@@ -143,4 +114,44 @@ function getparam(){
 
     // parameter as encoded URL
     return "?name=" + name + "&location=" + location + "&from=" + from + "&to=" + to + "&tmode=" + tmode;
+}
+
+// Initialize the MAP
+function initmap(){
+    // Create Map Object
+    var map_ops = {
+        center: new google.maps.LatLng(35, 135),
+        zoom: 20,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    map = new google.maps.Map(document.getElementById('map_canvas'), map_ops);
+
+    // Create Polyline Object
+    var poly_ops = {
+        'strokeWeight': 10,
+        'strokeColor': '#FF0000',
+        'strokeOpacity': 0.8,
+        'map': map
+    }
+    poly = new google.maps.Polyline(poly_ops);
+}
+
+// Update the map from a remote user's position of current
+// latlng: latitude and longitude of the current position
+function updatemap(latlng){
+    // Add a line
+    var path = poly.getPath();
+    path.push(latlng);
+
+    // Clear previous marker, and then
+    // Set new marker
+    if(here !== null)
+        here.setMap(null);
+    here = new google.maps.Marker({
+        position: latlng,
+        icon: './img/here.png',
+        map: map
+    });
+
+    map.panTo(latlng);
 }
