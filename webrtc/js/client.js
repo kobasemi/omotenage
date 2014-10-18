@@ -15,6 +15,8 @@ var peer = conn = call = null;
 var ope_svg = tie_svg =  "";
 // Flag to check passed #pick-wind
 var pass_flg = false;
+// here: Marker, poly: Polyline
+var map, here, poly;
 
 $(document).on('pageinit', '#pick-wind', function(e, data){
     $.get('./img/body.svg', function(svg){
@@ -72,44 +74,99 @@ $(document).on('pageinit', '#call-wind', function(e, data){
 });
 
 $(document).on('pageshow', '#call-wind', function(e, data){
-    var path= []; // For the move route of remote user
-    // Generate a map and mark the map with user current position
-    $('#map_canvas').gmap('watchPosition', function(position, status){
-        if(status === 'OK'){
-            // Get latlng of user current position
-            var clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    if(navigator.geolocation){
+        var options = {
+            maximumAge: 500000,
+            enableHighAccuracy: true,
+            timeout: 6000
+        };
+        navigator.geolocation.getCurrentPosition(success, fail, options);
 
-            // Clear marker of previous position
-            $('#map_canvas').gmap('clear', 'markers');
-            // Add marker of current position
-            $('#map_canvas').gmap('addMarker', {'position': clientPosition, 'bounds': true});
-            // Push current position to path array
-            path.push(clientPosition);
+        function success(pos){
+            initmap();
 
-            // Shape path array into polyline
-            $('#map_canvas').gmap('addShape', 'Polyline', {
-                'strokeWeight': 10,
-                'strokeColor': '#FF0000',
-                'strokeOpacity': 0.8,
-                'path': path
+            // Get current position
+            var latlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+
+            // Create a marker
+            here = new google.maps.Marker({
+                position: latlng,
+                icon: './img/here.png',
+                map: map
             });
+            map.panTo(latlng);
 
-            // Make a center of current position in map
-            $('#map_canvas').gmap('get', 'map').panTo(clientPosition);
-
-            // Send current position to operator
             // TODO:
             // Geolocation APIの現在地取得タイミングによっては，
-            // 最初のPositionが送信されない
+            // 最初の位置が送信されない
             // 例えば，connを開くまえに取得した場合
-            if(conn !== null)
+            if(conn.open){
+                // If conn is open, send current position
                 conn.send(JSON.stringify({
-                    "lat": position.coords.latitude,
-                    "lng": position.coords.longitude
+                    "lat": latlng.lat(),
+                    "lng": latlng.lng()
                 }));
+            }
+
+            // Set Callback of watchPosition
+            watch_id = navigator.geolocation.watchPosition(function(pos){
+                var latlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+                updatemap(latlng);
+            }, fail);
         }
-    });
+        function fail(error){
+            alert('Can not get your current position.');
+        }
+    }else{
+        // No geolocation support
+        alert('Your browser is no geolocation support.');
+    }
 });
+
+// Initialize the MAP
+function initmap(){
+    // Create Map Object
+    var map_ops = {
+        center: new google.maps.LatLng(35, 135),
+        zoom: 20,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    map = new google.maps.Map(document.getElementById('map_canvas'), map_ops);
+
+    // Create Polyline Object
+    var poly_ops = {
+        'strokeWeight': 10,
+        'strokeColor': '#FF0000',
+        'strokeOpacity': 0.8,
+        'map': map
+    }
+    poly = new google.maps.Polyline(poly_ops);
+}
+
+// Update a map
+function updatemap(latlng){
+    // Add a line
+    var path = poly.getPath();
+    path.push(latlng);
+
+    // Clear previous marker, and then
+    // Set new marker
+    here.setMap(null);
+    here = new google.maps.Marker({
+        position: latlng,
+        icon: './img/here.png',
+        map: map
+    });
+
+    map.panTo(latlng);
+
+    if(conn.open){
+        conn.send(JSON.stringify({
+            "lat": latlng.lat(),
+            "lng": latlng.lng()
+        }));
+    }
+}
 
 // Some operators in connection is displayed
 function disp_opes(opes){
