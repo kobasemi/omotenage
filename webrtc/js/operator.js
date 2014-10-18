@@ -140,7 +140,8 @@ function getparam(){
     var from = $(':text[name="input_from"]').val();
     var to = $(':text[name="input_to"]').val();
     var tmode = $(':radio[name="tmode"]:checked').val();
+    var mode = "general";
 
     // parameter as encoded URL
-    return "?name=" + name + "&location=" + location + "&from=" + from + "&to=" + to + "&tmode=" + tmode;
+    return "?name=" + name + "&location=" + location + "&from=" + from + "&to=" + to + "&tmode=" + tmode + "&mode=" + mode;
 }
