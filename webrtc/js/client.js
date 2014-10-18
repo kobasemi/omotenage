@@ -1,21 +1,3 @@
-// URL Parameter Getter
-$.extend({
-    getUrlVars: function(){
-        var vars = [], hash;
-        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-        for(var i = 0; i < hashes.length; i++){
-            hash = hashes[i].split('=');
-            vars.push(hash[0]);
-            vars[hash[0]] = hash[1];
-        }
-        return vars;
-    },
-    getUrlVar: function(name){
-        return $.getUrlVars()[name];
-    }
-});
-// country code
-var cc = $.getUrlVar('cc');
 
 // Get a stream for video and audio connection
 navigator.getUserMedia =
@@ -41,7 +23,7 @@ $(document).on('pageinit', '#pick-wind', function(e, data){
 
     $('#call').click(function(){
         if(ope_id === ""){
-            popup_err('NOPICK');
+            alert('Nobody is a selected operator');
             return;
         }
 
@@ -50,7 +32,7 @@ $(document).on('pageinit', '#pick-wind', function(e, data){
             makecall();
             $.mobile.changePage("#call-wind");
         }, function(){
-            popup_err('OFFMEDIA');
+            alert('The media(camera, mic) are off');
         });
     });
 });
@@ -116,29 +98,10 @@ $(document).on('pageshow', '#call-wind', function(e, data){
     });
 });
 
-// Popup a error page
-function popup_err(EDESC){
-    // EDESC: ERROR DESCRIPTION
-    switch(EDESC){
-        case 'NOOPE': // Some operators doesn't exist
-            break;
-        case 'NOPICK': // Nobody is a selected operator
-            break;
-        case 'OFFMEDIA': // The media(camera, mic) are off
-            break;
-        default: // Other case
-            break;
-    }
-
-    $("#popup").popup();
-    //$("#popup")/*.html(popbody)*/.popup('open');
-}
-
 // Some operators in connection is displayed
 function disp_opes(opes){
     // If nobody is in connection
     if($.isEmptyObject(opes)){
-        popup_err('NOOPE');
         // Append figure tag template
         $("#opelist").append("<figure><figcaption></figcaption></figure>");
         $("figure figcaption", "#opelist").
@@ -190,11 +153,9 @@ function initpeer(){
                 //function(v){return v.substring(0,3) == "ope-";});
             disp_opes(ope_list);
         });
-
-        peer.on('close', function(){
-        }).on('error', function(err){
-            alert(err.message);
-        });
+    }).on('close', function(){
+    }).on('error', function(err){
+        alert(err.message);
     });
 }
 
@@ -204,14 +165,13 @@ function makeconn(){
     // Start DataConnections
     conn = peer.connect(ope_id);
     conn.on('open', function(){
-        conn.on('data', function(data){
-            // Receive a data
-            $("#nicenav").show();
-            // Setting the path of CGI program with some parameters
-            $("#nicepage").attr("href", data);
-        }).on('error', function(err){
-            alert(err.message);
-        });
+    }).on('data', function(data){
+        // Receive a data
+        $("#nicenav").show();
+        // Setting the path of CGI program with some parameters
+        $("#nicepage").attr("href", data);
+    }).on('error', function(err){
+        alert(err.message);
     });
 }
 
