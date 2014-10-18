@@ -30,6 +30,7 @@ $(document).on('pageinit', '#pick-wind', function(e, data){
         navigator.getUserMedia({audio: true, video: true}, function(stream){
             window.localStream = stream;
             makecall();
+            makeconn();
             $.mobile.changePage("#call-wind");
         }, function(){
             alert('The media(camera, mic) are off');
@@ -48,14 +49,12 @@ $(document).on('pageinit', '#call-wind', function(e, data){
     $("#nicenav").hide();
 
     $('#endcall').click(function(){
+        window.localStream.stop();
+        $("#partner-video").prop('src', '');
         call.close();
         conn.close();
-        peer.disconnect();
-        peer.destroy();
-        peer = call = conn = null;
+        call = conn = null;
     });
-
-    makeconn();
 });
 
 $(document).on('pageshow', '#call-wind', function(e, data){

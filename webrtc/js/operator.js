@@ -86,6 +86,8 @@ function initpeer(){
             call.on('stream', function(stream){
                 // Setting the stream into video tag
                 $("#partner-video").prop("src", URL.createObjectURL(stream));
+            }).on('close', function(){
+                $("#partner-video").prop("src", "");
             });
         }).on('connection', function(connect){
             conn = connect;
@@ -101,7 +103,6 @@ function initpeer(){
             });
         }).on('close', function(){
             $("#partner-video").prop("src", "");
-            alert("Closed...");
         }).on('error', function(err){
             alert(err.message);
         });
