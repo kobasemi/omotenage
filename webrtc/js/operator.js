@@ -85,7 +85,7 @@ function initpeer(){
             // Receive remote localStream
             call.on('stream', function(stream){
                 // Setting the stream into video tag
-                $("#pertner-video").prop("src", URL.createObjectURL(stream));
+                $("#partner-video").prop("src", URL.createObjectURL(stream));
             });
         }).on('connection', function(connect){
             conn = connect;
@@ -100,7 +100,7 @@ function initpeer(){
                 });
             });
         }).on('close', function(){
-            $("#pertner-video").prop("src", "");
+            $("#partner-video").prop("src", "");
             alert("Closed...");
         }).on('error', function(err){
             alert(err.message);
