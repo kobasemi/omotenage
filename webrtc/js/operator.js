@@ -10,7 +10,7 @@ var APIKEY = "79e1e834-4935-11e4-878c-e1a8ecd1a309";
 // conn: DataConnection
 var peer = conn = null;
 // here: Marker, poly: Polyline
-var map = here = poly = null;
+var map, here, poly;
 
 $(document).on('pageinit', '#ope-wind', function(e, data){
     // Setting the css parameter(height) for Google Maps canvas
@@ -74,7 +74,7 @@ function initpeer(){
     // Open Peer with My Peer ID
     peer = new Peer(my_id, {key: APIKEY, debug:3});
     peer.on('open', function(){
-        peer.on('call', function(call){
+    }).on('call', function(call){
             // Send my localStream
             call.answer(window.localStream);
 
@@ -85,22 +85,23 @@ function initpeer(){
             }).on('close', function(){
                 $("#partner-video").prop("src", "");
             });
-        }).on('connection', function(connect){
-            conn = connect;
-            conn.on('open', function(){
-                conn.on('data', function(data){
-                    // Get a longitude and latitude that sent from remode user
-                    var pos = $.parseJSON(data);
-                    // Update the canvas with a new latlng
-                    updatemap(new google.maps.LatLng(pos.lat, pos.lng));
-                }).on('error', function(err){
-                    alert(err.message);
-                });
-            });
-        }).on('close', function(){
+        }
+    }).on('connection', function(connect){
+        conn = connect;
+        conn.on('open', function(){
+            clearpoly();
+        }).on('data', function(data){
+            // Get a longitude and latitude that sent from remode user
+            var pos = $.parseJSON(data);
+            // Update the canvas with a new latlng
+            updatemap(new google.maps.LatLng(pos.lat, pos.lng));
+        }).on('close', function(err){
         }).on('error', function(err){
             alert(err.message);
         });
+    }).on('close', function(){
+    }).on('error', function(err){
+        alert(err.message);
     });
 }
 
@@ -137,6 +138,18 @@ function initmap(){
     poly = new google.maps.Polyline(poly_ops);
 }
 
+// Clear a polyline
+function clearpoly(){
+    (function(undefined){
+        if(poly !== undefined){
+            // If a previous polyline existing
+            poly.setMap(null);
+            poly.getPath().clear();
+        }
+        poly.setMap(map);
+    })()
+}
+
 // Update the map from a remote user's position of current
 // latlng: latitude and longitude of the current position
 function updatemap(latlng){
@@ -146,8 +159,10 @@ function updatemap(latlng){
 
     // Clear previous marker, and then
     // Set new marker
-    if(here !== null)
-        here.setMap(null);
+    (function(undefined){
+        if(here !== undefined)
+            here.setMap(null);
+    })();
     here = new google.maps.Marker({
         position: latlng,
         icon: './img/here.png',

@@ -17,6 +17,7 @@ var ope_svg = tie_svg =  "";
 var pass_flg = false;
 // here: Marker, poly: Polyline
 var map, here, poly;
+var watch_id;
 
 $(document).on('pageinit', '#pick-wind', function(e, data){
     $.get('./img/body.svg', function(svg){
@@ -50,6 +51,7 @@ $(document).on('pageinit', '#pick-wind', function(e, data){
         conn.close();
         call = conn = null;
         ope_id = "";
+        navigator.geolocation.clearWatch(watch_id);
     });
 
     $('#operefresh').click(function(){
