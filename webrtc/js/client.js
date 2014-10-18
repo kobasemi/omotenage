@@ -48,6 +48,15 @@ $(document).on('pageinit', '#pick-wind', function(e, data){
         conn.close();
         call = conn = null;
     });
+
+    $('#operefresh').click(function(){
+        if(peer !== null)
+            peer.listAllPeers(function(list){
+                // Get only operator peer list
+                var ope_list = list.filter(function(v){return v.match(/^ope-[a-z][a-z]-/);});
+                disp_opes(ope_list);
+            });
+    });
 });
 
 $(document).on('pageinit', '#call-wind', function(e, data){
