@@ -19,16 +19,13 @@ var dir_service, dir_renderer;
 var dir_markers = [];
 var here, poly, step_info;
 
-$(document).on('pageinit', '#map_page', function(e, data){
+$(document).on('pageinit', '#gmaps', function(e, data){
     $('input[name=tmode]:radio').change(function(){ updatedir(); });
     $('#update').click(function(){ updatedir(); });
 
     detectBrowser();
 
     if(navigator.geolocation){
-
-        initmap();
-
         var options = {
             maximumAge: 500000,
             enableHighAccuracy: true,
@@ -37,6 +34,8 @@ $(document).on('pageinit', '#map_page', function(e, data){
         navigator.geolocation.getCurrentPosition(success, fail, options);
 
         function success(pos){
+            initmap();
+
             // Get current position
             var latlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
 
@@ -73,6 +72,7 @@ $(document).on('pageinit', '#map_page', function(e, data){
         alert('Your browser is no geolocation support.');
     }
 });
+
 
 // Initialize the MAP
 function initmap(){

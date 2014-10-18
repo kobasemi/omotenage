@@ -1,4 +1,15 @@
 
+// Get a stream for video and audio connection
+navigator.getUserMedia =
+    navigator.getUserMedia ||
+    navigator.webkitGetUserMedia ||
+    navigator.mozGetUserMedia;
+
+// Skyway API Key for The Domain: www.firefly.kutc.kansai-u.ac.jp
+var APIKEY = "79e1e834-4935-11e4-878c-e1a8ecd1a309";
+// conn: DataConnection
+var peer = conn = null;
+
 $(document).on('pageinit', '#ope-wind', function(e, data){
     // Setting the css parameter(height) for Google Maps canvas
     // If it's not setting, the canvas does not fully work
@@ -24,16 +35,6 @@ $(document).on('pageinit', '#ope-wind', function(e, data){
         });
     });
 });
-
-// Get a stream for video and audio connection
-navigator.getUserMedia =
-    navigator.getUserMedia ||
-    navigator.webkitGetUserMedia ||
-    navigator.mozGetUserMedia;
-
-// Skyway API Key for The Domain: www.firefly.kutc.kansai-u.ac.jp
-var APIKEY = "79e1e834-4935-11e4-878c-e1a8ecd1a309";
-var peer = conn = null;
 
 function ready(){
     // If a operator name is empty,
