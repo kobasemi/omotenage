@@ -18,7 +18,7 @@ location = str(query['location'][0])
 comefrom = str(query['from'][0])
 destination = str(query['to'][0])
 tmode = str(query['tmode'][0])
-pageUrl = "http://www.firefly.kutc.kansai-u.ac.jp/~k434121/WebRTCCon/webrtc/cgi-bin/generate.cgi?name=%s&location=%s&from=%s&to=%s&tmode=%s" % (name, location, comefrom, destination, tmode)
+pageUrl = "../cgi-bin/generate.cgi?name=%s&location=%s&from=%s&to=%s&tmode=%s" % (name, location, comefrom, destination, tmode)
 
 output = ""
 
@@ -74,7 +74,7 @@ elif mode == "map":
       <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />
       <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
       <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
-      <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyD0FpbGY_lnKFsweaiEWZFzq3csl5fwR-Q&sensor=true"></script>
+      <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
       <link rel="stylesheet" type="text/css" href="../css/mystyle.css" />
     </head>
     <body>
