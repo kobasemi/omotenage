@@ -91,8 +91,10 @@ function initpeer(){
             }).on('close', function(){
                 $("#partner-video").prop("src", "");
                 connectable = true;
+                $("#accept").text("受付中");
             });
             connectable = false;
+            $("#accept").text("接続中");
         }
     }).on('connection', function(connect){
         if(connect.metadata === 'multicast'){
