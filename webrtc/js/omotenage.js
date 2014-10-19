@@ -18,12 +18,20 @@ var map;
 var dir_service, dir_renderer;
 var dir_markers = [];
 var here, poly, step_info;
+// Created Map Flag
+var flg = false;
 
 $(document).on('pageinit', '#gmaps', function(e, data){
     $('input[name=tmode]:radio').change(function(){ updatedir(); });
     $('#update').click(function(){ updatedir(); });
 
     detectBrowser();
+});
+
+$(document).on('pageshow', '#gmaps', function(e, data){
+    if(flg)
+        // Already create map object
+        return;
 
     if(navigator.geolocation){
         var options = {
@@ -34,18 +42,8 @@ $(document).on('pageinit', '#gmaps', function(e, data){
         navigator.geolocation.getCurrentPosition(success, fail, options);
 
         function success(pos){
-            initmap();
-
             // Get current position
             var latlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-
-            // Create a marker
-            here = new google.maps.Marker({
-                position: latlng,
-                icon: './img/here.png',
-                map: map
-            });
-            map.panTo(latlng);
 
             if($("#input_from").val() === '')
                 // If #input_from value is empty,
@@ -63,16 +61,25 @@ $(document).on('pageinit', '#gmaps', function(e, data){
                 var latlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
                 updatemap(latlng);
             }, fail);
+
+            initmap()
+            // Create a marker
+            here = new google.maps.Marker({
+                position: latlng,
+                icon: './img/here.png',
+                map: map
+            });
+            map.panTo(latlng);
         }
         function fail(error){
             alert('Can not get your current position.');
         }
+        flg = true;
     }else{
         // No geolocation support
         alert('Your browser is no geolocation support.');
     }
 });
-
 
 // Initialize the MAP
 function initmap(){
