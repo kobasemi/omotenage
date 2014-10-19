@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>おもてなーじ</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<style>
+img {
+  max-width: 100%;
+  height: auto;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+        <ul class="nav nav-pills">
+            <li><a href="README.html">TOP</a></li>
+            <li><a href="README-client.html">クライアント</a></li>
+            <li><a href="README-operator.html">オペレータ</a></li>
+            <li class="active"><a href="README-system.html">システム説明</a></li>
+        </ul>
+
+        <div class="page-header">
+            <h1>システム説明</h1>
+            <p class="lead">このページはギークなあなたのために作りました．</p>
+        </div>
+        <h2>機能紹介</h2>
+
+        <h3>自動生成</h3>
+        <p>クライアントの入り口となるページ<a href="index.html">index.html</a>に表示されている国リストですが，これらの国リストは全て，<a href="SupportCountry.json">SupportCountry.json</a>というファイルによって管理されています．このファイルに追記することで新しい国が表示され，削除することによってリストから国が表示されなくなります．</p>
+
+        <h3>自動機械翻訳</h3>
+        <p>Microsoft Translator APIを利用し，国ごとに自動で機械翻訳を行なっています．機械による翻訳のため精度こそ劣りますが，自動で行うことでサポートをしている国をスケーラブルに更新することが可能です．</p>
+
+        <h3>UI & Layout</h3>
+        <p>jQuery Mobileを利用することで，スマートフォンでもストレスなくページを見ることができるレイアウトにしております．またUIにも拘り，見る人の心を楽しませるようなものになっていることを信じております．</p>
+
+        <h3>Google Maps & Geolocation API</h3>
+        <p>HTML5のAPIの一つであるGeolocation APIを利用し，ユーザの位置情報をリアルタイムでGoogle Maps上にマッピングしています．ガイドする際に，ユーザの位置情報がわかるのとわからないのでは大きく変わってきます．私達のシステムでは，ユーザが今どこにいるかがはっきりとわかるため，ガイドの煩わしさを軽減いたします．また現段階では未実装ですが，Google Maps上において，ユーザとのインタラクティブな操作を可能とさせることを今後の予定としています．</p>
+
+        <h3>リアルタイムコミュニケーション</h3>
+        <p>本システムの肝となるのが，WebRTCを利用したコミュニケーションです．WebRTCはWebブラウザ上においてリアルタイムコミュニケーションを可能とさせる技術のことで，通信には特別なプラグインを必要としません．そのため，いつでも誰でも簡単にリアルタイムな通信を行うことが可能です．私達のシステムでは，オペレータとユーザ間のFace to Faceによる対話のために活用しております．</p>
+        
+        <h3>リコメンデーションエンジン</h3>
+        <p>私達のシステムでは，独自のリコメンデーションエンジンを利用し，そのユーザ固有のお勧めページを生成することを目指しています．ユーザ一人ひとりに高い満足感を味わってもらうため，画一的なお勧めをするのではなく，ユーザとの対話を通じお勧めできる情報を取得することを目指しています．現段階では，天気APIやGoogle Maps APIと連携をしていますが，今後，数多くのAPIとの連携を予定しています．</p>
+
+        <h2>処理の流れ</h2>
+        <p>システムの処理の流れについて，以下の図を用いて説明します．</p>
+
+        <p>まずオペレータがサーバに接続しpeerを取得します．その後は，クライアントからの要求が来るまで待機します．</p>
+        <p>クライアントがサーバに接続しpeerを取得した後，クライアントはそのpeerを利用し，サーバに接続中の全てのユーザを取得します．</p>
+        <p>接続中の全てのpeer IDのなかから，全てのオペレータのIDを取得します（オペレータは予め特有のprefixを持ったIDを発行しています）．そして，全てのオペレータに対し，接続要求をマルチキャストします．</p>
+        <p>オペレータ側は，クライアントからのマルチキャストを受信したら，自分が今接続可能かどうかを調べます．接続可能な場合は自分のIDをクライアントに返し，接続不可能な場合（既に他のユーザと接続中の場合など）は応答しません（通信をドロップする）．</p>
+        <p>オペレータからの返答があった場合，クライアント側の画面には接続可能なオペレータが非同期に追加されていきます．ユーザはその中からオペレータを選択し，今度はMedia Connection及びData Connectionを伴った接続の要求を行います．但し，排他的な制御を行なっていないため，クライアントがオペレータを選択している間に，他のクライアントによってそのオペレータが接続不可能になっている場合もあります．クライアントはオペレータ選択画面の右上に存在する更新ボタンをクリックすることで，もう一度マルチキャストを行うことが可能です．</p>
+        <p>クライアントからの通話要求を受け，オペレータは自らのMedia Connection及びData Connectionを伴った返答を行います．</p>
+        <p>以上でオペレータとクライアント間の接続手順は終了です．今後はどちらかが接続を閉じるまで通話が続きます．</p>
+
+        <div class="text-center ui-bar-c">
+            <img src="img/readme/flow.png" width="90%" height="90%" class="img-responsive center-block" vspace=10>
+        </div>
+
+        <h2>GitHub</h2>
+        <p>システムの開発に際し，GitHubを利用しています．よろしければそちらもご覧ください．</p>
+        <a href="https://github.com/kobasemi/WebRTCCon" target="_blank">
+            https://github.com/kobasemi/WebRTCCon
+        </a>
+
+        <p></p>
+        <p></p>
+        <p></p>
+        </div><!-- /col-md-8 -->
+        <div class="col-md-2"></div>
+    </div><!-- /row -->
+</div> <!-- /container -->
+</body>
+</html>
