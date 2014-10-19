@@ -170,18 +170,18 @@ function update_opelist(){
         peer.listAllPeers(function(list){
             // Get only operator peer list
             var ope_list = list.filter(function(v){return v.match(/^ope-[a-z][a-z]-/);});
-            // Delete all elements
-            $("#opelist").html("");
-            if($.isEmptyObject(ope_list)){
-                // Append figure tag template
-                $("#opelist").html("<figure><figcaption></figcaption></figure>");
-                $("figure figcaption", "#opelist").
-                    text("Sorry... Connectable operator doesn't exist.");
-                // Add svg tag of ope_svg to after figure tag
-                $("figure", "#opelist").prepend(ope_svg);
-                // Change ope_svg color to negative color
-                $("#body path").attr("fill", "#F80E0E");
-            }else{
+
+            // Default Operator Image (Nobody)
+            // Append figure tag template
+            $("#opelist").html("<figure id=\"nobody\"><figcaption></figcaption></figure>");
+            $("figure figcaption", "#opelist").
+                text("Sorry... Connectable operator doesn't exist.");
+            // Add svg tag of ope_svg to after figure tag
+            $("figure", "#opelist").prepend(ope_svg);
+            // Change ope_svg color to negative color
+            $("#body path").attr("fill", "#F80E0E");
+
+            if(!$.isEmptyObject(ope_list)){
                 // If ope_list has a element
                 // Multicast to some operators
                 multicast_echo(ope_list);
@@ -192,6 +192,9 @@ function update_opelist(){
 
 // The operators in connection is displayed
 function disp_ope(id){
+    // Remove #nobody elements
+    $("#nobody").remove();
+
     // Get the country code of the operator
     var cc = id.split('-')[1];
     // Get the operator name
@@ -216,6 +219,14 @@ function disp_ope(id){
 
         // Update operator ID
         ope_id = id;
+    });
+}
+
+// Multicast to some operators
+// opes: operator list
+function multicast_echo(opes){
+    $.each(opes, function(idx, id){
+        peer.connect(id, {metadata: 'multicast'});
     });
 }
 
@@ -267,12 +278,4 @@ function makecall(){
     if(window.existingCall)
         window.existingCall.close();
     window.existingCall = call;
-}
-
-// Multicast to some operators
-// opes: operator list
-function multicast_echo(opes){
-    $.each(opes, function(idx, id){
-        peer.connect(id, {metadata: 'multicast'});
-    });
 }
