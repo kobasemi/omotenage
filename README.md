@@ -3,6 +3,10 @@
 「おもてなーじ」とは，「おもてなし」と「サイネージ」を組み合わせた造語です．
 おもてなしの精神をサイネージするためのシステムを目指し，この名称をつけました．
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/kobasemi/WebRTCCon/master/webrtc/img/logo.png" alt="Omotenage Logo"/>
+</p>
+
 このシステムは，関西大学総合情報学部の小林研究室のメンバーが，
 [第1回 NTT-WEST学生向けアプリ開発コンテスト](https://www.facebook.com/nttw.w.con)
 に応募するために開発しました．
