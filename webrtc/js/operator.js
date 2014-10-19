@@ -7,8 +7,8 @@ navigator.getUserMedia =
 
 // Skyway API Key for The Domain: www.firefly.kutc.kansai-u.ac.jp
 var APIKEY = "79e1e834-4935-11e4-878c-e1a8ecd1a309";
-// conn: DataConnection
-var peer = conn = null;
+// conn: DataConnection, call: MediaConnection
+var peer = conn = call = null;
 // here: Marker, poly: Polyline
 var map, here, poly;
 
@@ -74,10 +74,14 @@ function initpeer(){
     // Open Peer with My Peer ID
     peer = new Peer(my_id, {key: APIKEY, debug:3});
     peer.on('open', function(){
-    }).on('call', function(call){
+    }).on('call', function(ca){
+        // If a operator is connected a client,
+        // drop a new MediaConnection request
+        if(call === null || !call.open){
+            call = ca;
+
             // Send my localStream
             call.answer(window.localStream);
-
             // Receive remote localStream
             call.on('stream', function(stream){
                 // Setting the stream into video tag
@@ -87,18 +91,22 @@ function initpeer(){
             });
         }
     }).on('connection', function(connect){
-        conn = connect;
-        conn.on('open', function(){
-            clearpoly();
-        }).on('data', function(data){
-            // Get a longitude and latitude that sent from remode user
-            var pos = $.parseJSON(data);
-            // Update the canvas with a new latlng
-            updatemap(new google.maps.LatLng(pos.lat, pos.lng));
-        }).on('close', function(err){
-        }).on('error', function(err){
-            alert(err.message);
-        });
+        // If a operator is connected a client,
+        // drop a new DataConnection request
+        if(conn === null || !conn.open){
+            conn = connect;
+            conn.on('open', function(){
+                clearpoly();
+            }).on('data', function(data){
+                // Get a longitude and latitude that sent from remode user
+                var pos = $.parseJSON(data);
+                // Update the canvas with a new latlng
+                updatemap(new google.maps.LatLng(pos.lat, pos.lng));
+            }).on('close', function(err){
+            }).on('error', function(err){
+                alert(err.message);
+            });
+        }
     }).on('close', function(){
     }).on('error', function(err){
         alert(err.message);
