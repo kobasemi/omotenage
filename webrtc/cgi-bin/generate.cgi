@@ -4,6 +4,7 @@
 import os, cgi, sys
 sys.path.append("/home/k434121/www/WebRTCCon/webrtc/cgi-bin")
 import pywapi, weather
+from pygeocoder import Geocoder
 
 if 'QUERY_STRING' in os.environ:
   query = cgi.parse_qs(os.environ['QUERY_STRING'])
@@ -62,14 +63,11 @@ if mode == "general":
           <div id="weather">
             %s
           </div>
-          <div id="mode">
-            %s
-          </div>
         </div>
       </div>
     </body>
   </html>
-  """ % (pageUrl + "&mode=general",pageUrl + "&mode=map", pageUrl + "&mode=recommend", name, weatherInfo, mode)
+  """ % (pageUrl + "&mode=general",pageUrl + "&mode=map", pageUrl + "&mode=recommend", name, weatherInfo)
 
 # Map Tab
 elif mode == "map":
@@ -114,6 +112,7 @@ elif mode == "map":
 
 # Recommend Tab
 elif mode == "recommend":
+  # Pick up recommend location from json using pygeocoder and pyproj
   output = """<!DOCTYPE html>
   <html>
     <head>
