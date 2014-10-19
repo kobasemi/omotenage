@@ -1,23 +1,16 @@
 {
-    "recommend": [{
-        "name": "Store Name",
-        "location": "Store Location (Google Map Based)"
-        "tel": "Store TEL number"
-        "lang": "Supported language"
-    }],
-
     "recommend": [
-        {"name": "Ramen-1", "location": "35.678661, 139.710816", "tel": "123-0000", "lang": "en,zh-CHS,ko,ja"},
-        {"name": "Ramen-2", "location": "35.665721, 139.718560", "tel": "123-0001", "lang": "en,zh-CHS,ja"},
-        {"name": "Bistro-1", "location": "35.687860, 139.743554", "tel": "123-0002", "lang": "en, fr, ja"},
-        {"name": "Bistro-2", "location": "35.683954, 139.704999", "tel": "123-0003", "lang": "fr, ja"},
-        {"name": "Egyptian-1", "location": "35.688625, 139.712906", "tel": "123-0004", "lang": "en, ar, ja"},
-        {"name": "Egyptian-2", "location": "35.666837, 139.705096", "tel": "123-0005", "lang": "en, ar, ja"},
-        {"name": "Sushi-1", "location": "35.665843, 139.705096", "tel": "123-0006", "lang": "ko, de, ja"}, 
-        {"name": "Sushi-2", "location": "35.665965, 139.703679", "tel": "123-0007", "lang": "es, pt, ja"},
-        {"name": "Italian-1", "location": "35.666889, 139.691277", "tel": "123-0008", "lang": "it, ja"},
-        {"name": "Italian-2", "location": "35.676337, 139.709430", "tel": "123-0009", "lang": "it, de, ja"},
-        {"name": "JapaneseFood-1", "location": "35.662147, 139.703765", "tel": "123-0010", "lang": "en, de, pt, ja"},
-        {"name": "JapaneseFood-2", "location": "35.683414, 139.725480", "tel": "123-0011", "lang": "en, fr, ko, it, ja"}
+        {"name": "Ramen-1", "location": "35.678661,139.710816", "tel": "123-0000", "lang": "en,zh-CHS,ko,ja"},
+        {"name": "Ramen-2", "location": "35.665721,139.718560", "tel": "123-0001", "lang": "en,zh-CHS,ja"},
+        {"name": "Bistro-1", "location": "35.687860,139.743554", "tel": "123-0002", "lang": "en,fr,ja"},
+        {"name": "Bistro-2", "location": "35.683954,139.704999", "tel": "123-0003", "lang": "fr,ja"},
+        {"name": "Egyptian-1", "location": "35.688625,139.712906", "tel": "123-0004", "lang": "en,ar,ja"},
+        {"name": "Egyptian-2", "location": "35.666837,139.705096", "tel": "123-0005", "lang": "en,ar,ja"},
+        {"name": "Sushi-1", "location": "35.665843,139.705096", "tel": "123-0006", "lang": "ko,de,ja"}, 
+        {"name": "Sushi-2", "location": "35.665965,139.703679", "tel": "123-0007", "lang": "es,pt,ja"},
+        {"name": "Italian-1", "location": "35.666889,139.691277", "tel": "123-0008", "lang": "it,ja"},
+        {"name": "Italian-2", "location": "35.676337,139.709430", "tel": "123-0009", "lang": "it,de,ja"},
+        {"name": "JapaneseFood-1", "location": "35.662147,139.703765", "tel": "123-0010", "lang": "en,de,pt,ja"},
+        {"name": "JapaneseFood-2", "location": "35.683414,139.725480", "tel": "123-0011", "lang": "en,fr,ko,it,ja"}
     ]
 }

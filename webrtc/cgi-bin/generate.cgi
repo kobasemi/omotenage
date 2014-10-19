@@ -4,6 +4,7 @@
 import os, cgi
 import pywapi, weather
 from pygeocoder import Geocoder
+import json
 
 if 'QUERY_STRING' in os.environ:
   query = cgi.parse_qs(os.environ['QUERY_STRING'])
@@ -111,7 +112,26 @@ elif mode == "map":
 
 # Recommend Tab
 elif mode == "recommend":
-  # Pick up recommend location from json using pygeocoder and pyproj
+  # Pick up recommend location
+  f = open('../recommend.json', 'r') 
+  jsonData = json.load(f)
+  f.close()
+
+  recommend = ""
+  for item in jsonData["recommend"]:
+    if "en" in item["lang"]:
+      geocode = item["location"].split(',')
+       
+      locationName = Geocoder.reverse_geocode(float(geocode[0]), float(geocode[1]))
+      recommend += """%s<br />
+      Location: %s<br />
+      TEL: %s<br />
+      Language: %s<br /><Hr>
+      """ % (item["name"], locationName[0], item["tel"], item["lang"])
+      
+
+
+  
   output = """<!DOCTYPE html>
   <html>
     <head>
@@ -143,13 +163,13 @@ elif mode == "recommend":
         <div id="main" data-role="content">
           <!-- Recommend -->
           <div id="recommend">
-            <p>Recommend</p>
+                  %s
           </div>
         </div>
       </div>
     </body>
   </html>
-  """ % (pageUrl + "&mode=general",pageUrl + "&mode=map", pageUrl + "&mode=recommend")
+  """ % (pageUrl + "&mode=general",pageUrl + "&mode=map", pageUrl + "&mode=recommend", recommend)
 
 
 print "Content-Type: text/html"
