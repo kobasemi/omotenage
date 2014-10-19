@@ -45,12 +45,7 @@ $(document).on('pageinit', '#pick-wind', function(e, data){
     });
 
     $('#endcall').click(function(){
-        window.localStream.stop();
-        $("#partner-video").prop('src', '');
-        call.close();
-        conn.close();
-        call = conn = null;
-        navigator.geolocation.clearWatch(watch_id);
+        endcall();
     });
 
     $('#operefresh').click(function(){
@@ -259,7 +254,9 @@ function makeconn(){
         // Receive a data
         $("#nicenav").show();
         // Setting the path of CGI program with some parameters
-        $("#nicepage").attr("href", data);
+        $("#nicepage").click(function(){
+            endcall();
+        }).attr("href", data);
     }).on('error', function(err){
         alert(err.message);
     });
@@ -273,9 +270,20 @@ function makecall(){
     call.on('stream', function(stream){
         // Receive a stream
         $("#partner-video").prop('src', URL.createObjectURL(stream));
+    }).on('close', function(){
+        $("#partner-video").prop('src', '');
     });
 
     if(window.existingCall)
         window.existingCall.close();
     window.existingCall = call;
+}
+
+// Fire when endcall clicked
+function endcall(){
+    window.localStream.stop();
+    call.close();
+    conn.close();
+    call = conn = null;
+    navigator.geolocation.clearWatch(watch_id);
 }
