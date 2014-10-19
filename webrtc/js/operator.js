@@ -32,6 +32,9 @@ $(document).on('pageinit', '#ope-wind', function(e, data){
     });
 
     $("#accept").click(ready);
+
+    // Validation
+    $("#profile").validationEngine();
 });
 
 function ready(){
@@ -59,6 +62,9 @@ function ready(){
     $("#input_name").textinput("disable");
 
     $("#send").click(function(){
+        if(!$("#profile").validationEngine('validate'))
+            // Validation is not completely
+            return;
         // Send the path of CGI program to remote user
         var cgi_path = "cgi-bin/generate.cgi" + getparam();
         conn.send(cgi_path);

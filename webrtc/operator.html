@@ -10,6 +10,9 @@
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
         <script type="text/javascript" src="https://skyway.io/dist/v2/0.3/peer.min.js"></script>
         <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyD0FpbGY_lnKFsweaiEWZFzq3csl5fwR-Q&sensor=false"></script>
+        <link rel="stylesheet" type="text/css" href="./css/validationEngine.jquery.css" />
+        <script type="text/javascript" src="./js/jquery.validationEngine-ja.js" charset="utf-8"></script>
+        <script type="text/javascript" src="./js/jquery.validationEngine.js" charset="utf-8"></script>
         <link rel="stylesheet" type="text/css" href="./css/mystyle.css" />
     </head>
     <body>
@@ -36,20 +39,22 @@
 
                         <!-- Pain 1-2-->
                         <!-- Profile Information-->
-                        <div id="profile" class="ui-block-b ui-contents-padding">
+                        <div class="ui-block-b ui-contents-padding">
                             <h3>相手の情報</h3>
-                            <label>名前:<input type="text" name="remote_name" placeholder="Name"></label>
-                            <label>天気:<input type="text" name="location" placeholder="Location"></label>
-                            <label>行き先:
-                                <input type="text" name="input_from" id="input_from" placeholder="From">
-                                <input type="text" name="input_to" id="input_to" placeholder="To">
-                            </label>
-                            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-                                <legend>手段:</legend>
-                                <label><input type="radio" name="tmode" id="mode_walk" value="WALKING" checked="checked">徒歩</label>
-                                <label><input type="radio" name="tmode" id="mode_drive" value="DRIVING">自動車</label>
-                            </fieldset>
-                            <a href="#" id="send" class="ui-btn ui-corner-all">ページ送信</a>
+                            <form id="profile">
+                                <label>名前:<input type="text" name="remote_name" placeholder="Name" class="validate[required] text-input"></label>
+                                <label>天気:<input type="text" name="location" placeholder="Location" class="validate[required] text-input"></label>
+                                <label>行き先:
+                                    <input type="text" name="input_from" id="input_from" placeholder="From" class="validate[required] text-input">
+                                    <input type="text" name="input_to" id="input_to" placeholder="To" class="validate[required] text-input">
+                                </label>
+                                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                                    <legend>手段:</legend>
+                                    <label><input type="radio" name="tmode" id="mode_walk" value="WALKING" checked="checked">徒歩</label>
+                                    <label><input type="radio" name="tmode" id="mode_drive" value="DRIVING">自動車</label>
+                                </fieldset>
+                            </form>
+                            <a href="#" id="send" data-role="button" class="ui-btn ui-corner-all">ページ送信</a>
                         </div>
                     </div>
                 </div>
