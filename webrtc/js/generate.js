@@ -68,7 +68,7 @@ $(document).on('pageshow', function(e, data){
             // Create a marker
             here = new google.maps.Marker({
                 position: latlng,
-                icon: './img/here.png',
+                icon: '../img/here.png',
                 map: map
             });
             map.panTo(latlng);
@@ -124,7 +124,7 @@ function updatemap(latlng){
     here.setMap(null);
     here = new google.maps.Marker({
         position: latlng,
-        icon: './img/here.png',
+        icon: '../img/here.png',
         map: map
     });
 }

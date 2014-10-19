@@ -99,11 +99,11 @@ elif mode == "map":
               </fieldset>
               <p>
                 <label for="input_from">From</label>
-                <input type="text" name="input_from" id="input_from" placeholder="From">
+                <input type="text" name="input_from" id="input_from" placeholder="From" value=%s>
               </p>
               <p>
                 <label for="input_to">To</label>
-                <input type="text" name="input_to" id="input_to" placeholder="To">
+                <input type="text" name="input_to" id="input_to" placeholder="To" value=%s>
               </p>
               <a id="update" data-role="button" data-icon="search" data-inline="true" data-corners="true" data-shadow="true">Update</a>
             </div>
@@ -112,7 +112,7 @@ elif mode == "map":
       <script type="text/javascript" src="../js/generate.js"></script> 
     </body>
   </html>
-  """ % (pageUrl + "&mode=general",pageUrl + "&mode=map", pageUrl + "&mode=recommend")
+  """ % (pageUrl + "&mode=general",pageUrl + "&mode=map", pageUrl + "&mode=recommend", comefrom, destination)
 
 # Recommend Tab
 elif mode == "recommend":
