@@ -1,8 +1,7 @@
 #!/usr/local/bin/python
 #coding:utf-8
 
-import os, cgi, sys
-sys.path.append("/home/k434121/www/WebRTCCon/webrtc/cgi-bin")
+import os, cgi
 import pywapi, weather
 from pygeocoder import Geocoder
 
