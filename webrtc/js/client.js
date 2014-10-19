@@ -50,19 +50,13 @@ $(document).on('pageinit', '#pick-wind', function(e, data){
         call.close();
         conn.close();
         call = conn = null;
-        ope_id = "";
         navigator.geolocation.clearWatch(watch_id);
     });
 
     $('#operefresh').click(function(){
         // Refresh the operator list
         ope_id = "";
-        if(peer !== null)
-            peer.listAllPeers(function(list){
-                // Get only operator peer list
-                var ope_list = list.filter(function(v){return v.match(/^ope-[a-z][a-z]-/);});
-                disp_opes(ope_list);
-            });
+        update_opelist();
     });
 });
 
@@ -170,48 +164,58 @@ function updatemap(latlng){
     }
 }
 
-// Some operators in connection is displayed
-function disp_opes(opes){
-    // If nobody is in connection
-    if($.isEmptyObject(opes)){
-        // Append figure tag template
-        $("#opelist").html("<figure><figcaption></figcaption></figure>");
-        $("figure figcaption", "#opelist").
-            text("Sorry... Nobody of operator is in connection.");
-        // Add svg tag of ope_svg to after figure tag
-        $("figure", "#opelist").prepend(ope_svg);
-        // Change ope_svg color to negative color
-        $("#body path").attr("fill", "#F80E0E");
-        return;
-    }
-
-    $("#opelist").html("");
-    $.each(opes, function(idx, id){
-        // Get the country code of the operator
-        var cc = id.split('-')[1];
-        // Get the operator name
-        var name = id.split('-')[2];
-        // Create the tag for the operator of id
-        $("#opelist").append("<figure id="+name+"></figure>");
-        $("#"+name).
-            // Setting operator icon written in svg
-            append(ope_svg).
-            append("<figcaption>"+name+"</figcaption>");
-
-        // Overrige the tie with a country tie
-        $.get('./img/cc_tie/' + cc + '.svg', function(svg){
-            $("#tie", "#"+name).html($(svg).find("#"+cc).html());
-        }, 'text');
-
-        $("#"+name).find("#Body").click(function(){
-            // All ID(#body) color is set to #26453D
-            $("figure > svg", "#opelist").find("#body path").attr("fill", "#26453D");
-            // THIS icon color is set to positive color
-            $(this).find("#body path").attr("fill", "#11D528");
-
-            // Update operator ID
-            ope_id = id;
+// Update some elements in #opelist
+function update_opelist(){
+    if(peer !== null){
+        peer.listAllPeers(function(list){
+            // Get only operator peer list
+            var ope_list = list.filter(function(v){return v.match(/^ope-[a-z][a-z]-/);});
+            // Delete all elements
+            $("#opelist").html("");
+            if($.isEmptyObject(ope_list)){
+                // Append figure tag template
+                $("#opelist").html("<figure><figcaption></figcaption></figure>");
+                $("figure figcaption", "#opelist").
+                    text("Sorry... Connectable operator doesn't exist.");
+                // Add svg tag of ope_svg to after figure tag
+                $("figure", "#opelist").prepend(ope_svg);
+                // Change ope_svg color to negative color
+                $("#body path").attr("fill", "#F80E0E");
+            }else{
+                // If ope_list has a element
+                // Multicast to some operators
+                multicast_echo(ope_list);
+            }
         });
+    }
+}
+
+// The operators in connection is displayed
+function disp_ope(id){
+    // Get the country code of the operator
+    var cc = id.split('-')[1];
+    // Get the operator name
+    var name = id.split('-')[2];
+    // Create the tag for the operator of id
+    $("#opelist").append("<figure id="+name+"></figure>");
+    $("#"+name).
+        // Setting operator icon written in svg
+        append(ope_svg).
+        append("<figcaption>"+name+"</figcaption>");
+
+    // Overrige the tie with a country tie
+    $.get('./img/cc_tie/' + cc + '.svg', function(svg){
+        $("#tie", "#"+name).html($(svg).find("#"+cc).html());
+    }, 'text');
+
+    $("#"+name).find("#Body").click(function(){
+        // All ID(#body) color is set to #26453D
+        $("figure > svg", "#opelist").find("#body path").attr("fill", "#26453D");
+        // THIS icon color is set to positive color
+        $(this).find("#body path").attr("fill", "#11D528");
+
+        // Update operator ID
+        ope_id = id;
     });
 }
 
@@ -220,11 +224,14 @@ function disp_opes(opes){
 function initpeer(){
     peer = new Peer({key: APIKEY, debug:3});
     peer.on('open', function(id) {
-        peer.listAllPeers(function(list){
-            // Get only operator peer list
-            var ope_list = list.filter(function(v){return v.match(/^ope-[a-z][a-z]-/);});
-            disp_opes(ope_list);
-        });
+        update_opelist();
+    }).on('connection', function(connect){
+        (function(undefined){
+            if(connect.metadata !== undefined){
+                // Receive a response to a connect request
+                disp_ope(connect.metadata);
+            }
+        })();
     }).on('close', function(){
     }).on('error', function(err){
         alert(err.message);
@@ -260,4 +267,12 @@ function makecall(){
     if(window.existingCall)
         window.existingCall.close();
     window.existingCall = call;
+}
+
+// Multicast to some operators
+// opes: operator list
+function multicast_echo(opes){
+    $.each(opes, function(idx, id){
+        peer.connect(id, {metadata: 'multicast'});
+    });
 }

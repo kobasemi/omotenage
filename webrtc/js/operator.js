@@ -11,6 +11,8 @@ var APIKEY = "79e1e834-4935-11e4-878c-e1a8ecd1a309";
 var peer = conn = call = null;
 // here: Marker, poly: Polyline
 var map, here, poly;
+// whether or not connectable me
+var connectable = true;
 
 $(document).on('pageinit', '#ope-wind', function(e, data){
     // Setting the css parameter(height) for Google Maps canvas
@@ -88,9 +90,20 @@ function initpeer(){
                 $("#partner-video").prop("src", URL.createObjectURL(stream));
             }).on('close', function(){
                 $("#partner-video").prop("src", "");
+                connectable = true;
             });
+            connectable = false;
         }
     }).on('connection', function(connect){
+        if(connect.metadata === 'multicast'){
+            // Receive a connect request
+            if(connectable)
+                // If I am connectable,
+                // send my id to a remote user
+                peer.connect(connect.peer, {metadata: peer.id});
+            return;
+        }
+
         // If a operator is connected a client,
         // drop a new DataConnection request
         if(conn === null || !conn.open){
@@ -155,7 +168,7 @@ function clearpoly(){
             poly.getPath().clear();
         }
         poly.setMap(map);
-    })()
+    })();
 }
 
 // Update the map from a remote user's position of current
