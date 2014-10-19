@@ -41,6 +41,11 @@ div[data-role=header] #location{
     border: 0;
 }
 
+#popinfo{
+    max-width: 500px;
+    max-height: 500px;
+}
+
 /* client.html style */
 /* for operator icon */
 #opelist{

@@ -19,6 +19,13 @@ $(document).on('pageinit', '#home', function(e, data){
     // Initialize page for english
     translate('us', 'en');
     passhome_flg = true;
+    $(window).resize();
+});
+
+$(window).resize(function(){
+    var popw = $(window).width() * .7;
+    var poph = $(window).height() * .7;
+    $("#popinfo").width(popw).height(poph);
 });
 
 $(document).on('pagebeforecreate', '#nav', function(e, data){
