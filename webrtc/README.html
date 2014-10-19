@@ -1,235 +1,87 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<style>
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote {
-    margin: 0;
-    padding: 0;
-}
-body {
-    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
-    font-size: 13px;
-    line-height: 18px;
-    color: #737373;
-    background-color: white;
-    margin: 10px 13px 10px 13px;
-}
-table {
-	margin: 10px 0 15px 0;
-	border-collapse: collapse;
-}
-td,th {	
-	border: 1px solid #ddd;
-	padding: 3px 10px;
-}
-th {
-	padding: 5px 10px;	
-}
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>README</title>
 
-a {
-    color: #0069d6;
-}
-a:hover {
-    color: #0050a3;
-    text-decoration: none;
-}
-a img {
-    border: none;
-}
-p {
-    margin-bottom: 9px;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    color: #404040;
-    line-height: 36px;
-}
-h1 {
-    margin-bottom: 18px;
-    font-size: 30px;
-}
-h2 {
-    font-size: 24px;
-}
-h3 {
-    font-size: 18px;
-}
-h4 {
-    font-size: 16px;
-}
-h5 {
-    font-size: 14px;
-}
-h6 {
-    font-size: 13px;
-}
-hr {
-    margin: 0 0 19px;
-    border: 0;
-    border-bottom: 1px solid #ccc;
-}
-blockquote {
-    padding: 13px 13px 21px 15px;
-    margin-bottom: 18px;
-    font-family:georgia,serif;
-    font-style: italic;
-}
-blockquote:before {
-    content:"\201C";
-    font-size:40px;
-    margin-left:-10px;
-    font-family:georgia,serif;
-    color:#eee;
-}
-blockquote p {
-    font-size: 14px;
-    font-weight: 300;
-    line-height: 18px;
-    margin-bottom: 0;
-    font-style: italic;
-}
-code, pre {
-    font-family: Monaco, Andale Mono, Courier New, monospace;
-}
-code {
-    background-color: #fee9cc;
-    color: rgba(0, 0, 0, 0.75);
-    padding: 1px 3px;
-    font-size: 12px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-}
-pre {
-    display: block;
-    padding: 14px;
-    margin: 0 0 18px;
-    line-height: 16px;
-    font-size: 11px;
-    border: 1px solid #d9d9d9;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-}
-pre code {
-    background-color: #fff;
-    color:#737373;
-    font-size: 11px;
-    padding: 0;
-}
-sup {
-    font-size: 0.83em;
-    vertical-align: super;
-    line-height: 0;
-}
-* {
-	-webkit-print-color-adjust: exact;
-}
-@media screen and (min-width: 914px) {
-    body {
-        width: 854px;
-        margin:10px auto;
-    }
-}
-@media print {
-	body,code,pre code,h1,h2,h3,h4,h5,h6 {
-		color: black;
-	}
-	table, pre {
-		page-break-inside: avoid;
-	}
-}
-</style>
-<title>作品について</title>
-
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 </head>
 <body>
-<h1>作品について</h1>
 
-<p>私達が作成した作品は，オペレータ側とクライアント側の2つのページに分かれます．</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+        <ul class="nav nav-pills">
+            <li class="active"><a href="README.html">TOP</a></li>
+            <li><a href="README-client.html">クライアント</a></li>
+            <li><a href="README-operator.html">オペレータ</a></li>
+        </ul>
 
-<h2>オペレータページ</h2>
+        <div class="page-header">
+            <h1>おもてなーじ</h1>
+            <p class="lead">おもてなーじ(Omotenage)は，おもてなし(Omotenashi)とサイネージ(Signage)の2つの単語を組み合わせた造語です．</p>
+        </div>
 
-<p>オペレータページ(<a href="operator.html">operator.html</a>)では，下の手順で受付を行います．</p>
+        <h3>おもてなーじとは</h3>
+        <p>　おもてなーじは「WebRTC × おもてなし」をテーマに，スマートフォンを利用したFace to Faceのリコメンデーションシステムであり，海外から訪れる人々に東京の魅力，ひいては日本人のおもてなしの心を提供します．必要なものはスマートフォンのWebブラウザのみです．WebRTCの技術とともに，スマートフォンに備わったカメラとWebブラウザを利用することで，海外から来るお客様とおもてなしする日本人ボランティアの間で，Face to Faceの対話を可能とします．またコミュニケーションを通じて，そのお客様のみを想定したスペシャルなページを提供します．</p>
 
-<ul>
-<li>担当する国(CC)をセレクトボックスの中から選択する</li>
-<li>その右のテキストボックスに自分の名前(NAME)を入力する</li>
-<li>そして受付ボタンをクリックする</li>
-</ul>
+        <h3>対応環境</h3>
 
-
-<p>こうすることで，{CC}-ope-{NAME}というIDでpeerを開きます．
-今後は，クライアントから接続応答が来るまで待機する形になります．</p>
-
-<p>クライアントから接続が来ると，クライアントのビデオが画面に表示され，Google Maps上にクライアントの現在位置が表示されます．</p>
-
-<p>その後，クライアントとの対話をもとにレコメンデーションエンジンを作動するためのパラメータを取得し，フォームに追加します．</p>
-
-<p>最終的にページ生成ボタンからクライアント固有のページを生成し，
-ページ送信ボタンでそのページのURLをクライアントに送信します．</p>
-
-<h3>注意点</h3>
-<ol>
-<li>ページ生成ボタンは，将来的にCGIとして実装するつもりですが，現状はスクリプトファイルとし，コマンドライン引数を与えてやるという方法をとっています</li>
-</ol>
-<h2>クライアントページ</h2>
-
-<p>クライアントページは2つのhtmlファイル(<a href="index.html">index.html</a>, <a href="client.html">client.html</a>)に分かれます．
-1つ目はユーザの出身地の情報を取得するためのページ(<a href="index.html">index.html</a>)で，2つ目はオペレータと通信するためのページ(<a href="client.html">client.html</a>)となります．
-クライアントの入口となるページは，<a href="index.html">index.html</a>です．</p>
-
-<p>クライアント側のページでは，下の手順を踏みます．</p>
-
-<ul>
-<li><a href="index.html">index.html</a>の中から，自分の国を選択する</li>
-<li>ページ遷移後の文章を読み，O.K.ボタンをクリックする</li>
-<li>この時，選んだ国のカントリーコードがURLのパラメータとして追加される（例: United Statesを選択 > 「?cc=us」が追加される）</li>
-<li><a href="client.html">client.html</a>に遷移後，Callボタンをクリックする</li>
-<li>その国の担当のオペレータが存在すれば，そのオペレータと繋がる</li>
-</ul>
-
-
-<p>オペレータと接続後は，geolocationAPIのwatchPosition()で逐一現在位置を取得し，オペレータに送信します．
-そうすることで，オペレータ側から特定の場所への案内などをしてもらうことが可能となります．</p>
-
-<h3>注意点</h3>
-
-<ol>
-<li>オペレータを選択し接続するという処理は未実装です．現状はskyway REST APIから取得した，peer idのリストのなかから，オペレータのIDを検索し，その一番始めに見つかったものにしか接続できません．将来的には，複数のオペレータがいれば選択できるようにする予定です</li>
-<li><a href="client.html">client.html</a>のURLにccパラメータがついていない場合，正常に接続できません．</li>
-<li>各国向けの言語を用意できず，英語のみとなっています．</li>
-</ol>
-
-
-<h2>その他</h2>
-
-<p>目指すべきシステムの完成には程遠いですが，私達が臨んだシステムのプロトタイプのようなものは出来上がったと思います．</p>
-
-<p>将来的に実装したいと考えているシステムを紹介します．
-まず東京都公認店舗APIです．
-これは，東京都が公認する外国人向けのお勧め店舗を検索するためのAPIのつもりです．例えば，この店舗はこの言語が対応できるといった，外国人にとって嬉しい情報などを提供できればと考えています．
-またリコメンデーションシステムのほうでは，民間公告会社と連携することにより，更なるシステムの活性化が可能になると考えています．</p>
-
-<p>またpeerjsの細かい動作の処理などは考慮できず，かなり大雑把なプログラムになっているかと思います．特にpeerjsの接続解除辺りの処理はかなり適当なものになってしまったと思います．</p>
-
-<p>開発環境には，Chromeを使いました．
-そのため，他のブラウザでは正常に動作しないことがあるかもしれません．</p>
-
-<p>2020年までに，技術革新があることを願っています．
-（都合の悪いところは，6年間の期間で良くなることを期待してたりします……）</p>
-
+        <div class="panel panel-default">
+        <!-- Default panel contents -->
+            <!-- Table -->
+            <table class="table">
+            <thead>
+                <tr>
+                    <th>OS</th>
+                    <th>Chrome</th>
+                    <th>Firefox</th>
+                    <th>Opera</th>
+                    <th>Safari</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Android OS</td>
+                    <td>&#10003;</td>
+                    <td>&#10003;</td>
+                    <td>&#10003;</td>
+                    <td> </td>
+                </tr>
+                <tr>
+                    <td>iOS</td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                </tr>
+                <tr>
+                    <td>OS X</td>
+                    <td>&#10003;</td>
+                    <td>&#10003;</td>
+                    <td>&#10003;</td>
+                    <td> </td>
+                </tr>
+            </tbody>
+            </table>
+        </div><!-- /panel panel-default -->
+        <p>Android OSはAndroidバージョン 4.4.4のNexus 7 (2012)，Nexus 5で動作を確認しています．</p>
+        <p>iOSは現在のところ，対応していません．</p>
+        <p>OS XはMarvericks，Yosemiteで動作を確認しています．
+        </div><!-- /col-md-8 -->
+        <div class="col-md-2"></div>
+    </div><!-- /row -->
+</div> <!-- /container -->
 </body>
 </html>
+
