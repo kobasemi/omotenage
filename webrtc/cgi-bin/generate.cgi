@@ -32,19 +32,15 @@ if mode == "general":
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <link rel="shortcut icon" href="../img/logo.svg">
+      <link rel="shorcut icon" type="image/png" href="../img/fav.ico" />
       <link rel="stylesheet" type="text/css" href="https://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.css" />
       <link rel="stylesheet" type="text/css" href="../css/weather.css" />
       <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
       <script type="text/javascript" src="https://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script>
       <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
-      <script type="text/javascript" src="js/jquery.ui.map.js"></script>
-      <script type="text/javascript" src="js/jquery.ui.map.services.js"></script>
-      <script type="text/javascript" src="js/jquery.ui.map.oerlays.js"></script>
-      <script type="text/javascript" src="js/jquery.ui.map.extensions.js"></script>
     </head>
     <body>
-      <div data-role="page" data-title="omotenage">
+      <div data-role="page" data-title="Omotenage">
         <div data-role="header" data-theme="a">
           <h1>Omotenage</h1>
         </div>
@@ -55,7 +51,6 @@ if mode == "general":
             <li><a href=%s>Recommend</a></li>
           </ul>
         </div>
-        <div id="main" data-role="content">
           <!-- Information -->
           <div id="name">
             %s
@@ -63,7 +58,6 @@ if mode == "general":
           <div id="weather">
             %s
           </div>
-        </div>
       </div>
     </body>
   </html>
@@ -76,19 +70,15 @@ elif mode == "map":
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <link rel="shortcut icon" href="../img/logo.svg">
-      <link rel="stylesheet" type="text/css" href="https://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.css" />
-      <link rel="stylesheet" type="text/css" href="../css/weather.css" />
-      <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-      <script type="text/javascript" src="https://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script>
-      <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
-      <script type="text/javascript" src="js/jquery.ui.map.js"></script>
-      <script type="text/javascript" src="js/jquery.ui.map.services.js"></script>
-      <script type="text/javascript" src="js/jquery.ui.map.oerlays.js"></script>
-      <script type="text/javascript" src="js/jquery.ui.map.extensions.js"></script>
+      <link rel="shorcut icon" type="image/png" href="../img/fav.ico" />
+      <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
+      <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyD0FpbGY_lnKFsweaiEWZFzq3csl5fwR-Q&sensor=true"></script>
+      <link rel="stylesheet" type="text/css" href="../css/mystyle.css" />
     </head>
     <body>
-      <div data-role="page" data-title="omotenage">
+      <div data-role="page" data-title="Omotenage">
         <div data-role="header" data-theme="a">
           <h1>Omotenage</h1>
         </div>
@@ -99,13 +89,27 @@ elif mode == "map":
             <li><a href=%s>Recommend</a></li>
           </ul>
         </div>
-        <div id="main" data-role="content">
           <!-- Map -->
-          <div id="map">
-            <p>Map</p>
+        <div id="gmaps">
+            <div id="map_canvas"></div>
+            <div id="form" class="ui-bar-c ui-corner-all ui-shadow" style="padding: 1.5em; margin: 1.5em;">
+              <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                <label><input type="radio" name="tmode" id="mode_drive" value="DRIVING" cheched="checked">Drive</label>
+                <label><input type="radio" name="tmode" id="mode_walk" value="WALKING">Walk</label>
+              </fieldset>
+              <p>
+                <label for="input_from">From</label>
+                <input type="text" name="input_from" id="input_from" placeholder="From">
+              </p>
+              <p>
+                <label for="input_to">To</label>
+                <input type="text" name="input_to" id="input_to" placeholder="To">
+              </p>
+              <a id="update" data-role="button" data-icon="search" data-inline="true" data-corners="true" data-shadow="true">Update</a>
+            </div>
           </div>
         </div>
-      </div>
+      <script type="text/javascript" src="../js/generate.js"></script> 
     </body>
   </html>
   """ % (pageUrl + "&mode=general",pageUrl + "&mode=map", pageUrl + "&mode=recommend")
@@ -137,19 +141,13 @@ elif mode == "recommend":
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <link rel="shortcut icon" href="../img/logo.svg">
+      <link rel="shorcut icon" type="image/png" href="../img/fav.ico" />
       <link rel="stylesheet" type="text/css" href="https://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.css" />
-      <link rel="stylesheet" type="text/css" href="../css/weather.css" />
       <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
       <script type="text/javascript" src="https://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script>
-      <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
-      <script type="text/javascript" src="js/jquery.ui.map.js"></script>
-      <script type="text/javascript" src="js/jquery.ui.map.services.js"></script>
-      <script type="text/javascript" src="js/jquery.ui.map.oerlays.js"></script>
-      <script type="text/javascript" src="js/jquery.ui.map.extensions.js"></script>
     </head>
     <body>
-      <div data-role="page" data-title="omotenage">
+      <div data-role="page" data-title="Omotenage">
         <div data-role="header" data-theme="a">
           <h1>Omotenage</h1>
         </div>
@@ -160,12 +158,10 @@ elif mode == "recommend":
             <li><a href=%s class="ui-btn-active">Recommend</a></li>
           </ul>
         </div>
-        <div id="main" data-role="content">
           <!-- Recommend -->
           <div id="recommend">
                   %s
           </div>
-        </div>
       </div>
     </body>
   </html>
