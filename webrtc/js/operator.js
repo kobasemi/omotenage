@@ -66,7 +66,7 @@ function ready(){
             // Validation is not completely
             return;
         // Send the path of CGI program to remote user
-        var cgi_path = "cgi-bin/generate.cgi" + getparam();
+        var cgi_path = "cgi-bin/omotenage.cgi" + getparam();
         conn.send(cgi_path);
         console.log('sent cgi_path to ' + conn.peer);
     });

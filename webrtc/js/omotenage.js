@@ -58,17 +58,11 @@ $(document).on('pageshow', '#gmaps', function(e, data){
 
             // Set Callback of watchPosition
             watch_id = navigator.geolocation.watchPosition(function(pos){
-                var latlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-                updatemap(latlng);
+                updatemap(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
             }, fail);
 
             initmap()
-            // Create a marker
-            here = new google.maps.Marker({
-                position: latlng,
-                icon: './img/here.png',
-                map: map
-            });
+            updatemap(latlng);
             map.panTo(latlng);
         }
         function fail(error){
@@ -119,10 +113,13 @@ function updatemap(latlng){
 
     // Clear previous marker, and then
     // Set new marker
-    here.setMap(null);
+    (function(undefined){
+        if(here !== undefined)
+            here.setMap(null);
+    })();
     here = new google.maps.Marker({
         position: latlng,
-        icon: './img/here.png',
+        icon: '../img/here.png',
         map: map
     });
 }
