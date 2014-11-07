@@ -12,25 +12,22 @@ else:
   query = {}
 
 # Receive posted data
-#mode = str(query['mode'][0])
-#name = str(query['name'][0])
-#location = str(query['location'][0])
-#comefrom = str(query['from'][0])
-#destination = str(query['to'][0])
-#tmode = str(query['tmode'][0])
+name = str(query['name'][0])
+location = str(query['location'][0])
+comefrom = str(query['from'][0])
+destination = str(query['to'][0])
+tmode = str(query['tmode'][0])
 
 output = ""
 
-# General Tab
-#weatherInfo = weather.main(location)
-
-output = """
+output = \
+"""
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="shortcut icon" type="image/png" href="./img/fav.ico" />
+        <link rel="shortcut icon" type="image/png" href="../img/fav.ico" />
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
@@ -38,12 +35,15 @@ output = """
         <link rel="stylesheet" type="text/css" href="../css/mystyle.css" />
     </head>
     <body>
+"""
 
+# Information Page
+info_page = """
         <!-- Information -->
         <div id="general" data-role="page" data-title="Omotenage">
             <div role="main" class="ui-bar-c ui-corner-all ui-shadow" style="padding: 1.5em; margin:1.5em;">
                 <h1>
-                    Hello, <span id="username">anonymous</span>.
+                    Hello, <span id="username">%s</span>.
                     <span id="welcom">Welcome to Japan</span>.
                 </h1>
 
@@ -58,23 +58,32 @@ output = """
                 </div>
             </div>
         </div>
+""" % (name)
 
+# Google Maps Page
+mode_drive = mode_walk = ""
+if(tmode == "DRIVING"):
+    mode_drive = "checked"
+elif(tmode == "WALKING"):
+    mode_walk = "checked"
+
+gmaps_page = """
         <!-- Google Maps -->
         <div id="gmaps" data-role="page" data-url="map_page" data-title="Omotenage">
             <div role="main">
                 <div id="map_canvas"></div>
                 <div id="form" class="ui-bar-c ui-corner-all ui-shadow" style="padding: 1.5em; margin: 1.5em;">
                     <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-                        <label><input type="radio" name="tmode" id="mode_drive" value="DRIVING" checked="checked">Drive</label>
-                        <label><input type="radio" name="tmode" id="mode_walk" value="WALKING">Walk</label>
+                        <label><input type="radio" name="tmode" id="mode_drive" value="DRIVING" %s>Drive</label>
+                        <label><input type="radio" name="tmode" id="mode_walk" value="WALKING" %s>Walk</label>
                     </fieldset>
                     <p>
                         <label for="input_from">From</label>
-                        <input type="text" name="input_from" id="input_from" placeholder="From">
+                        <input type="text" name="input_from" id="input_from" placeholder="From" value="%s">
                     </p>
                     <p>
                         <label for="input_to">To</label>
-                        <input type="text" name="input_to" id="input_to" placeholder="To">
+                        <input type="text" name="input_to" id="input_to" placeholder="To" value="%s">
                     </p>
                     <a id="update" data-role="button" data-icon="search" data-inline="true" data-corners="true" data-shadow="true">Update</a>
                 </div>
@@ -89,7 +98,10 @@ output = """
                 </div>
             </div>
         </div>
+""" % (mode_drive, mode_walk, comefrom, destination)
 
+# Recommend Page
+recomm_page = """
         <!-- Recommend -->
         <div id="recommend" data-role="page" data-title="Omotenage">
             <div role="main">
@@ -103,7 +115,11 @@ output = """
                     </ul>
             </div>
         </div>
+"""
 
+# Combine all page
+output += info_page + gmaps_page + recomm_page + \
+"""
         <script type="text/javascript" src="../js/omotenage.js"></script>
     </body>
 </html>
@@ -112,15 +128,3 @@ output = """
 print "Content-Type: text/html"
 print
 print output
-
-"""
-filePath = "../nav/%s.html" % remote_id
-
-f = open(filePath, "w")
-f.write(output)
-f.close()
-
-print "Content-Type:text/javascript"
-print
-print "callback({'url':'%s'});" % filePath
-"""

@@ -119,7 +119,7 @@ function initpeer(){
             conn.on('open', function(){
                 clearpoly();
             }).on('data', function(data){
-                // Get a longitude and latitude that sent from remode user
+                // Get a longitude and latitude that sent from remote user
                 var pos = $.parseJSON(data);
                 // Update the canvas with a new latlng
                 updatemap(new google.maps.LatLng(pos.lat, pos.lng));
@@ -141,10 +141,9 @@ function getparam(){
     var from = $(':text[name="input_from"]').val();
     var to = $(':text[name="input_to"]').val();
     var tmode = $(':radio[name="tmode"]:checked').val();
-    var mode = "general";
 
     // parameter as encoded URL
-    return "?name=" + name + "&location=" + location + "&from=" + from + "&to=" + to + "&tmode=" + tmode + "&mode=" + mode;
+    return "?name=" + name + "&location=" + location + "&from=" + from + "&to=" + to + "&tmode=" + tmode;
 }
 
 // Initialize the MAP
