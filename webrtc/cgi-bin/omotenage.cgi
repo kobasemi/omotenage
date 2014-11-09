@@ -1,10 +1,9 @@
 #!/usr/local/bin/python
 #coding:utf-8
 
-import os, cgi
-import pywapi, weather
+import os, cgi, json, datetime
+import requests
 from pygeocoder import Geocoder
-import json
 
 if 'QUERY_STRING' in os.environ:
   query = cgi.parse_qs(os.environ['QUERY_STRING'])
@@ -18,26 +17,65 @@ comefrom = str(query['from'][0])
 destination = str(query['to'][0])
 tmode = str(query['tmode'][0])
 
-output = ""
-
-output = \
-"""
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="shortcut icon" type="image/png" href="../img/fav.ico" />
-        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
-        <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
-        <link rel="stylesheet" type="text/css" href="../css/mystyle.css" />
-    </head>
-    <body>
-"""
-
+#########################
 # Information Page
+#########################
+### Japan Standard Time
+class JST(datetime.tzinfo):
+    def utcoffset(self, dt):
+        return datetime.timedelta(hours=9)
+    def dst(self, dt):
+        return datetime.timedelta(0)
+    def tzname(self, dt):
+        return 'JST'
+
+### Create HTML about Weather
+weather_html = "<h2>Weather</h2>"
+try:
+    # Get Latlng from the posted location
+    weather_latlng = Geocoder.geocode(location)[0].coordinates
+    # Request weather data from Openweathermap
+    OWM_API_URL = "http://api.openweathermap.org/data/2.5/forecast"
+    r = requests.get(OWM_API_URL, params={
+        'lat' : weather_latlng[0],
+        'lon' : weather_latlng[1],
+        })
+    weather_data = r.json()
+    # Get weather data list
+    # See. openweathermap.org/weather-data#5days
+    weather_list = weather_data["list"]
+
+    # Create four div boxes about weather
+    for i in range(4):
+        # Background Color
+        if i%2:
+            bg_color = "#FFFFFF"
+        else:
+            bg_color = "#EEEEEE"
+
+        # dt(UNIX time) to JST
+        d = datetime.datetime.fromtimestamp(weather_list[i]["dt"], JST())
+        date = d.strftime("%Y-%m-%d")
+        time = d.strftime("%H:%M:%S")
+        imgsrc = weather_list[i]["weather"][0]["icon"]
+        imgalt = weather_list[i]["weather"][0]["description"]
+        temp = str(weather_list[i]["main"]["temp"]-273.15) + "C"
+        weather_html += """
+                    <div style="float: left; text-align: center; padding: 0em .5em 0em; background: %s">
+                        <div title="Date">%s</div>
+                        <div title="Time">%s</div>
+                        <img src="http://openweathermap.org/img/w/%s.png" alt="%s">
+                        <div title="Temperature">%s</div>
+                    </div>
+                    """ % (bg_color, date, time, imgsrc, imgalt, temp)
+
+    # More Information
+    weather_html += """<div style="clear: left; color: gray; font-size: small"><a href="http://openweathermap.org/city/%s" target="_blank">More...</a></div>
+    """ % (str(weather_data["city"]["id"]))
+except:
+    # When failed to Geocode
+    weather_html = "<h2>Can't Load Weather Data</h2>"
+
 info_page = """
         <!-- Information -->
         <div id="general" data-role="page" data-title="Omotenage">
@@ -46,7 +84,9 @@ info_page = """
                     Hello, <span id="username">%s</span>.
                     <span id="welcom">Welcome to Japan</span>.
                 </h1>
-
+                <div style="width: 100%%; overflow: auto;">
+                    %s
+                </div>
             </div>
             <div data-role="footer" data-position="fixed" data-theme='b'>
                 <div data-role="navbar">
@@ -58,9 +98,11 @@ info_page = """
                 </div>
             </div>
         </div>
-""" % (name)
+""" % (name, weather_html.encode('utf-8'))
 
+#########################
 # Google Maps Page
+#########################
 mode_drive = mode_walk = ""
 if(tmode == "DRIVING"):
     mode_drive = "checked"
@@ -100,7 +142,9 @@ gmaps_page = """
         </div>
 """ % (mode_drive, mode_walk, comefrom, destination)
 
+#########################
 # Recommend Page
+#########################
 recomm_page = """
         <!-- Recommend -->
         <div id="recommend" data-role="page" data-title="Omotenage">
@@ -117,14 +161,27 @@ recomm_page = """
         </div>
 """
 
-# Combine all page
-output += info_page + gmaps_page + recomm_page + \
-"""
+# Output HTML
+print "Content-Type: text/html"
+print
+print """
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="shortcut icon" type="image/png" href="../img/fav.ico" />
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
+        <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true&language=en"></script>
+        <link rel="stylesheet" type="text/css" href="../css/mystyle.css" />
+    </head>
+    <body>
+        %s
+        %s
+        %s
         <script type="text/javascript" src="../js/omotenage.js"></script>
     </body>
 </html>
-"""
-
-print "Content-Type: text/html"
-print
-print output
+""" % (info_page, gmaps_page, recomm_page)

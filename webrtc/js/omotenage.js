@@ -49,7 +49,7 @@ $(document).on('pageshow', '#gmaps', function(e, data){
                 // If #input_from value is empty,
                 // setting geocode of current position into #input_from value 
                 new google.maps.Geocoder().geocode(
-                    {location: latlng, region: 'ja'},
+                    {location: latlng},
                     function(results, status){
                         if(status === google.maps.GeocoderStatus.OK)
                             $("#input_from").val(results[0].formatted_address);
