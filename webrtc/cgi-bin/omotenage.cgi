@@ -20,6 +20,7 @@ tmode = str(query['tmode'][0])
 #########################
 # Information Page
 #########################
+##### Weather
 ### Japan Standard Time
 class JST(datetime.tzinfo):
     def utcoffset(self, dt):
@@ -76,16 +77,39 @@ except:
     # When failed to Geocode
     weather_html = "<h2>Can't Load Weather Data</h2>"
 
+##### Cross Flag
+cc = 'br'
+svg_html = """
+<svg width="100%%" viewBox="0 0 360 170">
+    <!-- Japan Flag -->
+    <g transform="translate(280) rotate(45)">
+    <rect x="0" y="0" width="10" height="225" fill="brown" />
+    <image x="10" y="0" width="100" height="75" xlink:href="../img/flags/jp.svg"/>
+    </g>
+    <!-- Partner Flag -->
+    <g transform="translate(80) scale(-1, 1) rotate(45)">
+    <rect x="0" y="0" width="10" height="225" fill="brown" />
+    <image x="10" y="0" width="100" height="75" xlink:href="../img/flags/%s.svg"/>
+    </g>
+</svg>
+""" % (cc)
+
 info_page = """
         <!-- Information -->
         <div id="general" data-role="page" data-title="Omotenage">
-            <div role="main" class="ui-bar-c ui-corner-all ui-shadow" style="padding: 1.5em; margin:1.5em;">
-                <h1>
-                    Hello, <span id="username">%s</span>.
-                    <span id="welcom">Welcome to Japan</span>.
-                </h1>
-                <div style="width: 100%%; overflow: auto;">
-                    %s
+            <div role="main" style="padding: 1.5em;">
+                <div class="ui-bar-a ui-corner-all ui-shadow" style="padding: 1em; margin: 0 auto; max-width: 640px;">
+                    <h1><span id="greet">Hello</span>, <span id="name">%s</span>.</h1>
+
+                    <div style="text-align: center;">
+                        <h2><span id="welcom">Welcome to Japan</span>.</h2>
+                        <div style="margin: 0 auto; max-width: 480px;">
+                            %s
+                        </div>
+                    </div>
+                    <div style="overflow: auto; max-width: 640px; margin: 0 auto;">
+                        %s
+                    </div>
                 </div>
             </div>
             <div data-role="footer" data-position="fixed" data-theme='b'>
@@ -98,7 +122,7 @@ info_page = """
                 </div>
             </div>
         </div>
-""" % (name, weather_html.encode('utf-8'))
+""" % (name, svg_html.encode('utf-8'), weather_html.encode('utf-8'))
 
 #########################
 # Google Maps Page
