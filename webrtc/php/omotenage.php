@@ -7,6 +7,7 @@ $from     = $_GET['from'];
 $to       = $_GET['to'];
 $tmode    = $_GET['tmode'];
 $cc       = $_GET['cc'];
+$lc       = $_GET['lc'];
 
 /***************************/
 // Information Page
@@ -31,6 +32,7 @@ EOT;
 
 //////////////////////////////////////////////////////
 // HTML about Weather Data
+$weather_html = '';
 // Set timezone
 date_default_timezone_set('Asia/Tokyo');
 // Geocoding the posted location to get the coordinates
@@ -41,11 +43,9 @@ $weather_data = get_weather_data($coords);
 
 if($weather_data === null)
     // Failed
-    $weather_html = "<h2>Can't Load Weather Data</h2>";
+    $weather_html = "<p style='color: red;'>Can't Load Weather Data</p>";
 else{
     // Success
-    $weather_html = '<h2>Weather</h2>';
-
     $weather_list = $weather_data["list"];
     // Create FOUR div boxes about weather
     for($i=0; $i<4; $i++){
@@ -82,21 +82,37 @@ EOT;
 //////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////
+// Translate from English to $lc
+require "translate.php";
+// Original Text
+$greet   = "Hello";
+$welcome = "Welcome To Japan";
+$tenki   = "Weather";
+if($lc !== 'en'){
+    // If translation target is not English
+    // Translate
+    $greet   = translate($greet, 'en', $lc);
+    $welcome = translate($welcome, 'en', $lc);
+    $tenki   = translate($tenki, 'en', $lc);
+}
+
+//////////////////////////////////////////////////////
 // Combine two htmls to form $info_page
 $info_page = <<<EOT
 <!-- Information -->
 <div id="general" data-role="page" data-title="Omotenage">
     <div role="main" style="padding: 1.5em;">
         <div class="ui-bar-a ui-corner-all ui-shadow" style="padding: 1em; margin: 0 auto; max-width: 640px;">
-            <h1><span id="greet">Hello</span>, <span id="name">$name</span>.</h1>
+            <h1><span id="greet">$greet</span>, <span id="name">$name</span>.</h1>
 
             <div style="text-align: center;">
-                <h2><span id="welcom">Welcome to Japan</span>.</h2>
+                <h2><span id="welcom">$welcome</span>.</h2>
                 <div style="margin: 0 auto; max-width: 480px;">
                     $svg_html
                 </div>
             </div>
             <div style="overflow: auto; max-width: 640px; margin: 0 auto;">
+                <h2>$tenki</h2>
                 $weather_html
             </div>
         </div>
