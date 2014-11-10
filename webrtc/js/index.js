@@ -75,7 +75,7 @@ function translate(cc, lc){
     // Display loading image
     $("#loading").addClass("loading");
     // Execute Translation
-    $.post("./php/translate.php",
+    $.post("./php/note.php",
            { 'lc': lc }, // POST Parameter
            function(data){
                // Buffering
