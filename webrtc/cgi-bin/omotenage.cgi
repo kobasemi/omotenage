@@ -62,13 +62,13 @@ try:
         imgalt = weather_list[i]["weather"][0]["description"]
         temp = str(weather_list[i]["main"]["temp"]-273.15) + "C"
         weather_html += """
-                    <div style="float: left; text-align: center; padding: 0em .5em 0em; background: %s">
-                        <div title="Date">%s</div>
-                        <div title="Time">%s</div>
-                        <img src="http://openweathermap.org/img/w/%s.png" alt="%s">
-                        <div title="Temperature">%s</div>
-                    </div>
-                    """ % (bg_color, date, time, imgsrc, imgalt, temp)
+        <div style="float: left; text-align: center; padding: 0em .5em 0em; background: %s">
+            <div title="Date">%s</div>
+            <div title="Time">%s</div>
+            <img src="http://openweathermap.org/img/w/%s.png" alt="%s">
+            <div title="Temperature">%s</div>
+        </div>
+        """ % (bg_color, date, time, imgsrc, imgalt, temp)
 
     # More Information
     weather_html += """<div style="clear: left; color: gray; font-size: small"><a href="http://openweathermap.org/city/%s" target="_blank">More...</a></div>
@@ -87,41 +87,41 @@ svg_html = """
     <image x="10" y="0" width="100" height="75" xlink:href="../img/flags/jp.svg"/>
     </g>
     <!-- Partner Flag -->
-    <g transform="translate(80) scale(-1, 1) rotate(45)">
-    <rect x="0" y="0" width="10" height="225" fill="brown" />
-    <image x="10" y="0" width="100" height="75" xlink:href="../img/flags/%s.svg"/>
+    <g transform="translate(80)">
+    <rect x="0" y="0" width="10" height="225" fill="brown" transform="scale(-1, 1)rotate(45)" />
+    <image x="10" y="0" width="100" height="75" xlink:href="../img/flags/%s.svg"/ transform="rotate(-45)translate(-120, 0)" />
     </g>
 </svg>
 """ % (cc)
 
 info_page = """
-        <!-- Information -->
-        <div id="general" data-role="page" data-title="Omotenage">
-            <div role="main" style="padding: 1.5em;">
-                <div class="ui-bar-a ui-corner-all ui-shadow" style="padding: 1em; margin: 0 auto; max-width: 640px;">
-                    <h1><span id="greet">Hello</span>, <span id="name">%s</span>.</h1>
+<!-- Information -->
+<div id="general" data-role="page" data-title="Omotenage">
+    <div role="main" style="padding: 1.5em;">
+        <div class="ui-bar-a ui-corner-all ui-shadow" style="padding: 1em; margin: 0 auto; max-width: 640px;">
+            <h1><span id="greet">Hello</span>, <span id="name">%s</span>.</h1>
 
-                    <div style="text-align: center;">
-                        <h2><span id="welcom">Welcome to Japan</span>.</h2>
-                        <div style="margin: 0 auto; max-width: 480px;">
-                            %s
-                        </div>
-                    </div>
-                    <div style="overflow: auto; max-width: 640px; margin: 0 auto;">
-                        %s
-                    </div>
+            <div style="text-align: center;">
+                <h2><span id="welcom">Welcome to Japan</span>.</h2>
+                <div style="margin: 0 auto; max-width: 480px;">
+                    %s
                 </div>
             </div>
-            <div data-role="footer" data-position="fixed" data-theme='b'>
-                <div data-role="navbar">
-                    <ul>
-                        <li><a href="#" data-icon="info" class="ui-btn-active ui-state-persist"></a></li>
-                        <li><a href="#gmaps" data-icon="navigation"></a></li>
-                        <li><a href="#recommend" data-icon="star" class="acc-contents"></a></li>
-                    </ul>
-                </div>
+            <div style="overflow: auto; max-width: 640px; margin: 0 auto;">
+                %s
             </div>
         </div>
+    </div>
+    <div data-role="footer" data-position="fixed" data-theme='b'>
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#" data-icon="info" class="ui-btn-active ui-state-persist"></a></li>
+                <li><a href="#gmaps" data-icon="navigation"></a></li>
+                <li><a href="#recommend" data-icon="star" class="acc-contents"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
 """ % (name, svg_html.encode('utf-8'), weather_html.encode('utf-8'))
 
 #########################
@@ -134,55 +134,55 @@ elif(tmode == "WALKING"):
     mode_walk = "checked"
 
 gmaps_page = """
-        <!-- Google Maps -->
-        <div id="gmaps" data-role="page" data-url="map_page" data-title="Omotenage">
-            <div role="main">
-                <div id="map_canvas"></div>
-                <div id="form" class="ui-bar-c ui-corner-all ui-shadow" style="padding: 1.5em; margin: 1.5em;">
-                    <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-                        <label><input type="radio" name="tmode" id="mode_drive" value="DRIVING" %s>Drive</label>
-                        <label><input type="radio" name="tmode" id="mode_walk" value="WALKING" %s>Walk</label>
-                    </fieldset>
-                    <p>
-                        <label for="input_from">From</label>
-                        <input type="text" name="input_from" id="input_from" placeholder="From" value="%s">
-                    </p>
-                    <p>
-                        <label for="input_to">To</label>
-                        <input type="text" name="input_to" id="input_to" placeholder="To" value="%s">
-                    </p>
-                    <a id="update" data-role="button" data-icon="search" data-inline="true" data-corners="true" data-shadow="true">Update</a>
-                </div>
-            </div>
-            <div data-role="footer" data-position="fixed" data-theme='b'>
-                <div data-role="navbar">
-                    <ul>
-                        <li><a href="#general" data-icon="info"></a></li>
-                        <li><a href="#" data-icon="navigation" class="ui-btn-active ui-state-persist"></a></li>
-                        <li><a href="#recommend" data-icon="star" class="acc-contents"></a></li>
-                    </ul>
-                </div>
-            </div>
+<!-- Google Maps -->
+<div id="gmaps" data-role="page" data-url="map_page" data-title="Omotenage">
+    <div role="main">
+        <div id="map_canvas"></div>
+        <div id="form" class="ui-bar-c ui-corner-all ui-shadow" style="padding: 1.5em; margin: 1.5em;">
+            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                <label><input type="radio" name="tmode" id="mode_drive" value="DRIVING" %s>Drive</label>
+                <label><input type="radio" name="tmode" id="mode_walk" value="WALKING" %s>Walk</label>
+            </fieldset>
+            <p>
+                <label for="input_from">From</label>
+                <input type="text" name="input_from" id="input_from" placeholder="From" value="%s">
+            </p>
+            <p>
+                <label for="input_to">To</label>
+                <input type="text" name="input_to" id="input_to" placeholder="To" value="%s">
+            </p>
+            <a id="update" data-role="button" data-icon="search" data-inline="true" data-corners="true" data-shadow="true">Update</a>
         </div>
+    </div>
+    <div data-role="footer" data-position="fixed" data-theme='b'>
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#general" data-icon="info"></a></li>
+                <li><a href="#" data-icon="navigation" class="ui-btn-active ui-state-persist"></a></li>
+                <li><a href="#recommend" data-icon="star" class="acc-contents"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
 """ % (mode_drive, mode_walk, comefrom, destination)
 
 #########################
 # Recommend Page
 #########################
 recomm_page = """
-        <!-- Recommend -->
-        <div id="recommend" data-role="page" data-title="Omotenage">
-            <div role="main">
-            </div>
-            <div data-role="footer" data-position="fixed" data-theme='b'>
-                <div data-role="navbar">
-                    <ul>
-                        <li><a href="#general" data-icon="info"></a></li>
-                        <li><a href="#gmaps" data-icon="navigation"></a></li>
-                        <li><a href="#" data-icon="star" class="acc-contents"></a></li>
-                    </ul>
-            </div>
-        </div>
+<!-- Recommend -->
+<div id="recommend" data-role="page" data-title="Omotenage">
+    <div role="main">
+    </div>
+    <div data-role="footer" data-position="fixed" data-theme='b'>
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#general" data-icon="info"></a></li>
+                <li><a href="#gmaps" data-icon="navigation"></a></li>
+                <li><a href="#" data-icon="star" class="acc-contents"></a></li>
+            </ul>
+    </div>
+</div>
 """
 
 # Output HTML
