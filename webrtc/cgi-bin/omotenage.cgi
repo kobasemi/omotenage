@@ -16,6 +16,7 @@ location = str(query['location'][0])
 comefrom = str(query['from'][0])
 destination = str(query['to'][0])
 tmode = str(query['tmode'][0])
+cc = str(query['cc'][0])
 
 #########################
 # Information Page
@@ -78,7 +79,6 @@ except:
     weather_html = "<h2>Can't Load Weather Data</h2>"
 
 ##### Cross Flag
-cc = 'br'
 svg_html = """
 <svg width="100%%" viewBox="0 0 360 170">
     <!-- Japan Flag -->

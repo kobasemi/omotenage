@@ -136,6 +136,7 @@ function initpeer(){
 
 // Get the value from the form
 function getparam(){
+    var cc = $('#select_cc').val();
     var name = $(':text[name="remote_name"]').val();
     var location = $(':text[name="location"]').val();
     var from = $(':text[name="input_from"]').val();
@@ -143,7 +144,7 @@ function getparam(){
     var tmode = $(':radio[name="tmode"]:checked').val();
 
     // parameter as encoded URL
-    return "?name=" + name + "&location=" + location + "&from=" + from + "&to=" + to + "&tmode=" + tmode;
+    return "?name=" + name + "&location=" + location + "&from=" + from + "&to=" + to + "&tmode=" + tmode + "&cc=" + cc;
 }
 
 // Initialize the MAP
