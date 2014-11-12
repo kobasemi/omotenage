@@ -87,14 +87,13 @@ require "translate.php";
 // Original Text
 $greet   = "Hello";
 $welcome = "Welcome To Japan";
-$tenki   = "Weather";
 if($lc !== 'en'){
     // If translation target is not English
     // Translate
     $greet   = translate($greet, 'en', $lc);
     $welcome = translate($welcome, 'en', $lc);
-    $tenki   = translate($tenki, 'en', $lc);
 }
+//////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////
 // Combine two htmls to form $info_page
@@ -112,7 +111,7 @@ $info_page = <<<EOT
                 </div>
             </div>
             <div style="overflow: auto; max-width: 640px; margin: 0 auto;">
-                <h2>$tenki</h2>
+                <h2>Weather</h2>
                 $weather_html
             </div>
         </div>
@@ -122,7 +121,7 @@ $info_page = <<<EOT
             <ul>
                 <li><a href="#" data-icon="info" class="ui-btn-active ui-state-persist"></a></li>
                 <li><a href="#gmaps" data-icon="navigation"></a></li>
-                <li><a href="#recommend" data-icon="star" class="acc-contents"></a></li>
+                <li><a href="#recommend" data-icon="star"></a></li>
             </ul>
         </div>
     </div>
@@ -143,22 +142,24 @@ else
 $gmaps_page = <<<EOT
 <!-- Google Maps -->
 <div id="gmaps" data-role="page" data-url="map_page" data-title="Omotenage">
-    <div role="main">
-        <div id="map_canvas"></div>
-        <div id="form" class="ui-bar-c ui-corner-all ui-shadow" style="padding: 1.5em; margin: 1.5em;">
-            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-                <label><input type="radio" name="tmode" id="mode_drive" value="DRIVING" $mode_drive>Drive</label>
-                <label><input type="radio" name="tmode" id="mode_walk" value="WALKING" $mode_walk>Walk</label>
-            </fieldset>
-            <p>
-                <label for="input_from">From</label>
-                <input type="text" name="input_from" id="input_from" placeholder="From" value="$from">
-            </p>
-            <p>
-                <label for="input_to">To</label>
-                <input type="text" name="input_to" id="input_to" placeholder="To" value="$to">
-            </p>
-            <a id="update" data-role="button" data-icon="search" data-inline="true" data-corners="true" data-shadow="true">Update</a>
+    <div role="main" style="padding: 1.5em;">
+        <div class="ui-bar-a ui-corner-all ui-shadow" style="padding: 1em; margin: 0 auto; max-width: 640px;">
+            <div id="map_canvas"></div>
+            <div id="form">
+                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                    <label><input type="radio" name="tmode" id="mode_drive" value="DRIVING" $mode_drive>Drive</label>
+                    <label><input type="radio" name="tmode" id="mode_walk" value="WALKING" $mode_walk>Walk</label>
+                </fieldset>
+                <p>
+                    <label for="input_from">From</label>
+                    <input type="text" name="input_from" id="input_from" placeholder="From" value="$from">
+                </p>
+                <p>
+                    <label for="input_to">To</label>
+                    <input type="text" name="input_to" id="input_to" placeholder="To" value="$to">
+                </p>
+                <a id="update" data-role="button" data-icon="search" data-inline="true" data-corners="true" data-shadow="true">Update</a>
+            </div>
         </div>
     </div>
     <div data-role="footer" data-position="fixed" data-theme='b'>
@@ -166,7 +167,7 @@ $gmaps_page = <<<EOT
             <ul>
                 <li><a href="#general" data-icon="info"></a></li>
                 <li><a href="#" data-icon="navigation" class="ui-btn-active ui-state-persist"></a></li>
-                <li><a href="#recommend" data-icon="star" class="acc-contents"></a></li>
+                <li><a href="#recommend" data-icon="star"></a></li>
             </ul>
         </div>
     </div>
@@ -179,14 +180,15 @@ EOT;
 $recomm_page = <<<EOT
 <!-- Recommend -->
 <div id="recommend" data-role="page" data-title="Omotenage">
-    <div role="main">
+    <div role="main" style="padding: 1.5em;">
+        <div class="ui-bar-a ui-corner-all ui-shadow" style="padding: 1em; margin: 0 auto; max-width: 640px;">
     </div>
     <div data-role="footer" data-position="fixed" data-theme='b'>
         <div data-role="navbar">
             <ul>
                 <li><a href="#general" data-icon="info"></a></li>
                 <li><a href="#gmaps" data-icon="navigation"></a></li>
-                <li><a href="#" data-icon="star" class="acc-contents"></a></li>
+                <li><a href="#" data-icon="star" class="ui-btn-active ui-state-persist"></a></li>
             </ul>
     </div>
 </div>
@@ -259,4 +261,3 @@ function get_weather_data($coords){
     curl_close($ch);
     return $weather_json;
 }
-
