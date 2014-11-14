@@ -177,11 +177,48 @@ EOT;
 /***************************/
 // Recommend Page
 /***************************/
+//////////////////////////////////////////////////////
+// Read Recommend.json
+$json = file_get_contents("../Recommend.json");
+$recomm_data = json_decode($json, true);
+
+$recomm_html = '';
+foreach($recomm_data['Recommend'] as $data){
+    $type    = $data['type'];    // Location Type(Hotel, Restaurant, etc...)
+    $name    = $data['name'];    // Location Name
+    $address = $data['address']; // Location Address
+    $tel     = $data['tel'];     // Location Telephone Number
+    $lang    = $data['lang'];    // Support Language
+    $url     = $data['url'];     // Location Website
+
+    $recomm_div = <<<EOT
+<div data-role="collapsible" data-collapsed-icon="$type" data-expanded-icon="$type">
+    <h2>$name</h2>
+    <ul data-role="listview">
+        <li><div class="ui-btn-icon-left ui-icon-Address">$address</div></li>
+        <li><div class="ui-btn-icon-left ui-icon-Phone">$tel</div></li>
+        <li><div class="ui-btn-icon-left ui-icon-Language">$lang</div></li>
+    </ul>
+    <div style="text-align: center;">
+        <a href="$url" data-role="button" data-inline="true" data-icon="action" data-mini="true" rel="external" target="_blank">Website</a>
+        <a href="#" data-role="button" data-inline="true" data-icon="navigation" data-mini="true">Navi</a>
+    </div>
+</div>
+EOT;
+
+    $recomm_html .= $recomm_div;
+}
+//////////////////////////////////////////////////////
+
 $recomm_page = <<<EOT
 <!-- Recommend -->
 <div id="recommend" data-role="page" data-title="Omotenage">
     <div role="main" style="padding: 1.5em;">
         <div class="ui-bar-a ui-corner-all ui-shadow" style="padding: 1em; margin: 0 auto; max-width: 640px;">
+            <div data-role="collapsibleset" data-theme="a" data-content-theme="a" data-filter="true">
+                $recomm_html
+            </div>
+        </div>
     </div>
     <div data-role="footer" data-position="fixed" data-theme='b'>
         <div data-role="navbar">
