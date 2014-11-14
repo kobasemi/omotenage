@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="shortcut icon" type="image/png" href="./img/fav.ico" />
         <link rel="stylesheet" type="text/css" href="./css/flags.css" />
+        <link rel="stylesheet" type="text/css" href="./css/flag-icon.css" />
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
@@ -35,10 +36,10 @@
         <div data-role="page" data-title="WebRTC × おもてなし" data-theme="a" id="nav">
             <div data-role="header" data-add-back-btn="true">
                 <a href="#home" data-role="button" data-icon="back" data-iconpos="notext" id="back_btn" class="ui-btn-left"></a>
-                <h1 id="header_title"><strong></strong></h0>
-                <div class="ui-btn-right">
-                    <img src="img/blank.gif" id="location" />
-                    <span id="localecode"></span>
+                <h1 id="header_title"><strong></strong></h1>
+                <div class="ui-btn-right" style="margin: 10px;">
+                    <span id="location"></span>
+                    <span id="languagecode"></span>
                 </div>
             </div>
             <div data-role="contents" id="nav-main">

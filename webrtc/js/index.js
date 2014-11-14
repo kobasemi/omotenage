@@ -8,7 +8,7 @@ $(document).on('pageinit', '#home', function(e, data){
         // Read supported country in JSON file
         $.each(data.support, function(idx, json){
             // Create the country list
-            var country = $('<li id="'+json.cc+'"><input type="hidden" name="langcode" value="'+json.lc+'" /><a href="#"><img src="img/blank.gif" class="flag flag-'+json.cc+' ui-li-icon" alt="'+json.name+'" />'+json.name+'</a></li>');
+            var country = $('<li id="'+json.cc+'"><input type="hidden" name="langcode" value="'+json.lc+'" /><a href="#"><img src="img/flags/4x3/'+json.cc+'".svg" width="80" height="80" alt="'+json.name+'" />'+json.name+'</a></li>');
 
             country.click(move_navpage);
             $("#pick").append(country);
@@ -95,8 +95,8 @@ function translate(cc, lc){
 // header: page header text, body: page body text}
 function update_navpage(data){
     // Update the flag and the location in header of #nav page
-    $("#localecode").text('(' + data.lc + ')');
-    $("#location").removeClass().addClass('flag flag-' + data.cc);
+    $("#languagecode").text('( ' + data.lc + ' )');
+    $("#location").removeClass().addClass('flag-icon flag-icon-' + data.cc);
 
     // JSON key: header, body
     // Update Header Title

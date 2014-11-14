@@ -62,12 +62,6 @@
 }
 
 /* index.html style */
-/* style of location in header of #nav page*/
-div[data-role=header] #location{
-    margin: 10px;
-    vertical-align: middle;
-}
-
 #getinfo,
 #getinfo:hover,
 #getinfo:active{
