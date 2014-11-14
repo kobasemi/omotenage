@@ -4,6 +4,40 @@
     background-size: 14px 14px;
     transform: rotate(135deg);
 }
+.ui-icon-Hotel:after {
+    background-image: url("../img/icons/hotel-wh.png");
+    background-size: 18px 18px;
+}
+.ui-icon-Restaurant:after {
+    background-image: url("../img/icons/restaurant-wh.png");
+    background-size: 18px 18px;
+}
+.ui-icon-Shopping:after {
+    background-image: url("../img/icons/shopping-wh.png");
+    background-size: 18px 18px;
+}
+.ui-icon-Sightseeing:after {
+    background-image: url("../img/icons/sightseeing-wh.png");
+    background-size: 18px 18px;
+}
+.ui-icon-Address:after {
+    background-image: url("../img/icons/address-bk.png");
+    background-size: 18px 18px;
+    background-color: transparent;
+    box-shadow: none;
+}
+.ui-icon-Phone:after {
+    background-image: url("../img/icons/phone-bk.png");
+    background-size: 18px 18px;
+    background-color: transparent;
+    box-shadow: none;
+}
+.ui-icon-Language:after {
+    background-image: url("../img/icons/language-bk.png");
+    background-size: 18px 18px;
+    background-color: transparent;
+    box-shadow: none;
+}
 
 /* Positive Contents */
 .pos-contents{
