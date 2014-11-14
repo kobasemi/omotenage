@@ -19,12 +19,12 @@ $svg_html = <<<EOT
     <!-- Japan Flag -->
     <g transform="translate(280) rotate(45)">
         <rect x="0" y="0" width="10" height="225" fill="brown" />
-        <image x="10" y="0" width="100" height="75" xlink:href="../img/flags/jp.svg"/>
+        <image x="10" y="0" width="100" height="75" xlink:href="../img/flags/4x3/jp.svg"/>
     </g>
     <!-- Partner Flag -->
     <g transform="translate(80)">
         <rect x="0" y="0" width="10" height="225" fill="brown" transform="scale(-1, 1)rotate(45)" />
-        <image x="10" y="0" width="100" height="75" xlink:href="../img/flags/$cc.svg"/ transform="rotate(-45)translate(-120, 0)" />
+        <image x="10" y="0" width="100" height="75" xlink:href="../img/flags/4x3/$cc.svg"/ transform="rotate(-45)translate(-120, 0)" />
     </g>
 </svg>
 EOT;
