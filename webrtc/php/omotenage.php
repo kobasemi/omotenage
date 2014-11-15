@@ -220,7 +220,7 @@ foreach($recomm_data['Recommend'] as $data){
         $lang_span .= '<span style="margin: 0 .5em 0 0;" class="flag-icon flag-icon-'.$cc.' ui-shadow"></span>';
 
     $recomm_div = <<<EOT
-<div data-role="collapsible" data-collapsed-icon="$type" data-expanded-icon="$type">
+<div data-role="collapsible" data-collapsed-icon="$type" data-expanded-icon="$type" data-filtertext="$type">
     <h2>$name</h2>
     <ul data-role="listview">
         <li><div class="ui-btn-icon-left ui-icon-Address">$address</div></li>
@@ -243,7 +243,13 @@ $recomm_page = <<<EOT
 <div id="recommend" data-role="page" data-title="Omotenage">
     <div role="main" style="padding: 1.5em;">
         <div class="ui-bar-a ui-corner-all ui-shadow" style="padding: 1em; margin: 0 auto; max-width: 640px;">
-            <div data-role="collapsibleset" data-theme="a" data-content-theme="a" data-filter="true">
+            <div id="filter-button" data-role="controlgroup" data-type="horizontal" style="text-align: center;">
+                <a data-role="button" class="ui-btn-active" data-icon="Hotel" data-inline="true" href="#">Hotel</a>
+                <a data-role="button" class="ui-btn-active" data-icon="Restaurant" data-inline="true" href="#">Restaurant</a>
+                <a data-role="button" class="ui-btn-active" data-icon="Sightseeing" data-inline="true" href="#">Sightseeing</a>
+                <a data-role="button" class="ui-btn-active" data-icon="Shopping" data-inline="true" href="#">Shopping</a>
+            </div>
+            <div id="recomm-list" data-role="collapsibleset" data-theme="a" data-content-theme="a">
                 $recomm_html
             </div>
         </div>

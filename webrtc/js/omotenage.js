@@ -78,6 +78,22 @@ $(document).on('pageshow', '#gmaps', function(e, data){
     }
 });
 
+$(document).on('pageinit', '#recommend', function(e, data){
+    $('#filter-button a').click(function(){
+        // active <=> not active
+        if($(this).attr('class').indexOf('ui-btn-active') === -1)
+            $(this).addClass('ui-btn-active');
+        else
+            $(this).removeClass('ui-btn-active');
+
+        // Filtering #recomm-list
+        var filtertext = $(this).text();
+        $("#recomm-list div:jqmData(filtertext=\'"+filtertext+"')").toggle('slow', function(){
+            $("#recomm-list").collapsibleset('refresh');
+        });
+    });
+});
+
 // Initialize the MAP
 function initmap(){
     // Create Map Object
