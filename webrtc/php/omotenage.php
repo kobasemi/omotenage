@@ -1,13 +1,13 @@
 <?php
 
 // GET Parameter
-$name     = $_GET['name'];
-$location = $_GET['location'];
-$from     = $_GET['from'];
-$to       = $_GET['to'];
-$tmode    = $_GET['tmode'];
-$cc       = $_GET['cc'];
-$lc       = $_GET['lc'];
+$name     = $_POST['name'];
+$location = $_POST['location'];
+$from     = $_POST['from'];
+$to       = $_POST['to'];
+$tmode    = $_POST['tmode'];
+$cc       = $_POST['cc'];
+$lc       = $_POST['lc'];
 
 /***************************/
 // Information Page

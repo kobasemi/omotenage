@@ -25,7 +25,7 @@ $(document).on('pageinit', '#ope-wind', function(e, data){
         // Read supported country in JSON file
         $.each(data.support, function(idx, json){
             // Create the country option
-            var cc = $('<option value="'+json.cc+'">'+json.name+'</option>');
+            var cc = $('<option id="'+json.lc+'" value="'+json.cc+'">'+json.name+'</option>');
             $("#select_cc").append(cc);
             $("#select_cc").selectmenu("refresh");
         });
@@ -72,16 +72,16 @@ function ready(){
     $("#accept").addClass("ui-state-disabled");
     $("#select_cc").selectmenu("disable");
     $("#input_name").textinput("disable");
-    $("#send").removeClass('ui-disabled');
 
     $("#send").click(function(){
         if(!$("#profile").validationEngine('validate'))
             // Validation is not completely
             return;
-        // Send the path of PHP Script to remote user
-        var path = "php/omotenage.php" + getparam();
-        conn.send(path);
-        console.log('sent ' + conn.peer);
+        // Send the formatting parameters in JSON to remote user
+        if(conn.open){
+            conn.send(getparam());
+            console.log('sent ' + conn.peer);
+        }
     });
 }
 
@@ -129,6 +129,8 @@ function initpeer(){
         // drop a new DataConnection request
         if(conn === null || !conn.open){
             conn = connect;
+            // Send Data Format
+            conn.serialization= 'json';
             conn.on('open', function(){
                 clearpoly();
             }).on('data', function(data){
@@ -140,6 +142,7 @@ function initpeer(){
             }).on('error', function(err){
                 alert(err.message);
             });
+            $("#send").removeClass('ui-disabled');
         }
     }).on('close', function(){
     }).on('error', function(err){
@@ -147,17 +150,18 @@ function initpeer(){
     });
 }
 
-// Get the value from the form
+// Get the value from the form and
+// Return formatting in JSON
 function getparam(){
-    var name = $(':text[name="remote_name"]').val();
-    var cc = $('#countries').val();
-    var location = $(':text[name="location"]').val();
-    var from = $(':text[name="input_from"]').val();
-    var to = $(':text[name="input_to"]').val();
-    var tmode = $(':radio[name="tmode"]:checked').val();
-
-    // parameter as encoded URL
-    return "?name=" + name + "&location=" + location + "&from=" + from + "&to=" + to + "&tmode=" + tmode + "&cc=" + cc;
+    return JSON.stringify({
+        "name"    : $(':text[name="remote_name"]').val(),
+        "cc"      : $('#countries').val(),
+        "location": $(':text[name="location"]').val(),
+        "from"    : $(':text[name="input_from"]').val(),
+        "to"      : $(':text[name="input_to"]').val(),
+        "tmode"   : $(':radio[name="tmode"]:checked').val(),
+        "lc"      : $('#select_cc option:selected').attr('id')
+    });
 }
 
 // Initialize the MAP

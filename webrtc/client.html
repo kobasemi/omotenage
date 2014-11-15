@@ -41,9 +41,18 @@
                 </div>
             </div>
             <div data-role="footer" data-theme="a" data-position="fixed">
-                <nav data-role="navbar" id="nicenav"><ul><li>
+                <nav data-role="navbar"><ul><li>
                             <a id="nicepage" href="#" rel="external" data-role="button" data-icon="star" data-iconpos="top" class="acc-contents">Special Page</a>
                 </li></ul></nav>
+                <form id="recommpost" method="POST" action="php/omotenage.php" data-ajax="false">
+                    <input type="hidden" name="cc"       value="" />
+                    <input type="hidden" name="name"     value="" />
+                    <input type="hidden" name="location" value="" />
+                    <input type="hidden" name="from"     value="" />
+                    <input type="hidden" name="to"       value="" />
+                    <input type="hidden" name="tmode"    value="" />
+                    <input type="hidden" name="lc"       value="" />
+                </form>
             </div>
         </div>
 

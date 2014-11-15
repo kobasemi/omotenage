@@ -61,7 +61,7 @@ $(document).on('pageinit', '#call-wind', function(e, data){
 
     $("#partner-video").css("height", $(window).height()/2-50);
     $("#map_canvas").css("height", $(window).height()/2);
-    $("#nicenav").hide();
+    $("#nicepage").hide();
 });
 
 $(document).on('pageshow', '#call-wind', function(e, data){
@@ -248,15 +248,26 @@ function initpeer(){
 // and then setting some callbacks
 function makeconn(){
     // Start DataConnections
-    conn = peer.connect(ope_id);
+    conn = peer.connect(ope_id, {serialization: 'json'});
     conn.on('open', function(){
     }).on('data', function(data){
-        // Receive a data
-        $("#nicenav").show();
-        // Setting the path of CGI program with some parameters
-        $("#nicepage").click(function(){
+        // Receive a data in json format
+        var param = $.parseJSON(data);
+
+        // Setting some parameters to the form
+        $(':hidden[name="cc"]'      ).val(param.cc);
+        $(':hidden[name="name"]'    ).val(param.name);
+        $(':hidden[name="location"]').val(param.location);
+        $(':hidden[name="from"]'    ).val(param.from);
+        $(':hidden[name="to"]'      ).val(param.to);
+        $(':hidden[name="tmode"]'   ).val(param.tmode);
+        $(':hidden[name="lc"]'      ).val(param.lc);
+
+        $("#nicepage").show().click(function(){
             endcall();
-        }).attr("href", data);
+            // Post PHP script with some parameters
+            $("#recommpost").submit();
+        });
     }).on('error', function(err){
         alert(err.message);
     });
