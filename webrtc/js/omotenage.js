@@ -25,6 +25,9 @@ $(document).on('pageinit', '#gmaps', function(e, data){
     $('input[name=tmode]:radio').change(function(){ updatedir(); });
     $('#update').click(function(){ updatedir(); });
 
+    // Geocomplete
+    $(".geocomplete").geocomplete();
+
     detectBrowser();
 });
 
@@ -97,8 +100,7 @@ function initmap(){
     // Create Object of Direction Service and Renderer
     dir_service = new google.maps.DirectionsService();
     dir_renderer = new google.maps.DirectionsRenderer({
-        map: map,
-        preserveViewport: true // no bounds
+        map: map
     });
 
     // Create Information Window Object

@@ -8,7 +8,7 @@
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
         <script type="text/javascript" src="https://skyway.io/dist/v2/0.3/peer.min.js"></script>
-        <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyD0FpbGY_lnKFsweaiEWZFzq3csl5fwR-Q&sensor=false&libraries=places"></script>
+        <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false&libraries=places"></script>
         <link rel="stylesheet" type="text/css" href="./css/validationEngine.jquery.css" />
         <script type="text/javascript" src="./js/jquery.validationEngine-ja.js" charset="utf-8"></script>
         <script type="text/javascript" src="./js/jquery.validationEngine.js" charset="utf-8"></script>
@@ -46,7 +46,7 @@
                                 <label>国名:<select id="countries"></select></label>
                                 <label>天気(地名):<input type="text" name="location" placeholder="地名を入力" class="validate[required] text-input geocomplete"></label>
                                 <label>行き先:
-                                    <input type="text" name="input_from" id="input_from" placeholder="出発地を入力（空白の場合，現在地）" class="validate[required] text-input geocomplete">
+                                    <input type="text" name="input_from" id="input_from" placeholder="出発地を入力（空白の場合，現在地）" class="geocomplete">
                                     <input type="text" name="input_to" id="input_to" placeholder="目的地を入力" class="validate[required] text-input geocomplete">
                                 </label>
                                 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">

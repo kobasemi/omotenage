@@ -154,11 +154,11 @@ $gmaps_page = <<<EOT
                 </fieldset>
                 <p>
                     <label for="input_from">From</label>
-                    <input type="text" name="input_from" id="input_from" placeholder="From" value="$from">
+                    <input type="text" name="input_from" id="input_from" placeholder="From" value="$from" class="geocomplete">
                 </p>
                 <p>
                     <label for="input_to">To</label>
-                    <input type="text" name="input_to" id="input_to" placeholder="To" value="$to">
+                    <input type="text" name="input_to" id="input_to" placeholder="To" value="$to" class="geocomplete">
                 </p>
                 <a id="update" data-role="button" data-icon="search" data-inline="true" data-corners="true" data-shadow="true">Update</a>
             </div>
@@ -244,7 +244,8 @@ echo <<<EOF
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
-        <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true&language=en"></script>
+        <script type="text/javascript" src="https://maps.google.com/maps/api/js?language=en&sensor=true&libraries=places"></script>
+        <script src="../js/jquery.geocomplete.min.js"></script>
         <link rel="stylesheet" type="text/css" href="../css/mystyle.css" />
     </head>
     <body>
