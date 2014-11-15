@@ -47,6 +47,8 @@ $(document).on('pageinit', '#ope-wind', function(e, data){
 
     // Validation
     $("#profile").validationEngine();
+    // Geocomplete
+    $(".geocomplete").geocomplete();
 });
 
 function ready(){

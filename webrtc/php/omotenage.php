@@ -138,6 +138,8 @@ if($tmode === "DRIVING")
     $mode_drive = "checked";
 else
     $mode_walk = "checked";
+$from = get_formatted_address_by_geocode($from);
+$to   = get_formatted_address_by_geocode($to);
 
 $gmaps_page = <<<EOT
 <!-- Google Maps -->
@@ -269,12 +271,31 @@ function get_coords_by_geocode($location){
     // Get geocoding in JSON format
     $geo_json = json_decode($r, true);
 
+    curl_close($ch);
     if($geo_json['status'] === 'OK')
         // Success
         $c = $geo_json['results'][0]['geometry']['location'];
+    return $c;
+}
+
+// Get the $location address
+// $location: Geocoding Location
+// Return: formatted address in English
+function get_formatted_address_by_geocode($location){
+    // GET Request
+    $ch = curl_init('https://maps.google.com/maps/api/geocode/json?address='.urlencode($location).'&sensor=false&language=en');
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    $r = curl_exec($ch);
+    // Get geocoding in JSON format
+    $geo_json = json_decode($r, true);
 
     curl_close($ch);
-    return $c;
+
+    if($geo_json['status'] === 'OK')
+        // Success
+        return $geo_json['results'][0]['formatted_address'];
+    return $location;
 }
 
 // Get the weather data at the coordinates from Openweathermap
