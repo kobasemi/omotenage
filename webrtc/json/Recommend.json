@@ -10,13 +10,13 @@
     }],
 
     "Recommend": [
-        {"type": "Hotel"      , "name": "The Tokyo Station Hotel", "address": "1 Chome-10-1 Yaesu, Chuo, Tokyo, Japan"      , "coords": "35.6811408,139.7692335", "tel": "03-5220-1112", "lang": "en,zh-CHS,ko,ja", "url": "http://www.tokyostationhotel.jp"},
-        {"type": "Hotel"      , "name": "Keio Plaza Hotel Tokyo" , "address": "2-1 Ichigayadaimachi, Shinjuku, Tokyo, Japan", "coords": "35.692913,139.7201642" , "tel": "03-3344-0111", "lang": "en,zh-CHS,ko,ja", "url": "http://www.keioplaza.co.jp"},
-        {"type": "Restaurant" , "name": "Bondy"                  , "address": "Tokyo, Japan"                                , "coords": "35.678661,139.710816"  , "tel": "123-0000"    , "lang": "en,zh-CHS,ko,ja", "url": "http://bondy.co.jp"},
-        {"type": "Restaurant" , "name": "Ramen Jiro"             , "address": "Tokyo, Japan"                                , "coords": "35.683954,139.704999"  , "tel": "123-0003"    , "lang": "fr,ja"          , "url": "#"},
-        {"type": "Sightseeing", "name": "Senso-ji"               , "address": "Tokyo, Japan"                                , "coords": "35.665843,139.705096"  , "tel": "123-0006"    , "lang": "ko,de,ja"       , "url": "http://senso-ji.jp"},
-        {"type": "Sightseeing", "name": "TOKYO SKYTREE"          , "address": "Tokyo, Japan"                                , "coords": "35.665843,139.705096"  , "tel": "123-0006"    , "lang": "ko,de,ja"       , "url": "http://www.tokyo-skytree.jp"},
-        {"type": "Shopping"   , "name": "Yodobashi-Akiba"        , "address": "Tokyo, Japan"                                , "coords": "35.676337,139.709430"  , "tel": "123-0009"    , "lang": "it,de,ja"       , "url": "http://www.yodobashi-akiba.com"},
-        {"type": "Shopping"   , "name": "OMOTE SANDO HILLS"      , "address": "Tokyo, Japan"                                , "coords": "35.683414,139.725480"  , "tel": "123-0011"    , "lang": "en,fr,ko,it,ja" , "url": "http://www.omotesandohills.com"}
+        {"type": "Hotel"      , "name": "The Tokyo Station Hotel", "address": "1 Chome-10-1 Yaesu, Chuo, Tokyo, Japan"      , "coords": "35.6811408,139.7692335", "tel": "03-5220-1112", "lang": "us,cn,kr,jp"   , "url": "http://www.tokyostationhotel.jp"},
+        {"type": "Hotel"      , "name": "Keio Plaza Hotel Tokyo" , "address": "2-1 Ichigayadaimachi, Shinjuku, Tokyo, Japan", "coords": "35.692913,139.7201642" , "tel": "03-3344-0111", "lang": "us,cn,kr,jp"   , "url": "http://www.keioplaza.co.jp"},
+        {"type": "Restaurant" , "name": "Bondy"                  , "address": "Tokyo, Japan"                                , "coords": "35.678661,139.710816"  , "tel": "123-0000"    , "lang": "us,cn,kr,jp"   , "url": "http://bondy.co.jp"},
+        {"type": "Restaurant" , "name": "Ramen Jiro"             , "address": "Tokyo, Japan"                                , "coords": "35.683954,139.704999"  , "tel": "123-0003"    , "lang": "fr,jp"         , "url": "#"},
+        {"type": "Sightseeing", "name": "Senso-ji"               , "address": "Tokyo, Japan"                                , "coords": "35.665843,139.705096"  , "tel": "123-0006"    , "lang": "kr,es,de,jp" , "url": "http://senso-ji.jp"},
+        {"type": "Sightseeing", "name": "TOKYO SKYTREE"          , "address": "Tokyo, Japan"                                , "coords": "35.665843,139.705096"  , "tel": "123-0006"    , "lang": "kr,de,jp"      , "url": "http://www.tokyo-skytree.jp"},
+        {"type": "Shopping"   , "name": "Yodobashi-Akiba"        , "address": "Tokyo, Japan"                                , "coords": "35.676337,139.709430"  , "tel": "123-0009"    , "lang": "it,de,br,jp"   , "url": "http://www.yodobashi-akiba.com"},
+        {"type": "Shopping"   , "name": "OMOTE SANDO HILLS"      , "address": "Tokyo, Japan"                                , "coords": "35.683414,139.725480"  , "tel": "123-0011"    , "lang": "us,fr,kr,it,jp", "url": "http://www.omotesandohills.com"}
     ]
 }

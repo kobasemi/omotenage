@@ -214,13 +214,18 @@ foreach($recomm_data['Recommend'] as $data){
     $lang    = $data['lang'];    // Support Language
     $url     = $data['url'];     // Location Website
 
+    // Language Icon List
+    $lang_span = '';
+    foreach(explode(",", $lang) as $cc)
+        $lang_span .= '<span style="margin: 0 .5em 0 0;" class="flag-icon flag-icon-'.$cc.' ui-shadow"></span>';
+
     $recomm_div = <<<EOT
 <div data-role="collapsible" data-collapsed-icon="$type" data-expanded-icon="$type">
     <h2>$name</h2>
     <ul data-role="listview">
         <li><div class="ui-btn-icon-left ui-icon-Address">$address</div></li>
         <li><div class="ui-btn-icon-left ui-icon-Phone">$tel</div></li>
-        <li><div class="ui-btn-icon-left ui-icon-Language">$lang</div></li>
+        <li><div class="ui-btn-icon-left ui-icon-Language">$lang_span</div></li>
     </ul>
     <div style="text-align: center;">
         <a href="$url" data-role="button" data-inline="true" data-icon="action" data-mini="true" rel="external" target="_blank">Website</a>
@@ -268,6 +273,7 @@ echo <<<EOF
         <script type="text/javascript" src="https://maps.google.com/maps/api/js?language=en&sensor=true&libraries=places"></script>
         <script src="../js/jquery.geocomplete.min.js"></script>
         <link rel="stylesheet" type="text/css" href="../css/mystyle.css" />
+        <link rel="stylesheet" type="text/css" href="../css/flag-icon.css" />
     </head>
     <body>
         $info_page
