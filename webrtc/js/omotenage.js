@@ -92,6 +92,12 @@ $(document).on('pageinit', '#recommend', function(e, data){
             $("#recomm-list").collapsibleset('refresh');
         });
     });
+    // Navigation button in recommend list is clicked
+    $('#recomm-list div div a:last-child').click(function(){
+        // Setting the address in same list to #input_to in #gmaps
+        $('#input_to').val($(this).parent().prev().find('li:first').text());
+        $.mobile.changePage('#gmaps');
+    });
 });
 
 // Initialize the MAP
