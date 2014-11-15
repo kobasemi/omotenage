@@ -27,7 +27,7 @@
                             <!-- Operator Information -->
                             <div id="opeinfo" class="ui-contents-padding">
                                 <select id="select_cc"></select>
-                                <input type="text" id="input_name" maxlength="10" placeholder="名前を入力(半角英数字)">
+                                <input type="text" id="input_name" maxlength="10" placeholder="名前を入力(半角英数字のみ)">
                                 <a id="accept" href="#" data-role="button" data-shadow="false" class="pos-contents">受付</a>
                             </div>
                             <!-- WebRTC -->
@@ -42,6 +42,7 @@
                             <h3>相手の情報</h3>
                             <form id="profile">
                                 <label>名前:<input type="text" name="remote_name" placeholder="Name" class="validate[required] text-input"></label>
+                                <label>国名:<select id="countries"></select></label>
                                 <label>天気:<input type="text" name="location" placeholder="Location" class="validate[required] text-input"></label>
                                 <label>行き先:
                                     <input type="text" name="input_from" id="input_from" placeholder="From" class="validate[required] text-input">

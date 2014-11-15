@@ -25,13 +25,25 @@ $(document).on('pageinit', '#ope-wind', function(e, data){
         // Read supported country in JSON file
         $.each(data.support, function(idx, json){
             // Create the country option
-            var cc = $('<option value="'+json.cc+'">'+json.jname+'</option>');
+            var cc = $('<option value="'+json.cc+'">'+json.name+'</option>');
             $("#select_cc").append(cc);
             $("#select_cc").selectmenu("refresh");
         });
     });
 
+    // Create country picker
+    $.getJSON("Countries.json", function(data){
+        // Read country list in JSON file
+        $.each(data, function(idx, json){
+            // Create the country option
+            var cc = $('<option value="'+json.cc+'">'+json.name+'</option>');
+            $("#countries").append(cc);
+            $("#countries").selectmenu("refresh");
+        });
+    });
+
     $("#accept").click(ready);
+    $("#send").addClass('ui-disabled');
 
     // Validation
     $("#profile").validationEngine();
@@ -60,15 +72,16 @@ function ready(){
     $("#accept").addClass("ui-state-disabled");
     $("#select_cc").selectmenu("disable");
     $("#input_name").textinput("disable");
+    $("#send").removeClass('ui-disabled');
 
     $("#send").click(function(){
         if(!$("#profile").validationEngine('validate'))
             // Validation is not completely
             return;
-        // Send the path of CGI program to remote user
-        var cgi_path = "cgi-bin/omotenage.cgi" + getparam();
-        conn.send(cgi_path);
-        console.log('sent cgi_path to ' + conn.peer);
+        // Send the path of PHP Script to remote user
+        var path = "php/omotenage.php" + getparam();
+        conn.send(path);
+        console.log('sent ' + conn.peer);
     });
 }
 
@@ -136,8 +149,8 @@ function initpeer(){
 
 // Get the value from the form
 function getparam(){
-    var cc = $('#select_cc').val();
     var name = $(':text[name="remote_name"]').val();
+    var cc = $('#countries').val();
     var location = $(':text[name="location"]').val();
     var from = $(':text[name="input_from"]').val();
     var to = $(':text[name="input_to"]').val();
