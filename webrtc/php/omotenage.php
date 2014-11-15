@@ -179,7 +179,7 @@ EOT;
 /***************************/
 //////////////////////////////////////////////////////
 // Read Recommend.json
-$json = file_get_contents("../Recommend.json");
+$json = file_get_contents("../json/Recommend.json");
 $recomm_data = json_decode($json, true);
 
 $recomm_html = '';

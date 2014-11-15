@@ -50,7 +50,7 @@
         </style>
         <script>
             $(document).on('pageinit', '#info', function(e, data){
-                    $.getJSON("Information.json", function(sys){
+                    $.getJSON("json/Information.json", function(sys){
                             $("figcaption").text(sys.Name);
 
                             $.each(sys.Author.Member, function(idx, user){

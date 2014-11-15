@@ -4,7 +4,7 @@ var passhome_flg = false;
 
 $(document).on('pageinit', '#home', function(e, data){
     // Create supported country listview
-    $.getJSON("SupportCountry.json", function(data){
+    $.getJSON("json/SupportCountry.json", function(data){
         // Read supported country in JSON file
         $.each(data.support, function(idx, json){
             // Create the country list

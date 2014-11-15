@@ -21,7 +21,7 @@ $(document).on('pageinit', '#ope-wind', function(e, data){
     initmap();
 
     // Create supported country selectmenu
-    $.getJSON("SupportCountry.json", function(data){
+    $.getJSON("json/SupportCountry.json", function(data){
         // Read supported country in JSON file
         $.each(data.support, function(idx, json){
             // Create the country option
@@ -32,7 +32,7 @@ $(document).on('pageinit', '#ope-wind', function(e, data){
     });
 
     // Create country picker
-    $.getJSON("Countries.json", function(data){
+    $.getJSON("json/Countries.json", function(data){
         // Read country list in JSON file
         $.each(data, function(idx, json){
             // Create the country option
