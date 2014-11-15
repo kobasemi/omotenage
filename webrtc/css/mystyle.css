@@ -83,9 +83,13 @@
     display: inline-block;
 }
 #opelist figure figcaption{
-    margin: 5px 0 0 0;
-    font-size: large;
+    margin: 5px 0;
+    font-size: x-large;
     font-weight: bold;
+}
+#opelist figure figcaption span{
+    margin: 0 .5em;
+    vertical-align: middle;
 }
 
 .loading {

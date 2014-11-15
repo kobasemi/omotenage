@@ -163,12 +163,11 @@ function update_opelist(){
             // Default Operator Image (Nobody)
             // Append figure tag template
             $("#opelist").html("<figure id=\"nobody\"><figcaption></figcaption></figure>");
-            $("figure figcaption", "#opelist").
-                text("Sorry... Connectable operator doesn't exist.");
+            $("figure figcaption", "#opelist").text("Sorry... Connectable operator doesn't exist.");
             // Add svg tag of ope_svg to after figure tag
             $("figure", "#opelist").prepend(ope_svg);
             // Change ope_svg color to negative color
-            $("#body path").attr("fill", "#F80E0E");
+            $("#Body path").attr("fill", "#F80E0E");
 
             if(!$.isEmptyObject(ope_list)){
                 // If ope_list has a element
@@ -189,22 +188,17 @@ function disp_ope(id){
     // Get the operator name
     var name = id.split('-')[2];
     // Create the tag for the operator of id
-    $("#opelist").append("<figure id="+name+"></figure>");
-    $("#"+name).
+    $("#opelist").append("<figure id="+id+"></figure>");
+    $("#"+id).
         // Setting operator icon written in svg
         append(ope_svg).
-        append("<figcaption>"+name+"</figcaption>");
+        append("<figcaption><span class='flag-icon flag-icon-"+cc+"'></span>"+name+"</figcaption>");
 
-    // Overrige the tie with a country tie
-    $.get('./img/cc_tie/' + cc + '.svg', function(svg){
-        $("#tie", "#"+name).html($(svg).find("#"+cc).html());
-    }, 'text');
-
-    $("#"+name).find("#Body").click(function(){
+    $("#"+id).find("#Body").click(function(){
         // All ID(#body) color is set to #26453D
-        $("figure > svg", "#opelist").find("#body path").attr("fill", "#26453D");
+        $("figure > svg", "#opelist").find("#Body path").attr("fill", "#26453D");
         // THIS icon color is set to positive color
-        $(this).find("#body path").attr("fill", "#11D528");
+        $(this).find("path").attr("fill", "#11D528");
 
         // Update operator ID
         ope_id = id;

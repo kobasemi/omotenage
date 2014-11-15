@@ -24,7 +24,7 @@ else
 if(isset($_POST['cc']))
     $cc       = $_POST['cc'];
 else
-    $cc       = 'us';
+    $cc       = 'jp';
 if(isset($_POST['lc']))
     $lc       = $_POST['lc'];
 else
