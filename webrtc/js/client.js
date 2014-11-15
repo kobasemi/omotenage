@@ -74,18 +74,10 @@ $(document).on('pageshow', '#call-wind', function(e, data){
         navigator.geolocation.getCurrentPosition(success, fail, options);
 
         function success(pos){
-            initmap();
-
             // Get current position
             var latlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-
-            // Create a marker
-            here = new google.maps.Marker({
-                position: latlng,
-                icon: './img/here.png',
-                map: map
-            });
-            map.panTo(latlng);
+            initmap();
+            updatemap(latlng);
 
             // TODO:
             // Geolocation APIの現在地取得タイミングによっては，
@@ -103,6 +95,12 @@ $(document).on('pageshow', '#call-wind', function(e, data){
             watch_id = navigator.geolocation.watchPosition(function(pos){
                 var latlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
                 updatemap(latlng);
+                if(conn.open){
+                    conn.send(JSON.stringify({
+                        "lat": latlng.lat(),
+                        "lng": latlng.lng()
+                    }));
+                }
             }, fail);
         }
         function fail(error){
@@ -142,7 +140,10 @@ function updatemap(latlng){
 
     // Clear previous marker, and then
     // Set new marker
-    here.setMap(null);
+    (function(undefined){
+        if(here !== undefined)
+            here.setMap(null);
+    })();
     here = new google.maps.Marker({
         position: latlng,
         icon: './img/here.png',
@@ -150,13 +151,6 @@ function updatemap(latlng){
     });
 
     map.panTo(latlng);
-
-    if(conn.open){
-        conn.send(JSON.stringify({
-            "lat": latlng.lat(),
-            "lng": latlng.lng()
-        }));
-    }
 }
 
 // Update some elements in #opelist
