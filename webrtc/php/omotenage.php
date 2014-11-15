@@ -1,13 +1,34 @@
 <?php
 
-// GET Parameter
-$name     = $_POST['name'];
-$location = $_POST['location'];
-$from     = $_POST['from'];
-$to       = $_POST['to'];
-$tmode    = $_POST['tmode'];
-$cc       = $_POST['cc'];
-$lc       = $_POST['lc'];
+// Get Parameter
+if(isset($_POST['name']))
+    $name     = $_POST['name'];
+else
+    $name     = 'anonymous';
+if(isset($_POST['location']))
+    $location = $_POST['location'];
+else
+    $location = 'Tokyo Station';
+if(isset($_POST['from']))
+    $from     = $_POST['from'];
+else
+    $from     = '';
+if(isset($_POST['to']))
+    $to       = $_POST['to'];
+else
+    $to       = 'Tokyo Station';
+if(isset($_POST['tmode']))
+    $tmode    = $_POST['tmode'];
+else
+    $tmode    = 'WALKING';
+if(isset($_POST['cc']))
+    $cc       = $_POST['cc'];
+else
+    $cc       = 'us';
+if(isset($_POST['lc']))
+    $lc       = $_POST['lc'];
+else
+    $lc       = 'en';
 
 /***************************/
 // Information Page
