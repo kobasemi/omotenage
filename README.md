@@ -59,7 +59,7 @@ APIキーの取得方法については詳しい説明は行いませんが，
 参考にAPIキーを取得してください．取得後，そのキーが利用できるドメインを登録します．
 その後，client.html，及びoperator.htmlのファイル内の以下の箇所を編集してください．
 
-    src="https://maps.google.com/maps/api/js?key={Put Your API Key into HERE}&sensor=true"
+    src="https://maps.google.com/maps/api/js?key='Put Your API Key into HERE'&sensor=true"
 
 なお，現状はこのキーを削除しても動作するようです．
 その場合は，以下のように編集します．
