@@ -1,95 +1,95 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>おもてなーじ取説</title>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>おもてなーじ取説</title>
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<style>
-img {
-  max-width: 100%;
-  height: auto;
-}
-</style>
-</head>
-<body>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <style>
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <ul class="nav nav-pills">
+                        <li><a href="index.html">TOP</a></li>
+                        <li class="active"><a href="client.html">クライアント</a></li>
+                        <li><a href="operator.html">オペレータ</a></li>
+                        <li><a href="recommend.html">リコメンド</a></li>
+                        <li><a href="system.html">システム説明</a></li>
+                    </ul>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-        <ul class="nav nav-pills">
-            <li><a href="index.html">TOP</a></li>
-            <li class="active"><a href="client.html">クライアント</a></li>
-            <li><a href="operator.html">オペレータ</a></li>
-            <li><a href="system.html">システム説明</a></li>
-        </ul>
+                    <div class="page-header">
+                        <h1>クライアントページ</h1>
+                        <p class="lead">クライアントページはお客様とオペレータを結びつける入口です．</p>
+                    </div>
+                    <h3>2つのHTMLファイル</h3>
 
-        <div class="page-header">
-            <h1>クライアントページ</h1>
-            <p class="lead">クライアントページはお客様とオペレータを結びつける入口です．</p>
-        </div>
-        <h3>2つのHTMLファイル</h3>
+                    <p>クライアントページは2つのHTMLファイル(<a href="../index.html">index.html</a>, <a href="../client.html">client.html</a>)に分かれます．
+                        1つ目はユーザの出身地の情報を取得するためのページ(<a href="../index.html">index.html</a>)で，
+                        2つ目はオペレータと通信するためのページ(<a href="../client.html">client.html</a>)となります．
+                        クライアントの入口となるページは，<a href="../index.html">index.html</a>です．</p>
 
-        <p>　クライアントページは2つのHTMLファイル(<a href="../index.html">index.html</a>, <a href="../client.html">client.html</a>)に分かれます．
-        1つ目はユーザの出身地の情報を取得するためのページ(<a href="../index.html">index.html</a>)で，
-        2つ目はオペレータと通信するためのページ(<a href="../client.html">client.html</a>)となります．
-        クライアントの入口となるページは，<a href="../index.html">index.html</a>です．</p>
+                    <h3>使用手順</h3>
+                    <p>クライアント側のページでは，次の手順を踏みます．</p>
 
-        <h3>使用手順</h3>
-        <p>クライアント側のページでは，次の手順を踏みます．</p>
+                    <p>はじめに，<a href="../index.html">index.html</a>の中から自分の国を選択します．</p>
+                    <div class="text-center">
+                        <img src="./img/client-index1.png" width="30%" height="30%" class="img-responsive center-block" vspace=10>
+                    </div>
 
-        <p>はじめに，<a href="../index.html">index.html</a>の中から自分の国を選択します．</p>
-        <div class="text-center">
-            <img src="./img/client-index1.png" width="30%" height="30%" class="img-responsive center-block" vspace=10>
-        </div>
+                    <p>次に，ページ遷移後の文章を読み，O.K.ボタンをクリックします．</p>
+                    <div class="text-center">
+                        <img src="./img/client-index2.png" width="30%" height="30%" class="img-responsive center-block" vspace=10>
+                    </div>
 
-        <p>次に，ページ遷移後の文章を読み，O.K.ボタンをクリックします．</p>
-        <div class="text-center">
-            <img src="./img/client-index2.png" width="30%" height="30%" class="img-responsive center-block" vspace=10>
-        </div>
+                    <p>オペレータが存在する時は，オペレータが対応する国旗アイコンとオペレータの名前が表示されます．</p>
+                    <div class="text-center">
+                        <img src="./img/client-index3.png" width="30%" height="30%" class="img-responsive center-block" vspace=10>
+                    </div>
 
-        <p>オペレータが存在する時は，オペレータが対応する国旗アイコンとオペレータの名前が表示されます．</p>
-        <div class="text-center">
-            <img src="./img/client-index3.png" width="30%" height="30%" class="img-responsive center-block" vspace=10>
-        </div>
+                    <p>任意のオペレータアイコンを選択すると，アイコンの色が緑色になり，オペレータと繋がる準備が出来ます．</p>
+                    <p>そして，画面下部にある電話のアイコンをタップすると，オペレータに接続します．</p>
+                    <div class="text-center">
+                        <img src="./img/client-index4.png" width="30%" height="30%" class="img-responsive center-block" vspace=10>
+                    </div>
 
-        <p>任意のオペレータアイコンを選択すると，アイコンの色が緑色になり，オペレータと繋がる準備が出来ます．</p>
-        <p>そして，画面下部にある電話のアイコンをタップすると，オペレータに接続します．</p>
-        <div class="text-center">
-            <img src="./img/client-index4.png" width="30%" height="30%" class="img-responsive center-block" vspace=10>
-        </div>
+                    <p>オペレータと接続後は，画面上半分にオペレータが表示され，Face to Faceのおもてなしを受けることができます．また，geolocation APIのwatchPosition()で逐一現在位置を取得し，オペレータに送信するとともに，画面下半分に現在地を地図上に表示します．そうすることで，オペレータから目的地までの案内や，付近の天気など，様々な情報を受け取ることができます．</p>
 
-        <p>オペレータと接続後は，画面上半分にオペレータが表示され，Face to Faceのおもてなしを受けることができます．また，geolocation APIのwatchPosition()で逐一現在位置を取得し，オペレータに送信するとともに，画面下半分に現在地を地図上に表示します．そうすることで，オペレータから目的地までの案内や，付近の天気など，様々な情報を受け取ることができます．</p>
+                    <p>そして，オペレータからPHPスクリプトのパラメータが送信されると，通話画面の下部に黄色のバーが現れます．そのバーは特有のパラメータを伴ったPHPスクリプトへのフォームとなっており，クリックすることでそのスペシャルなページへ移動することができます．</p>
+                    <div class="text-center">
+                        <img src="./img/client-index5.png" width="30%" height="30%" class="img-responsive center-block" vspace=10>
+                    </div>
 
-        <p>そして，オペレータからPHPスクリプトのパラメータが送信されると，通話画面の下部に黄色のバーが現れます．そのバーは特有のパラメータを伴ったPHPスクリプトへのフォームとなっており，クリックすることでそのスペシャルなページへ移動することができます．</p>
-        <div class="text-center">
-            <img src="./img/client-index5.png" width="30%" height="30%" class="img-responsive center-block" vspace=10>
-        </div>
+                    <p>会話を終えて接続を遮断する際は，赤いアイコンをタップします．タップ後は，オペレータの選択画面に戻ります．</p>
+                    <div class="text-center">
+                        <img src="./img/client-index6.png" width="30%" height="30%" class="img-responsive center-block" vspace=10>
+                    </div>
 
-        <p>会話を終えて接続を遮断する際は，赤いアイコンをタップします．タップ後は，オペレータの選択画面に戻ります．</p>
-        <div class="text-center">
-            <img src="./img/client-index6.png" width="30%" height="30%" class="img-responsive center-block" vspace=10>
-        </div>
-
-        <h3>注意点</h3>
-        <p>オペレータの一覧が表示される際に，オペレータが存在していない場合，オペレータが接続していない旨のメッセージと赤色のアイコンが表示されます．</p>
-        <div class="text-center">
-            <img src="./img/client-index7.png" width="30%" height="30%" class="img-responsive center-block" vspace=10>
-        </div>
-        </div><!-- /col-md-8 -->
-        <div class="col-md-2"></div>
-    </div><!-- /row -->
-</div> <!-- /container -->
-</body>
+                    <h3>注意点</h3>
+                    <p>オペレータの一覧が表示される際に，オペレータが存在していない場合，オペレータが接続していない旨のメッセージと赤色のアイコンが表示されます．</p>
+                    <div class="text-center">
+                        <img src="./img/client-index7.png" width="30%" height="30%" class="img-responsive center-block" vspace=10>
+                    </div>
+                </div><!-- /col-md-8 -->
+                <div class="col-md-2"></div>
+            </div><!-- /row -->
+        </div> <!-- /container -->
+    </body>
 </html>

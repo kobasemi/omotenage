@@ -1,69 +1,69 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>おもてなーじ取説</title>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>おもてなーじ取説</title>
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-</head>
-<body>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <ul class="nav nav-pills">
+                        <li><a href="index.html">TOP</a></li>
+                        <li><a href="client.html">クライアント</a></li>
+                        <li class="active"><a href="operator.html">オペレータ</a></li>
+                        <li><a href="recommend.html">リコメンド</a></li>
+                        <li><a href="system.html">システム説明</a></li>
+                    </ul>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-        <ul class="nav nav-pills">
-            <li><a href="index.html">TOP</a></li>
-            <li><a href="client.html">クライアント</a></li>
-            <li class="active"><a href="operator.html">オペレータ</a></li>
-            <li><a href="system.html">システム説明</a></li>
-        </ul>
+                    <div class="page-header">
+                        <h1>オペレータページ</h1>
+                        <p class="lead">オペレータページはお客様に特別なおもてなしをするのに欠かせません．</p>
+                    </div>
 
-        <div class="page-header">
-            <h1>オペレータページ</h1>
-            <p class="lead">オペレータページはお客様に特別なおもてなしをするのに欠かせません．</p>
-        </div>
+                    <h3>使用手順</h3>
 
-        <h3>使用手順</h3>
+                    <p>オペレータページ(<a href="../operator.html">operator.html</a>)では，下の手順で受付を行います．</p>
 
-        <p>オペレータページ(<a href="../operator.html">operator.html</a>)では，下の手順で受付を行います．</p>
+                    <ul>
+                        <li>担当する国をセレクトボックスの中から選択する</li>
+                        <li>その下のテキストボックスに自分の名前(半角英数字のみ)を入力する</li>
+                        <li>そして受付ボタンをクリックする</li>
+                    </ul>
 
-        <ul>
-            <li>担当する国をセレクトボックスの中から選択する</li>
-            <li>その下のテキストボックスに自分の名前(半角英数字のみ)を入力する</li>
-            <li>そして受付ボタンをクリックする</li>
-        </ul>
+                    <p>こうすることで，クライアントから接続を待ちます．</p>
 
-        <p>こうすることで，クライアントから接続を待ちます．</p>
+                    <p>クライアントから接続が来ると，クライアントのビデオが画面に表示され，Google Maps上にクライアントの現在位置が表示されます．</p>
 
-        <p>クライアントから接続が来ると，クライアントのビデオが画面に表示され，Google Maps上にクライアントの現在位置が表示されます．</p>
+                    <p>その後，クライアントとの対話をもとにリコメンデーションエンジンを作動するためのパラメータを取得し，フォームに追加します．</p>
 
-        <p>その後，クライアントとの対話をもとにリコメンデーションエンジンを作動するためのパラメータを取得し，フォームに追加します．</p>
+                    <p>入力フォームは日本語での入力が可能であり，天気（地名）や行き先といった項目に関しては，自動でジオコーディングするようになっている．</p>
 
-        <p>入力フォームは日本語での入力が可能であり，天気（地名）や行き先といった項目に関しては，自動でジオコーディングするようになっている．</p>
-
-        <p>最終的にページ送信ボタンでフォームのそれらのパラメータをクライアントに送信します．</p>
-        <div class="text-center">
-            <img src="./img/operator1.png" class="img-responsive center-block" vspace=10>
-        </div>
+                    <p>最終的にページ送信ボタンでフォームのそれらのパラメータをクライアントに送信します．</p>
+                    <div class="text-center">
+                        <img src="./img/operator1.png" class="img-responsive center-block" vspace=10>
+                    </div>
 
 
-        <h3>注意点</h3>
-             <ul>
-                <li>オペレータページに接続し，受付ボタンをクリックした後は常にクライアントから接続を待つ状態になります．受付を終える時は，ブラウザを閉じてください．</li>
-            </ul>
-        </div><!-- /col-md-8 -->
-        <div class="col-md-2"></div>
-    </div><!-- /row -->
-</div> <!-- /container -->
-</body>
+                    <h3>注意点</h3>
+                    <ul>
+                        <li>オペレータページに接続し，受付ボタンをクリックした後は常にクライアントから接続を待つ状態になります．受付を終える時は，ブラウザを閉じてください．</li>
+                    </ul>
+                </div><!-- /col-md-8 -->
+                <div class="col-md-2"></div>
+            </div><!-- /row -->
+        </div> <!-- /container -->
+    </body>
 </html>
