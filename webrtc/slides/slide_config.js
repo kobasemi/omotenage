@@ -2,7 +2,7 @@ var SLIDE_CONFIG = {
   // Slide settings
   settings: {
     title: 'おもてなーじ (Omotenage)',
-    subtitle: 'WebRTC × おもてなし',
+    subtitle: '第1回NTT-WEST学生向けアプリ開発コンテスト 発表作品',
     //eventInfo: {
     //  title: 'Google I/O',
     //  date: '6/x/2013'
@@ -28,13 +28,15 @@ var SLIDE_CONFIG = {
     //twitter: '@yourhandle',
     //www: 'http://www.you.com',
     //github: 'http://github.com/you'
-  }/*, {
-    name: 'Second Name',
-    company: 'Job Title, Google',
-    gplus: 'http://plus.google.com/1234567890',
-    twitter: '@yourhandle',
-    www: 'http://www.you.com',
-    github: 'http://github.com/you'
-  }*/]
+  }, {
+    name: 'NAKATA KYOHEI',
+    company: 'Kansai University',
+  }, {
+    name: 'AOTO YUKI',
+    company: 'Kansai University',
+  }, {
+    name: 'HIRAMATSU YOSHITAKA',
+    company: 'Kansai University',
+  }]
 };
 
