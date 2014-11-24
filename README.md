@@ -73,6 +73,7 @@ APIキーの取得方法については詳しい説明は行いませんが，
 - [lipis/flag-icon-css](https://github.com/lipis/flag-icon-css)
 - [ubilabs/geocomplete](https://github.com/ubilabs/geocomplete)
 - [google/material-design-icons](https://github.com/google/material-design-icons)
+- [posabsolute/jQuery-Validation-Engine](https://github.com/posabsolute/jQuery-Validation-Engine)
 
 動作環境
 =====
